@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/applia_legislative_tracker_v3.html" }
+  ]
+}
