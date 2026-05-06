@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APPLiA — Team Responsibilities</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #ffffff; --bg-secondary: #f5f5f3; --bg-tertiary: #eeece6;
+    --text: #1a1a18; --text-secondary: #6b6b66; --text-tertiary: #9a9a94;
+    --border: rgba(0,0,0,0.10); --border-med: rgba(0,0,0,0.18); --border-strong: rgba(0,0,0,0.28);
+    --radius-md: 8px; --radius-lg: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a; --bg-secondary: #242422; --bg-tertiary: #2c2c2a;
+      --text: #f0ede6; --text-secondary: #a0a09a; --text-tertiary: #6b6b66;
+      --border: rgba(255,255,255,0.08); --border-med: rgba(255,255,255,0.14); --border-strong: rgba(255,255,255,0.22);
+    }
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg-tertiary); color: var(--text); font-size: 15px; line-height: 1.6; min-height: 100vh; }
+
+  /* Lock screen */
+  #lock-screen { position: fixed; inset: 0; background: var(--bg-tertiary); z-index: 999; display: flex; align-items: center; justify-content: center; }
+  .lock-card { background: var(--bg); border: 0.5px solid var(--border-med); border-radius: var(--radius-lg); padding: 2.5rem 2rem; width: 320px; text-align: center; }
+  .lock-icon { font-size: 28px; margin-bottom: 1rem; }
+  .lock-title { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+  .lock-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 1.5rem; }
+  .lock-input { width: 100%; height: 38px; border: 0.5px solid var(--border-med); border-radius: var(--radius-md); background: var(--bg-secondary); color: var(--text); font-size: 14px; padding: 0 12px; text-align: center; letter-spacing: 2px; margin-bottom: 10px; }
+  .lock-input:focus { outline: none; border-color: var(--border-strong); }
+  .lock-btn { width: 100%; height: 38px; background: var(--text); color: var(--bg); border: none; border-radius: var(--radius-md); font-size: 14px; font-weight: 500; cursor: pointer; }
+  .lock-btn:hover { opacity: 0.85; }
+  .lock-error { font-size: 12px; color: #993C1D; margin-top: 8px; display: none; }
+
+  /* Main layout */
+  #main-content { display: none; }
+  .page-header { background: var(--bg); border-bottom: 0.5px solid var(--border-med); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .logo-area { display: flex; align-items: center; gap: 12px; }
+  .logo-mark { width: 36px; height: 36px; background: #1a1a18; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 600; letter-spacing: -0.5px; flex-shrink: 0; }
+  .logo-text { font-size: 15px; font-weight: 500; color: var(--text); }
+  .logo-sub { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .back-link { font-size: 12px; color: var(--text-secondary); text-decoration: none; border: 0.5px solid var(--border-med); border-radius: 20px; padding: 3px 10px; }
+  .back-link:hover { border-color: var(--border-strong); color: var(--text); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+
+  .toolbar { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: .85rem 1.1rem; margin-bottom: .85rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .selects { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
+  .search-wrap { flex: 1; min-width: 200px; }
+  select, input[type=text] { font-size: 13px; height: 32px; border-radius: var(--radius-md); border: 0.5px solid var(--border-med); background: var(--bg); color: var(--text); }
+  select { padding: 4px 24px 4px 10px; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
+  input[type=text] { width: 100%; padding: 4px 10px; }
+  input[type=text]::placeholder { color: var(--text-tertiary); }
+
+  /* Person sections */
+  .person-section { margin-bottom: 1.5rem; }
+  .person-header { display: flex; align-items: center; gap: 10px; margin-bottom: .6rem; }
+  .person-badge { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #fff; flex-shrink: 0; }
+  .person-name { font-size: 15px; font-weight: 500; }
+  .person-count { font-size: 12px; color: var(--text-tertiary); }
+
+  /* Table */
+  .resp-table { width: 100%; border-collapse: collapse; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; font-size: 13px; }
+  .resp-table thead tr { background: var(--bg-secondary); border-bottom: 0.5px solid var(--border-med); }
+  .resp-table th { padding: .5rem .8rem; text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; color: var(--text-secondary); white-space: nowrap; }
+  .resp-table td { padding: .5rem .8rem; border-bottom: 0.5px solid var(--border); vertical-align: top; }
+  .resp-table tr:last-child td { border-bottom: none; }
+  .resp-table tr:hover td { background: var(--bg-secondary); }
+  .cat-tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 10px; white-space: nowrap; }
+  .wg-tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 10px; background: var(--bg-secondary); color: var(--text-secondary); border: 0.5px solid var(--border-med); margin: 1px 2px 1px 0; white-space: nowrap; }
+  .file-title { color: var(--text); font-weight: 400; }
+  .file-sub { font-size: 11px; color: var(--text-tertiary); margin-top: 1px; }
+  .responsible { color: var(--text-secondary); font-size: 12px; }
+
+  .section-divider { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; color: var(--text-tertiary); padding: .4rem .8rem; background: var(--bg-tertiary); border-bottom: 0.5px solid var(--border); }
+
+  .empty { text-align: center; padding: 3rem 1rem; color: var(--text-secondary); font-size: 14px; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); }
+
+  @media (max-width: 700px) {
+    .page-header { padding: 1rem; flex-wrap: wrap; gap: 6px; }
+    .container { padding: 1rem; }
+    .resp-table td:nth-child(3), .resp-table th:nth-child(3) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Lock screen -->
+<div id="lock-screen">
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <div class="lock-title">APPLiA Internal</div>
+    <div class="lock-sub">Team responsibilities — restricted access</div>
+    <input type="password" class="lock-input" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
+    <button class="lock-btn" onclick="checkPw()">Enter</button>
+    <div class="lock-error" id="pw-error">Incorrect password</div>
+  </div>
+</div>
+
+<!-- Main content -->
+<div id="main-content">
+<header class="page-header">
+  <div class="logo-area">
+    <div class="logo-mark">A</div>
+    <div>
+      <div class="logo-text">APPLiA</div>
+      <div class="logo-sub">Team Responsibilities</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <a href="/" class="back-link">← Legislative Tracker</a>
+  </div>
+</header>
+
+<div class="container">
+  <div class="toolbar">
+    <div class="selects">
+      <div class="search-wrap"><input type="text" id="search-input" placeholder="Search files or topics…"></div>
+      <select id="person-sel"><option value="">All team members</option></select>
+      <select id="wg-sel"><option value="">All WG/SG/TF</option></select>
+      <select id="div-sel"><option value="">All divisions</option></select>
+    </div>
+  </div>
+  <div id="list-root"></div>
+</div>
+</div>
+
+<script>
+// ── Password ──────────────────────────────────────────────
+const PW_HASH = "be919b1122270c98381d4f3d9733c03ff7419eb609eb96655d2577f6d0dae4d4"; // APPLiA2026 
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+
+async function checkPw() {
+  const val = document.getElementById("pw-input").value;
+  const hash = await sha256(val);
+  if (hash === PW_HASH) {
+    document.getElementById("lock-screen").style.display = "none";
+    document.getElementById("main-content").style.display = "block";
+    sessionStorage.setItem("applia_team_auth", "1");
+  } else {
+    document.getElementById("pw-error").style.display = "block";
+    document.getElementById("pw-input").value = "";
+    document.getElementById("pw-input").focus();
+  }
+}
+
+// Auto-unlock if already authenticated this session
+if (sessionStorage.getItem("applia_team_auth") === "1") {
+  document.getElementById("lock-screen").style.display = "none";
+  document.getElementById("main-content").style.display = "block";
+}
+
+// ── Data ──────────────────────────────────────────────────
+const DATA = [
+  // ── MRB ──────────────────────────────────────────────
+  { person:"MRB", division:"General Assembly", topic:"Energy Labelling Framework", responsible:"MRB", wgs:["TF Energy Label"], group:"Energy Labelling Framework" },
+  { person:"MRB", division:"General Assembly", topic:"EPREL", responsible:"AAV → MRB", wgs:["SG EPREL"], group:"Energy Labelling Framework" },
+  { person:"MRB", division:"General Assembly", topic:"Energy Product Omnibus", responsible:"ALL → MRB", wgs:["WG Energy"], group:"Energy Labelling Framework" },
+  { person:"MRB", division:"General Assembly", topic:"Digital Label", responsible:"MRB", wgs:["TF Energy Label"], group:"Energy Labelling Framework" },
+  { person:"MRB", division:"General Assembly", topic:"Horizontal enquiries on energy labelling", responsible:"ALL → MRB", wgs:["WG Energy"], group:"Energy Labelling Framework" },
+  { person:"MRB", division:"General Assembly", topic:"JWG Cooking", responsible:"MRB", wgs:["JWG Cooking"], group:"Energy Labelling Framework" },
+  { person:"MRB", division:"General Assembly", topic:"WG Energy (secretariat)", responsible:"MRB", wgs:["WG Energy"], group:"Energy Labelling Framework" },
+  { person:"MRB", division:"HCD", topic:"Heating and Cooling Strategy", responsible:"MRB", wgs:["WG Energy"], group:"Heating and Cooling Strategy" },
+  { person:"MRB", division:"HCD", topic:"Heat Pump Accelerator Plan", responsible:"MRB", wgs:["WG Energy"], group:"Heating and Cooling Strategy" },
+  { person:"MRB", division:"General Assembly", topic:"EPBD", responsible:"MRB, CRD & CfES", wgs:["WG Energy"], group:"Heating and Cooling Strategy" },
+  { person:"MRB", division:"General Assembly", topic:"Affordable Housing Action Plan", responsible:"AAV → MRB", wgs:["WG Energy"], group:"Heating and Cooling Strategy" },
+  { person:"MRB", division:"SAD", topic:"WG Small Kitchen Appliances", responsible:"MRB", wgs:["WG Small Kitchen Appliances"], group:"Products" },
+  { person:"MRB", division:"LAD", topic:"Ovens, hobs and hoods", responsible:"MRB", wgs:["WG Cooking","SG Hobs","SG Hoods","SG Ovens"], group:"Products" },
+  { person:"MRB", division:"LAD", topic:"Refrigerators and freezers", responsible:"AAV → MRB", wgs:["WG COLD"], group:"Products" },
+  { person:"MRB", division:"HCD", topic:"Water Heaters", responsible:"MRB", wgs:["WG WH"], group:"Products" },
+  { person:"MRB", division:"HCD", topic:"Local Space Heaters", responsible:"MRB", wgs:["WG LSH"], group:"Products" },
+  { person:"MRB", division:"HCD", topic:"Air-conditioning", responsible:"MRB", wgs:["WG Airco"], group:"Products" },
+  { person:"MRB", division:"HCD", topic:"Comfort fans", responsible:"MRB", wgs:["WG CF"], group:"Products" },
+  { person:"MRB", division:"General Assembly", topic:"External Power Supply", responsible:"AAV → MRB", wgs:["SG EPS"], group:"Products" },
+  { person:"MRB", division:"General Assembly", topic:"Standby", responsible:"AAV → MRB", wgs:["SG Standby"], group:"Products" },
+
+  // ── GZA ──────────────────────────────────────────────
+  { person:"GZA", division:"General Assembly", topic:"ESPR – Ecodesign for Sustainable Products Regulation", responsible:"GZA → KHY & MRB", wgs:["WG Circular Economy"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"ESPR – Environment Omnibus", responsible:"GZA → KHY", wgs:["WG Circular Economy"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"ESPR Label", responsible:"CRS → GZA", wgs:["TF ESPR"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"ESPR Methodology", responsible:"APPLiA team → GZA", wgs:["TF ESPR","SG MEErP"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"ESPR – Horizontal requirements", responsible:"CRS → GZA", wgs:["WG Circular Economy"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Repairability", responsible:"CRS → GZA", wgs:["SG Repair"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Recycled content and recyclability", responsible:"CRS → GZA, KHY", wgs:["TBD"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Intermediary products", responsible:"GZA → KHY", wgs:["SG Working Plan"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Irons & steel", responsible:"CRS → GZA, KHY", wgs:["SG Working Plan"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Aluminium", responsible:"CRS → GZA, KHY", wgs:["SG Working Plan"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Subassemblies & components", responsible:"GZA", wgs:["WG Energy"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Displays", responsible:"AAV → GZA", wgs:["SG Displays"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Motors", responsible:"AAV → GZA", wgs:["SG Motors"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Fans", responsible:"AAV → GZA", wgs:["SG Fans"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Lighting", responsible:"GZA", wgs:["SG Lighting"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Non-APPLiA products", responsible:"GZA", wgs:["SG Working Plan"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Textile", responsible:"CRS → GZA", wgs:["SG Microfibers","SG Working Plan"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"PEA CG", responsible:"GZA & CRS → KHY", wgs:["WG Circular Economy"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"DPP – Digital Product Passport", responsible:"Digital Team → MZI", wgs:["TF DPP"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Unsold goods", responsible:"CRD", wgs:["WG Consumers"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Substances of Concern", responsible:"CRO → KHY", wgs:["WG Chemicals"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"ESPR – Horizontal enquiries", responsible:"ALL → GZA", wgs:["WG Circular Economy"], group:"ESPR" },
+  { person:"GZA", division:"General Assembly", topic:"Coalition for Energy Savings – SC & GA", responsible:"GZA → PFI", wgs:["WG Energy"], group:"Coalition for Energy Savings" },
+  { person:"GZA", division:"General Assembly", topic:"CfES – WG Advocacy", responsible:"AAV & MOC → GZA", wgs:["WG Energy"], group:"Coalition for Energy Savings" },
+  { person:"GZA", division:"General Assembly", topic:"ETS 2", responsible:"GZA & MOC", wgs:["WG Energy"], group:"Coalition for Energy Savings" },
+  { person:"GZA", division:"General Assembly", topic:"EED – Energy Efficiency Directive", responsible:"GZA & AAV", wgs:["WG Energy"], group:"Coalition for Energy Savings" },
+  { person:"GZA", division:"General Assembly", topic:"Energy Efficiency Financing Coalition", responsible:"PFI, GZA, AAV", wgs:["WG Energy"], group:"Coalition for Energy Savings" },
+  { person:"GZA", division:"General Assembly", topic:"Governance Regulation", responsible:"GZA, AAV", wgs:["WG Energy"], group:"Coalition for Energy Savings" },
+  { person:"GZA", division:"General Assembly", topic:"Electrification Action Plan", responsible:"GZA, AAV", wgs:["WG Energy"], group:"Coalition for Energy Savings" },
+  { person:"GZA", division:"General Assembly", topic:"Drinking Water Directive – Implementing & Delegated Acts", responsible:"AAV & CRO", wgs:["TF DWD"], group:"Drinking Water Directive" },
+  { person:"GZA", division:"General Assembly", topic:"Drinking Water Directive – Main Directive", responsible:"AAV → GZA", wgs:["TF DWD"], group:"Drinking Water Directive" },
+  { person:"GZA", division:"General Assembly", topic:"Repairability Indexes", responsible:"CRS → GZA", wgs:["SG Repair"], group:"Resource and Material Efficiency" },
+  { person:"GZA", division:"General Assembly", topic:"CENELEC TC59X WG 23", responsible:"CRS → GZA", wgs:["SG Resource and Material Efficiency"], group:"Resource and Material Efficiency" },
+  { person:"GZA", division:"LAD", topic:"WET – Washing & Drying", responsible:"GZA & CRS", wgs:["WG WET","SG WM","SG WD","SG TD","SG DW","SG MF"], group:"Products" },
+  { person:"GZA", division:"SAD", topic:"Irons", responsible:"AAV → GZA", wgs:["WG Irons"], group:"Products" },
+  { person:"GZA", division:"SAD", topic:"Coffee Machines", responsible:"CRS → GZA", wgs:["SG Coffee Machines"], group:"Products" },
+  { person:"GZA", division:"SAD", topic:"Kettles", responsible:"CRS → GZA", wgs:["SG Kettles"], group:"Products" },
+  { person:"GZA", division:"SAD", topic:"Vacuum cleaners", responsible:"GZA", wgs:["WG Vacuum Cleaners"], group:"Products" },
+
+  // ── PFI ──────────────────────────────────────────────
+  { person:"PFI", division:"General Assembly", topic:"SmartEN", responsible:"AAV & IFA", wgs:["WG Energy","SG Energy Smart Appliances"], group:"Energy Smart Appliances" },
+
+  // ── MRB & MZI ────────────────────────────────────────
+  { person:"MRB & MZI", division:"General Assembly", topic:"Code of Conduct for Energy Smart Appliances", responsible:"AAV & IFA", wgs:["SG Energy Smart Appliances","PEA CG"], group:"Energy Smart Appliances" },
+];
+
+const PERSON_COLORS = {
+  "MRB":      "#185FA5",
+  "GZA":      "#0F6E56",
+  "PFI":      "#533AB7",
+  "MRB & MZI":"#854F0B",
+};
+
+// ── Filters ───────────────────────────────────────────────
+let fPerson="", fWg="", fDiv="", fSearch="";
+
+function allPersons(){ return [...new Set(DATA.map(r=>r.person))]; }
+function allWgs(){ return [...new Set(DATA.flatMap(r=>r.wgs))].sort(); }
+function allDivs(){ return [...new Set(DATA.map(r=>r.division))].sort(); }
+
+function filtered(){
+  return DATA.filter(r=>{
+    if(fPerson && r.person!==fPerson) return false;
+    if(fDiv && r.division!==fDiv) return false;
+    if(fWg && !r.wgs.includes(fWg)) return false;
+    if(fSearch){
+      const q=fSearch.toLowerCase();
+      if(!r.topic.toLowerCase().includes(q) && !r.responsible.toLowerCase().includes(q) && !r.wgs.join(" ").toLowerCase().includes(q) && !r.group.toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function populateSelects(){
+  const ps=document.getElementById("person-sel");
+  allPersons().forEach(p=>{ const o=document.createElement("option"); o.value=p; o.textContent=p; ps.appendChild(o); });
+  const ws=document.getElementById("wg-sel");
+  allWgs().forEach(w=>{ const o=document.createElement("option"); o.value=w; o.textContent=w; ws.appendChild(o); });
+  const ds=document.getElementById("div-sel");
+  allDivs().forEach(d=>{ const o=document.createElement("option"); o.value=d; o.textContent=d; ds.appendChild(o); });
+}
+
+function render(){
+  const data=filtered();
+  const root=document.getElementById("list-root");
+  if(!data.length){ root.innerHTML='<div class="empty">No entries match the current filters.</div>'; return; }
+
+  // Group by person, then by group
+  const byPerson={};
+  data.forEach(r=>{
+    if(!byPerson[r.person]) byPerson[r.person]=[];
+    byPerson[r.person].push(r);
+  });
+
+  let html="";
+  for(const person of Object.keys(byPerson)){
+    const rows=byPerson[person];
+    const color=PERSON_COLORS[person]||"#888";
+    // sub-group within person
+    const byGroup={};
+    rows.forEach(r=>{ if(!byGroup[r.group]) byGroup[r.group]=[]; byGroup[r.group].push(r); });
+
+    html+=`<div class="person-section">
+      <div class="person-header">
+        <div class="person-badge" style="background:${color}">${person}</div>
+        <span class="person-name">${person}</span>
+        <span class="person-count">${rows.length} file${rows.length!==1?"s":""}</span>
+      </div>
+      <table class="resp-table">
+        <thead><tr>
+          <th>File / Topic</th>
+          <th>Division</th>
+          <th>Responsible</th>
+          <th>WG / SG / TF</th>
+        </tr></thead>
+        <tbody>`;
+
+    for(const grp of Object.keys(byGroup)){
+      html+=`<tr><td colspan="4" class="section-divider">${grp}</td></tr>`;
+      byGroup[grp].forEach(r=>{
+        html+=`<tr>
+          <td class="file-title">${r.topic}</td>
+          <td><span class="wg-tag">${r.division}</span></td>
+          <td class="responsible">${r.responsible}</td>
+          <td>${r.wgs.map(w=>`<span class="wg-tag">${w}</span>`).join("")}</td>
+        </tr>`;
+      });
+    }
+
+    html+=`</tbody></table></div>`;
+  }
+
+  root.innerHTML=html;
+}
+
+document.getElementById("person-sel").addEventListener("change",e=>{ fPerson=e.target.value; render(); });
+document.getElementById("wg-sel").addEventListener("change",e=>{ fWg=e.target.value; render(); });
+document.getElementById("div-sel").addEventListener("change",e=>{ fDiv=e.target.value; render(); });
+document.getElementById("search-input").addEventListener("input",e=>{ fSearch=e.target.value.trim(); render(); });
+
+populateSelects();
+render();
+</script>
+</body>
+</html>
