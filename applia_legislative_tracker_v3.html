@@ -25,7 +25,9 @@
   .logo-mark { width: 36px; height: 36px; background: #1a1a18; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 600; letter-spacing: -0.5px; flex-shrink: 0; }
   .logo-text { font-size: 15px; font-weight: 500; color: var(--text); }
   .logo-sub { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
-  .header-right { font-size: 12px; color: var(--text-tertiary); text-align: right; }
+  .header-right { font-size: 12px; color: var(--text-tertiary); text-align: right; display: flex; align-items: center; gap: 12px; }
+  .team-link { font-size: 12px; color: var(--text-secondary); text-decoration: none; border: 0.5px solid var(--border-med); border-radius: 20px; padding: 3px 10px; }
+  .team-link:hover { border-color: var(--border-strong); color: var(--text); }
   .container { max-width: 980px; margin: 0 auto; padding: 1.5rem; }
   .toolbar { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: .85rem 1.1rem; margin-bottom: .85rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
   .pill-group { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; min-width: 100%; }
@@ -103,7 +105,10 @@
       <div class="logo-sub">EU Legislative Tracker</div>
     </div>
   </div>
-  <div class="header-right" id="last-updated"></div>
+  <div class="header-right">
+    <a href="/team.html" class="team-link">Team</a>
+    <div id="last-updated"></div>
+  </div>
 </header>
 <div class="container">
   <div class="toolbar">
