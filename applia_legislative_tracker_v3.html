@@ -20,30 +20,42 @@
     }
   }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg-tertiary); color: var(--text); font-size: 15px; line-height: 1.6; min-height: 100vh; }
+  /* ── Header ── */
   .page-header { background: var(--bg); border-bottom: 0.5px solid var(--border-med); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
   .logo-area { display: flex; align-items: center; gap: 12px; }
   .logo-mark { width: 36px; height: 36px; background: #1a1a18; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 600; letter-spacing: -0.5px; flex-shrink: 0; }
   .logo-text { font-size: 15px; font-weight: 500; color: var(--text); }
   .logo-sub { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
-  .header-right { font-size: 12px; color: var(--text-tertiary); text-align: right; }
+  .header-right { font-size: 12px; color: var(--text-tertiary); text-align: right; white-space: pre-line; }
+  /* ── Layout ── */
   .container { max-width: 980px; margin: 0 auto; padding: 1.5rem; }
+  /* ── Toolbar ── */
   .toolbar { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: .85rem 1.1rem; margin-bottom: .85rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
   .pill-group { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; min-width: 100%; }
   .pill { font-size: 12px; padding: 3px 9px; border-radius: 20px; border: 0.5px solid var(--border-med); background: var(--bg); color: var(--text-secondary); cursor: pointer; white-space: nowrap; transition: all .15s; display: inline-flex; align-items: center; gap: 5px; }
   .pill:hover { border-color: var(--border-strong); color: var(--text); }
   .pill.active-all { background: var(--text); color: var(--bg); border-color: var(--text); }
   .pill-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-  .selects { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
-  .search-wrap { flex: 1; min-width: 200px; }
+  .selects { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; align-items: center; }
+  .search-wrap { flex: 1; min-width: 180px; }
   select, input[type=text] { font-size: 13px; height: 32px; border-radius: var(--radius-md); border: 0.5px solid var(--border-med); background: var(--bg); color: var(--text); }
   select { padding: 4px 24px 4px 10px; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
   input[type=text] { width: 100%; padding: 4px 10px; }
   input[type=text]::placeholder { color: var(--text-tertiary); }
+  /* ── View toggle ── */
+  .view-toggle { display: flex; border: 0.5px solid var(--border-med); border-radius: var(--radius-md); overflow: hidden; flex-shrink: 0; margin-left: auto; }
+  .vbtn { font-size: 12px; padding: 0 13px; height: 32px; background: var(--bg); color: var(--text-secondary); border: none; cursor: pointer; border-right: 0.5px solid var(--border-med); transition: all .15s; white-space: nowrap; }
+  .vbtn:last-child { border-right: none; }
+  .vbtn.active { background: var(--text); color: var(--bg); }
+  .vbtn:hover:not(.active) { background: var(--bg-secondary); color: var(--text); }
+  /* ── Stats ── */
   .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: .85rem; }
   .stat { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-md); padding: .7rem .9rem; }
   .stat-n { font-size: 22px; font-weight: 500; color: var(--text); line-height: 1; }
   .stat-l { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+  /* ── Section labels ── */
   .section-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; margin: 1rem 0 .4rem; display: flex; align-items: center; gap: 6px; }
+  /* ── List view: dossier cards ── */
   .dossier-list { display: flex; flex-direction: column; gap: 3px; }
   .dossier { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: border-color .15s; }
   .dossier:hover { border-color: var(--border-strong); }
@@ -53,35 +65,66 @@
   .dossier-title { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .dossier-meta { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
   .badge { font-size: 11px; padding: 2px 7px; border-radius: 10px; white-space: nowrap; font-weight: 400; }
-  .p-high { background: #FAECE7; color: #993C1D; }
+  .p-high   { background: #FAECE7; color: #993C1D; }
   .p-medium { background: #FAEEDA; color: #854F0B; }
-  .p-low { background: #EAF3DE; color: #3B6D11; }
+  .p-low    { background: #EAF3DE; color: #3B6D11; }
   .b-status { background: var(--bg-secondary); color: var(--text-secondary); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .b-demo { background: #E6F1FB; color: #185FA5; font-size: 10px; }
+  .b-demo   { background: #E6F1FB; color: #185FA5; font-size: 10px; }
   @media (prefers-color-scheme: dark) {
-    .p-high { background: #4A1B0C; color: #F0997B; }
+    .p-high   { background: #4A1B0C; color: #F0997B; }
     .p-medium { background: #412402; color: #FAC775; }
-    .p-low { background: #173404; color: #97C459; }
-    .b-demo { background: #042C53; color: #85B7EB; }
+    .p-low    { background: #173404; color: #97C459; }
+    .b-demo   { background: #042C53; color: #85B7EB; }
   }
   .chevron { font-size: 11px; color: var(--text-tertiary); transition: transform .2s; flex-shrink: 0; }
   .dossier.open .chevron { transform: rotate(90deg); }
   .dossier-body { display: none; padding: 0 1rem 1rem; border-top: 0.5px solid var(--border); }
   .dossier.open .dossier-body { display: block; }
   .lead-label { font-size: 11px; color: var(--text-tertiary); white-space: nowrap; }
+  /* per-dossier inner timeline */
   .timeline { position: relative; margin-top: .9rem; padding-left: 22px; }
   .timeline::before { content: ''; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px; background: var(--border-med); }
   .milestone { position: relative; margin-bottom: .8rem; padding-left: 14px; }
   .milestone:last-child { margin-bottom: 0; }
   .milestone::before { content: ''; position: absolute; left: -17px; top: 5px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 2px solid var(--border-med); }
-  .milestone.past::before { background: #1D9E75; border-color: #1D9E75; }
+  .milestone.past::before    { background: #1D9E75; border-color: #1D9E75; }
   .milestone.current::before { background: #185FA5; border-color: #185FA5; box-shadow: 0 0 0 3px rgba(24,95,165,.15); }
-  .milestone.upcoming::before { background: var(--bg); border-color: #BA7517; border-style: dashed; }
+  .milestone.upcoming::before{ background: var(--bg); border-color: #BA7517; border-style: dashed; }
   .ms-date { font-size: 11px; color: var(--text-tertiary); margin-bottom: 1px; }
   .ms-label { font-size: 13px; color: var(--text); }
   .ms-label.current { font-weight: 500; color: #185FA5; }
   .ms-label.upcoming { color: var(--text-secondary); }
   .dossier-notes { font-size: 12px; color: var(--text-secondary); margin-top: .8rem; padding-top: .8rem; border-top: 0.5px solid var(--border); line-height: 1.55; }
+  /* ── Timeline view ── */
+  .tl-past-bar { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-md); padding: .55rem 1rem; margin-bottom: .55rem; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text-secondary); transition: border-color .15s, color .15s; user-select: none; }
+  .tl-past-bar:hover { border-color: var(--border-strong); color: var(--text); }
+  .tl-past-content { display: none; margin-bottom: .65rem; }
+  .tl-past-content.open { display: block; }
+  .tl-active-header { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: #185FA5; display: flex; align-items: center; gap: 6px; padding: .1rem 2px .35rem; margin-bottom: .3rem; }
+  .tl-active-header::after { content: ''; flex: 1; height: 0.5px; background: rgba(24,95,165,.25); }
+  .tl-upcoming-header { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: #BA7517; display: flex; align-items: center; gap: 6px; padding: .1rem 2px .35rem; margin-bottom: .3rem; margin-top: .7rem; }
+  .tl-upcoming-header::after { content: ''; flex: 1; height: 0.5px; background: rgba(186,117,23,.25); }
+  .tl-quarter { margin-bottom: .55rem; }
+  .tl-quarter-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; color: var(--text-tertiary); display: flex; align-items: center; gap: 6px; padding: 0 2px .3rem; }
+  .tl-quarter-label::after { content: ''; flex: 1; height: 0.5px; background: var(--border-med); }
+  .tl-entries { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+  .tl-entry { display: flex; align-items: flex-start; gap: 10px; padding: .55rem 1rem; border-bottom: 0.5px solid var(--border); transition: background .1s; }
+  .tl-entry:last-child { border-bottom: none; }
+  .tl-entry:hover { background: var(--bg-secondary); }
+  .tl-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .tl-date { font-size: 11px; color: var(--text-tertiary); width: 80px; flex-shrink: 0; padding-top: 3px; line-height: 1.3; }
+  .tl-content { flex: 1; min-width: 0; }
+  .tl-dossier-name { font-size: 11px; color: var(--text-secondary); margin-bottom: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 4px; }
+  .tl-dossier-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+  .tl-ms-label { font-size: 13px; color: var(--text); line-height: 1.4; }
+  .tl-ms-label.past    { color: var(--text-secondary); }
+  .tl-ms-label.current { color: #185FA5; font-weight: 500; }
+  .tl-ms-label.upcoming{ color: var(--text); }
+  .tl-badges { display: flex; gap: 4px; flex-shrink: 0; padding-top: 3px; }
+  /* ── Product view ── */
+  .prod-section { margin-bottom: .25rem; }
+  .prod-all-sep { margin-top: 1.25rem; padding-top: 1rem; border-top: 0.5px solid var(--border-med); }
+  /* ── Legend ── */
   .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 1.25rem; padding-top: 1rem; border-top: 0.5px solid var(--border); font-size: 12px; color: var(--text-secondary); align-items: center; }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
@@ -91,6 +134,8 @@
     .dossier-meta .lead-label, .dossier-meta .b-status { display: none; }
     .page-header { padding: 1rem; flex-wrap: wrap; gap: 6px; }
     .container { padding: 1rem; }
+    .tl-date { width: 62px; }
+    .view-toggle { margin-left: 0; }
   }
 </style>
 </head>
@@ -112,6 +157,11 @@
       <div class="search-wrap"><input type="text" id="search-input" placeholder="Search dossiers…"></div>
       <select id="status-sel"><option value="">All statuses</option></select>
       <select id="priority-sel"><option value="">All priorities</option><option>high</option><option>medium</option><option>low</option></select>
+      <div class="view-toggle">
+        <button class="vbtn active" data-view="list"     onclick="setView('list')">≡ List</button>
+        <button class="vbtn"        data-view="timeline" onclick="setView('timeline')">◎ Timeline</button>
+        <button class="vbtn"        data-view="product"  onclick="setView('product')">⊟ Product</button>
+      </div>
     </div>
   </div>
   <div class="stats" id="stats"></div>
@@ -124,143 +174,417 @@
   </div>
 </div>
 <script>
+/* ─── Category colours ─── */
 const CAT_COLORS = {
-  "Sustainability":              "#0F6E56",
-  "Trade":                       "#185FA5",
-  "Product Safety":              "#993C1D",
-  "Chemicals":                   "#854F0B",
-  "Energy":                      "#533AB7",
-  "Circular Economy":            "#27500A",
-  "Industrial Policy":           "#3C3489",
-  "Ecodesign & Energy Label":    "#0D5F6E",
-  "Product Safety & Circularity":"#8B2252",
-  "Packaging & Sustainability":  "#4A6741",
-  "Digital & AI":                "#1A5276"
+  "Sustainability":               "#0F6E56",
+  "Trade":                        "#185FA5",
+  "Product Safety":               "#993C1D",
+  "Chemicals":                    "#854F0B",
+  "Energy":                       "#533AB7",
+  "Circular Economy":             "#27500A",
+  "Industrial Policy":            "#3C3489",
+  "Ecodesign & Energy Label":     "#0D5F6E",
+  "Product Safety & Circularity": "#8B2252",
+  "Packaging & Sustainability":   "#4A6741",
+  "Digital & AI":                 "#1A5276"
 };
 
-const ALL_DOSSIERS = [{"id": "espr-cold-appliances", "title": "Ecodesign & Energy Label – Cold Appliances (Refrigerators)", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "In force", "priority": "high", "milestones": [{"date": "2021", "label": "Requirements entered into force (Regulation EU 2019/2019)", "type": "past", "approximate": true}, {"date": "2025-01-01", "label": "Requirements applying (current status)", "type": "current"}], "notes": "Regulation EU 2019/2019 and Energy Label Regulation EU 2019/2016 in force. No imminent revision signalled in the 2026 forecast calendar."}, {"id": "espr-lighting", "title": "Ecodesign & Energy Label – Lighting", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Revision in progress", "priority": "medium", "milestones": [{"date": "2021", "label": "Existing requirements in force", "type": "past", "approximate": true}, {"date": "2026-10-01", "label": "Publication of revised regulation expected (Q4 2026)", "type": "upcoming", "approximate": true}], "notes": "Current requirements apply. Commission preparing a publication of revised/updated measures expected Q4 2026."}, {"id": "espr-electronic-displays", "title": "Ecodesign & Energy Label – Electronic Displays", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Revision in progress", "priority": "high", "milestones": [{"date": "2021", "label": "Requirements entered into force", "type": "past", "approximate": true}, {"date": "2026-09-30", "label": "Study ends (3Q 2026)", "type": "upcoming", "approximate": true}, {"date": "2027-10-01", "label": "Publication of revised regulation expected (Q4 2027 – Q1 2028)", "type": "upcoming", "approximate": true}, {"date": "2028-01-01", "label": "Publication of revised regulation (Q1 2028, latest)", "type": "upcoming", "approximate": true}], "notes": "Preparatory study concluding 3Q 2026. New regulation expected Q4 2027 – Q1 2028. Ecodesign Forum planned before adoption. Current requirements remain applicable."}, {"id": "espr-standby", "title": "Ecodesign – Standby and Off-Mode (Regulation EU 2019/1782)", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "In force", "priority": "low", "milestones": [{"date": "2019-10-25", "label": "Regulation published", "type": "past"}, {"date": "2021-03-01", "label": "Requirements in force", "type": "past"}], "notes": "Requirements applying. No revision activity signalled in forecast calendar."}, {"id": "espr-tumble-dryers", "title": "Ecodesign & Energy Label – Tumble Dryers", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Phased requirements applying", "priority": "high", "milestones": [{"date": "2021", "label": "Energy Label requirements entered into force", "type": "past", "approximate": true}, {"date": "2025-07-01", "label": "1st Tier Ecodesign requirements apply", "type": "past"}, {"date": "2027-03-01", "label": "Publication of revised/2nd tier regulation expected (Q1–Q2 2027)", "type": "upcoming", "approximate": true}], "notes": "1st Tier requirements applied 1 July 2025. New publication (2nd Tier or revision) expected Q1–Q2 2027."}, {"id": "espr-aircon-commercial-fans", "title": "Ecodesign & Energy Label – Air Conditioners, Commercial Fans & Local Heaters EL", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Adoption process", "priority": "medium", "milestones": [{"date": "2025", "label": "Adoption process ongoing", "type": "current", "approximate": true}, {"date": "2026", "label": "Expected publication and start of transitory period", "type": "upcoming", "approximate": true}, {"date": "2027", "label": "Requirements expected to apply (after transitory period)", "type": "upcoming", "approximate": true}], "notes": "Regulation covering air conditioners, commercial fans and Energy Label for local space heaters in adoption process. Transitory period length TBD."}, {"id": "espr-water-heaters", "title": "Ecodesign & Energy Label – Water Heaters", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Phased requirements applying", "priority": "high", "milestones": [{"date": "2021", "label": "Initial requirements entered into force", "type": "past", "approximate": true}, {"date": "2025-11-24", "label": "New tier or labelling requirements apply", "type": "past"}, {"date": "2028-11-24", "label": "Further tier requirements apply", "type": "upcoming"}], "notes": "Water heaters regulation with phased milestones on 24 November 2025 and 24 November 2028."}, {"id": "espr-local-heaters", "title": "Ecodesign – Local Space Heaters", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "In force – under review", "priority": "medium", "milestones": [{"date": "2025-05-09", "label": "Requirements apply / milestone date", "type": "past"}, {"date": "2027-05-09", "label": "Commission review due", "type": "upcoming"}], "notes": "Ecodesign-only regulation (no Energy Label). Review clause triggered by 9 May 2027."}, {"id": "espr-external-power-supplies", "title": "Ecodesign – External Power Supplies (Regulation EU 2019/1782)", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "In force", "priority": "low", "milestones": [{"date": "2020-04-01", "label": "Requirements entered into force", "type": "past"}], "notes": "Requirements applying. No revision signalled in the forecast calendar."}, {"id": "espr-motors", "title": "Ecodesign – Electric Motors (Regulation EU 2019/1781)", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "In force", "priority": "low", "milestones": [{"date": "2021-07-01", "label": "IE3 efficiency requirements apply", "type": "past"}, {"date": "2023-07-01", "label": "Extended scope requirements apply", "type": "past"}, {"date": "2025-04-01", "label": "Ecodesign Forum on motors", "type": "past"}], "notes": "Requirements applying. Ecodesign Forum held 1 April 2025."}, {"id": "espr-industrial-fans", "title": "Ecodesign – Industrial Fans (Regulation EU 327/2011)", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "In force", "priority": "low", "milestones": [{"date": "2013", "label": "Requirements entered into force", "type": "past", "approximate": true}], "notes": "Requirements applying. No revision signalled in the forecast calendar."}, {"id": "espr-ovens-hobs-hoods", "title": "Ecodesign & Energy Label – Ovens, Hobs & Hoods", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Revision in progress", "priority": "high", "milestones": [{"date": "2021", "label": "Current requirements entered into force", "type": "past", "approximate": true}, {"date": "2026-09-30", "label": "Preparatory study ends (3Q 2026)", "type": "upcoming", "approximate": true}, {"date": "2027-10-01", "label": "Publication of revised regulation expected (Q4 2027 – Q1 2028)", "type": "upcoming", "approximate": true}, {"date": "2028-01-01", "label": "Publication (Q1 2028, latest estimate)", "type": "upcoming", "approximate": true}], "notes": "Ovens, Hobs & Hoods in preparatory/revision phase. Study concluding 3Q 2026; regulation expected Q4 2027 – Q1 2028. Ecodesign Forum planned. Transitory period then requirements apply."}, {"id": "espr-washing-machines-washer-dryers", "title": "Ecodesign & Energy Label – Washing Machines and Washer-Dryers", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "In force – phased requirements", "priority": "high", "milestones": [{"date": "2021-03-01", "label": "Main Ecodesign & Energy Label requirements entered into force (Regulations EU 2019/2023 & 2019/2014)", "type": "past"}, {"date": "2025-03-01", "label": "Double Energy Label introduced", "type": "past", "approximate": true}, {"date": "2025-11-24", "label": "Further tier or labelling requirements apply", "type": "past"}, {"date": "2028-11-24", "label": "Next phased requirements apply", "type": "upcoming"}], "notes": "Double label introduced March 2025. Phased compliance dates: 24 November 2025 and 24 November 2028."}, {"id": "espr-dishwashers", "title": "Ecodesign & Energy Label – Dishwashers", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "In force", "priority": "high", "milestones": [{"date": "2021-03-01", "label": "Requirements entered into force (Regulations EU 2019/2022 & 2019/2014)", "type": "past"}], "notes": "Requirements applying. No imminent revision signalled in 2026 forecast calendar."}, {"id": "espr-vacuum-cleaners", "title": "Ecodesign & Energy Label – Vacuum Cleaners", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Revision in progress", "priority": "high", "milestones": [{"date": "2017", "label": "Current requirements entered into force (Regulation EU 666/2013)", "type": "past", "approximate": true}, {"date": "2025-11-28", "label": "Stakeholder meeting on revision", "type": "past"}, {"date": "2027-01-01", "label": "Repair Index applies (from 1 January 2027)", "type": "upcoming"}, {"date": "2027-06-01", "label": "Publication of revised regulation expected (Q2 2027)", "type": "upcoming", "approximate": true}, {"date": "2028-10-01", "label": "Requirements expected to apply (Q4 2028, after transitory period)", "type": "upcoming", "approximate": true}], "notes": "Revision ongoing. Stakeholder meeting 28 November 2025. New regulation publication expected Q2 2027. Adoption process then transitory period. Requirements expected Q4 2028. Repair Index applies from 1 January 2027."}, {"id": "espr-repairability-study", "title": "Ecodesign – Repairability Study", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Study completed", "priority": "high", "milestones": [{"date": "2025-06-01", "label": "Publication of study results (June 2025)", "type": "past", "approximate": true}], "notes": "Repairability preparatory study results published June 2025. Findings feed into ongoing product-group revisions."}, {"id": "espr-recy-crm-reco", "title": "Ecodesign Working Plan – Recyclability, CRM & Resource Consumption", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "In progress", "priority": "high", "milestones": [{"date": "2025", "label": "Working Plan 2025–2030 in force; Phase 2 ongoing", "type": "current", "approximate": true}, {"date": "2026", "label": "2nd Stakeholder Meeting on Recyclability (13 April 2026)", "type": "past"}, {"date": "2026-04-28", "label": "2nd Stakeholder Meeting on Code of Conduct Smart Appliances", "type": "past"}, {"date": "2026-10-01", "label": "Ecodesign Forum on related subjects expected Q4 2026", "type": "upcoming", "approximate": true}], "notes": "Covers recyclability, critical raw materials and resource consumption. Clusters 2 & 3 revisions for white goods, HVAC and EMS ongoing."}, {"id": "espr-professional-refrigerators", "title": "Ecodesign & Energy Label – Professional Refrigerators", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Adoption process", "priority": "medium", "milestones": [{"date": "2026", "label": "Adoption process ongoing", "type": "current", "approximate": true}, {"date": "2027", "label": "Transitory period (18 months)", "type": "upcoming", "approximate": true}, {"date": "2028", "label": "Requirements expected to apply", "type": "upcoming", "approximate": true}], "notes": "Ongoing study phase concluded. Adoption process underway. 18-month transitory period expected."}, {"id": "espr-professional-dishwashers", "title": "Ecodesign & Energy Label – Professional Dishwashers", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Adoption process", "priority": "medium", "milestones": [{"date": "2026", "label": "Adoption process ongoing", "type": "current", "approximate": true}, {"date": "2027", "label": "Transitory period (18 months)", "type": "upcoming", "approximate": true}, {"date": "2028", "label": "Requirements expected to apply", "type": "upcoming", "approximate": true}], "notes": "Ongoing study phase. Adoption process underway. 18-month transitory period expected."}, {"id": "espr-aluminium", "title": "Ecodesign – Aluminium Products", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Preparatory study", "priority": "low", "milestones": [{"date": "2026", "label": "Preparatory study ongoing", "type": "current", "approximate": true}, {"date": "2027", "label": "Adoption process expected", "type": "upcoming", "approximate": true}, {"date": "2028", "label": "Transitory period (18 months)", "type": "upcoming", "approximate": true}, {"date": "2029", "label": "Requirements expected to apply", "type": "upcoming", "approximate": true}], "notes": "Early preparatory study phase for aluminium products under Ecodesign framework."}, {"id": "espr-pv-panels-study", "title": "Ecodesign – PV Panels Study", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Study in progress", "priority": "low", "milestones": [{"date": "2025-07-01", "label": "Stakeholder meeting", "type": "past"}, {"date": "2026", "label": "Study ongoing", "type": "current", "approximate": true}], "notes": "Ongoing preparatory study. Stakeholder meeting held 1 July 2025."}, {"id": "espr-code-of-conduct-smart-appliances", "title": "Code of Conduct – Smart Appliances 2.0", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Adopted – under revision", "priority": "medium", "milestones": [{"date": "2026-04-28", "label": "2nd Stakeholder meeting on Code of Conduct 2.0 revision", "type": "past"}, {"date": "2026-10-01", "label": "Ecodesign Forum on Code of Conduct expected Q4 2026", "type": "upcoming", "approximate": true}, {"date": "2026-12-01", "label": "Publication expected Q4 2026 / Q1 2027", "type": "upcoming", "approximate": true}, {"date": "2027-01-01", "label": "Code of Conduct 2.0 expected to apply (to signatories)", "type": "upcoming", "approximate": true}], "notes": "Code of Conduct 2.0 for smart appliances in development. Applies to voluntary signatories once published."}, {"id": "espr-framework-el-regulation", "title": "Framework Energy Label Regulation – Evaluation & Omnibus", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Under evaluation", "priority": "high", "milestones": [{"date": "2025", "label": "Evaluation of Framework EL Regulation ongoing", "type": "current", "approximate": true}, {"date": "2026", "label": "Part of Omnibus on Energy Efficiency Products", "type": "current", "approximate": true}], "notes": "The Framework Energy Label Regulation (EU 2017/1369) is under evaluation and linked to the Omnibus on Energy Efficiency Products."}, {"id": "european-product-act", "title": "European Product Act (incl. MaSu, DPP, NLF revision)", "category": "Product Safety & Circularity", "lead_institution": "European Commission", "status": "Proposal expected", "priority": "high", "milestones": [{"date": "2026", "label": "Commission proposal publication expected", "type": "upcoming", "approximate": true}, {"date": "2027", "label": "Adoption process expected to begin", "type": "upcoming", "approximate": true}], "notes": "Horizontal legislation covering Market Surveillance (MaSu), Digital Product Passport (DPP) and New Legislative Framework (NLF) revision. Expected to replace or significantly amend existing product safety and market access framework."}, {"id": "ppwr-main", "title": "Packaging and Packaging Waste Regulation (PPWR)", "category": "Packaging & Sustainability", "lead_institution": "European Commission", "status": "Adopted – entering into force progressively", "priority": "high", "milestones": [{"date": "2025-12-07", "label": "Member States must notify competent authorities to Commission (Art 40(3))", "type": "past"}, {"date": "2026-12-08", "label": "PPWR general application date – main anchor for compliance (Art general)", "type": "upcoming"}, {"date": "2026-12-08", "label": "Conformity assessment obligations begin (Art 15(2) & 38)", "type": "upcoming"}, {"date": "2026-12-08", "label": "Heavy-metal concentration limits apply (Art 5(4))", "type": "upcoming"}, {"date": "2026-12-08", "label": "PFAS restriction for food-contact packaging applies (Art 5(5))", "type": "upcoming"}, {"date": "2026-12-08", "label": "Environmental claims restrictions apply (Art 14)", "type": "upcoming"}, {"date": "2027-12-02", "label": "Member States must have penalty rules in place (Art 71)", "type": "upcoming"}, {"date": "2027-12-02", "label": "Packaging in EPR schemes must be digitally identifiable (Art 44(1) 2nd subpara)", "type": "upcoming"}, {"date": "2027-12-08", "label": "National producer registers must be established by Member States (Art 44(1))", "type": "upcoming"}, {"date": "2028-12-02", "label": "Empty space in grouped/transport/e-commerce packaging must be minimised (Art 24(1))", "type": "upcoming"}, {"date": "2028-12-08", "label": "Harmonised material-composition labels must appear on packaging (Art 12(1))", "type": "upcoming"}, {"date": "2028-12-08", "label": "Harmonised labels on waste receptacles must be in place (Art 13)", "type": "upcoming"}, {"date": "2028-12-31", "label": "3% prevention condition linked to possible reuse exemptions (Art 29(14)(b))", "type": "upcoming"}, {"date": "2029-01-01", "label": "Mandatory collection objectives for packaging materials apply (Art 46)", "type": "upcoming"}, {"date": "2029-01-01", "label": "90% separate collection or DRS obligation for beverage packaging (Art 50)", "type": "upcoming"}, {"date": "2029-01-01", "label": "New DRS must meet Annex X requirements (Art 50)", "type": "upcoming"}, {"date": "2029-01-01", "label": "Recycled-content calculation and verification methodology becomes operational (Art 7)", "type": "upcoming"}, {"date": "2029-12-02", "label": "Reusable packaging must bear label and QR code or equivalent data carrier (Art 11)", "type": "upcoming"}, {"date": "2030-01-01", "label": "All packaging placed on the market must be recyclable (Art 6(1))", "type": "upcoming"}, {"date": "2030-01-01", "label": "2030 recycled-content targets apply for plastic packaging (Art 7(1)–7(5))", "type": "upcoming"}, {"date": "2030-01-01", "label": "Packaging weight and volume must be reduced to minimum necessary (Art 10(1))", "type": "upcoming"}, {"date": "2030-01-01", "label": "50% maximum empty-space ratio applies (Art 24(1)–24(2))", "type": "upcoming"}], "notes": "Core anchor date is 8 December 2026. Highly relevant for APPLiA members due to impact on product packaging, conformity assessment, recycled-content obligations and transport/e-commerce packaging. Multiple secondary acts still pending (see ppwr-secondary-legislation dossier)."}, {"id": "ppwr-secondary-legislation", "title": "PPWR – Secondary Legislation (Implementing & Delegated Acts)", "category": "Packaging & Sustainability", "lead_institution": "European Commission", "status": "Multiple acts pending", "priority": "high", "milestones": [{"date": "2026-02-12", "label": "IA – Producer register and reporting format (Art 44(14)) – draft circulating", "type": "upcoming"}, {"date": "2026-08-12", "label": "IA – Harmonised packaging label and specifications (Art 12(6))", "type": "upcoming"}, {"date": "2026-08-12", "label": "IA – Digital marking for packaging material composition (Art 12(7) 1st subpara)", "type": "upcoming"}, {"date": "2026-08-12", "label": "IA – Harmonised labels for waste receptacles (Art 13(2))", "type": "upcoming"}, {"date": "2026-12-31", "label": "DA – Methodology for calculation and verification of recycled content in plastic packaging (Art 7(8))", "type": "upcoming"}, {"date": "2026-12-31", "label": "IA – Sustainability criteria for plastic recycling technologies (Art 7(9))", "type": "upcoming"}, {"date": "2026-12-31", "label": "IA – Equivalence methodology for recycled content from third countries (Art 7(10))", "type": "upcoming"}, {"date": "2027-02-12", "label": "DA – Minimum number of rotations for reusable packaging (Art 11(2))", "type": "upcoming"}, {"date": "2027-02-12", "label": "IA – Member State reporting methodology on packaging waste (Art 30(3))", "type": "upcoming"}, {"date": "2027-06-30", "label": "IA – Methodology for calculating re-use targets (Art 56(7))", "type": "upcoming"}, {"date": "2028-01-01", "label": "DA – Design for recycling criteria and recyclability performance grades (Art 6(4)) – core strategic act", "type": "upcoming"}, {"date": "2028-01-01", "label": "DA – Conditions and reporting requirements for pooling arrangements (Art 29(12))", "type": "upcoming"}, {"date": "2028-02-12", "label": "IA – Methodology for calculating the empty-space ratio (Art 24(2))", "type": "upcoming"}, {"date": "2030-01-01", "label": "IA – Recycled at scale methodology and chain-of-custody mechanism (Art 6(5))", "type": "upcoming"}, {"date": "2030-01-01", "label": "IA – Digital marking for substances of concern in packaging (Art 12(7) 2nd subpara)", "type": "upcoming"}, {"date": "2030-02-12", "label": "IA – Minimum mandatory GPP requirements for packaging (Art 63(1))", "type": "upcoming"}, {"date": null, "label": "DA – Possible lowering of heavy-metal concentration limits (Art 5(7)) – if Commission decides to act", "type": "upcoming"}, {"date": null, "label": "DA – Amendment of derogations for recycled materials in closed/controlled loops (Art 5(8)) – if Commission decides to act", "type": "upcoming"}, {"date": null, "label": "DA – Possible derogations for certain plastic packaging / amend exempted types (Art 7(12) 2nd subpara) – if Commission decides to act", "type": "upcoming"}], "notes": "Producer register IA already circulating ahead of 12 February 2026 deadline. The Art 6(4) DA (design for recycling criteria) is the most strategically important act for APPLiA members. Secondary legislation timeline subject to Commission work programme. Acts marked 'if Commission decides to act' have no fixed deadline."}, {"id": "ai-omnibus", "title": "AI Omnibus (AI Act Amendment)", "category": "Digital & AI", "lead_institution": "European Commission", "status": "Trilogue", "priority": "high", "milestones": [{"date": "2025-11-19", "label": "Commission proposal published", "type": "past"}, {"date": "2026-01-19", "label": "Parliament committees appointed (IMCO + LIBE joint procedure)", "type": "past"}, {"date": "2026-04-13", "label": "Council adopts negotiating mandate / general approach", "type": "past"}, {"date": "2026-04-18", "label": "Committee report adopted", "type": "past"}, {"date": "2026-04-26", "label": "Parliament first-reading position adopted in plenary", "type": "past"}, {"date": "2026-05", "label": "Second trilogue scheduled (week commencing 4 May 2026)", "type": "upcoming", "approximate": true}, {"date": "2026-05-28", "label": "Trilogue session", "type": "upcoming"}, {"date": "2026-06", "label": "Vote in plenary and Council adoption (expected)", "type": "upcoming", "approximate": true}, {"date": "2026-07", "label": "Publication in the Official Journal (expected)", "type": "upcoming", "approximate": true}, {"date": "2026-08-01", "label": "Entry into force, amending the EU AI Regulation", "type": "upcoming"}], "notes": "Amendment to the AI Act (Regulation EU 2024/1689). Parliament adopted first-reading position 26 April 2026. Trilogue ongoing; entry into force expected 1 August 2026."}, {"id": "digital-acquis", "title": "Digital Acquis Omnibus (Data Act & GDPR Simplification)", "category": "Digital & AI", "lead_institution": "European Commission", "status": "Early co-legislative stage", "priority": "high", "milestones": [{"date": "2025-11-19", "label": "EC adopts Digital Omnibus proposal", "type": "past"}, {"date": "2025-11-19", "label": "Proposal formally transmitted to Parliament and Council", "type": "past"}, {"date": "2025-11-25", "label": "EDPB/EDPS consultation launched", "type": "past"}, {"date": "2026-01", "label": "Parliament committees assigned (IMCO/LIBE/JURI)", "type": "past", "approximate": true}, {"date": "2026-02-11", "label": "Joint EDPB/EDPS Opinion on GDPR + Data Acquis issued", "type": "past"}, {"date": "2026-03", "label": "Parliamentary committee discussions begin (Q1 2026)", "type": "past", "approximate": true}, {"date": "2026-06", "label": "Council technical negotiations ongoing (Q1–Q2 2026)", "type": "current", "approximate": true}], "notes": "Cypriot Presidency drafting a second compromise text on the Data Omnibus. EP formal discussion yet to start. Awaiting Council position."}, {"id": "cyber-resilience-act", "title": "Cyber Resilience Act (CRA)", "category": "Digital & AI", "lead_institution": "European Commission", "status": "In force", "priority": "high", "milestones": [{"date": "2022-09-15", "label": "Commission proposal published", "type": "past"}, {"date": "2022-12-01", "label": "Council adopts general approach", "type": "past", "approximate": true}, {"date": "2023-07-12", "label": "European Parliament adopts negotiating mandate", "type": "past"}, {"date": "2023-11-30", "label": "Provisional political agreement in trilogue", "type": "past"}, {"date": "2024-04-12", "label": "Parliament first-reading adoption", "type": "past"}, {"date": "2024-10-10", "label": "Council formal adoption", "type": "past"}, {"date": "2024-11-20", "label": "Published in Official Journal (Regulation EU 2024/2847)", "type": "past"}, {"date": "2024-12-10", "label": "Entry into force", "type": "past"}, {"date": "2025-08-01", "label": "Regulation applicable", "type": "past"}], "notes": "Legislative process complete. Regulation EU 2024/2847 in force December 2024, applicable from August 2025. Manufacturers preparing for SBOM and support period requirements."}, {"id": "red-delegated-act", "title": "Radio Equipment Directive (RED) – Cybersecurity Delegated Act", "category": "Digital & AI", "lead_institution": "European Commission", "status": "Being repealed", "priority": "high", "milestones": [{"date": "2021-10-29", "label": "Commission adopts Delegated Regulation", "type": "past"}, {"date": "2022-01-12", "label": "Official publication in Official Journal", "type": "past"}, {"date": "2022-02-01", "label": "Entry into force", "type": "past"}, {"date": "2023-06-30", "label": "Applicability postponed by Commission", "type": "past"}, {"date": "2024-08-01", "label": "Original applicability date", "type": "past"}, {"date": "2025-06-01", "label": "Revised applicability begins", "type": "past"}, {"date": "2026-02-16", "label": "Commission adopts repeal Delegated Regulation", "type": "past"}, {"date": "2027-01-11", "label": "Planned repeal effective date", "type": "upcoming"}], "notes": "RED cybersecurity Delegated Act being repealed following adoption of the Cyber Resilience Act. Repeal takes effect January 2027."}, {"id": "new-cybersecurity-package", "title": "New Cybersecurity Package (NIS2 Simplification + Cybersecurity Act revision)", "category": "Digital & AI", "lead_institution": "European Commission", "status": "Proposal published", "priority": "medium", "milestones": [{"date": "2026-01-20", "label": "Commission adopts cybersecurity package proposals", "type": "past"}, {"date": "2026-01-20", "label": "Official publication of revised Cybersecurity Act proposal", "type": "past"}, {"date": "2026-01-20", "label": "Official publication of NIS2 simplification/amendment proposal", "type": "past"}, {"date": "2026-01", "label": "Transmission to Parliament and Council", "type": "past", "approximate": true}, {"date": "2026-03", "label": "Initial examination by co-legislators begins (Q1 2026)", "type": "past", "approximate": true}, {"date": "2026-05-12", "label": "Public consultation closes", "type": "upcoming"}], "notes": "Package includes NIS2 simplification/amendment and revised Cybersecurity Act. Public consultation open until 12 May 2026."}, {"id": "espr-dpp", "title": "ESPR – Digital Product Passport (DPP) Implementation", "category": "Ecodesign & Energy Label", "lead_institution": "European Commission", "status": "Secondary legislation pending", "priority": "high", "milestones": [{"date": "2025-04-16", "label": "Commission adopts ESPR Working Plan 2025–2030", "type": "past"}, {"date": "2025-04", "label": "Public consultation on DPP service providers", "type": "past", "approximate": true}, {"date": "2026-03", "label": "JRC report on ESPR DPP data requirements methodology", "type": "past", "approximate": true}, {"date": "2026-04", "label": "CEN/CENELEC publishes 8 harmonised DPP standards", "type": "past", "approximate": true}, {"date": "2026-05", "label": "Public consultation on DPP registry", "type": "upcoming", "approximate": true}, {"date": "2026-07", "label": "EU Central DPP registry goes live", "type": "upcoming", "approximate": true}, {"date": "2026", "label": "Publication of 4 implementing and delegated acts (Q3–Q4 2026)", "type": "upcoming", "approximate": true}, {"date": "2027-02", "label": "Battery DPP becomes mandatory under Battery Regulation", "type": "upcoming", "approximate": true}], "notes": "DPP secondary legislation still awaited. CEN/CENELEC published 8 harmonised standards April 2026. DPP registry expected live July 2026. Four implementing/delegated acts expected Q3–Q4 2026."}, {"id": "omnibus-iv", "title": "Omnibus IV (EU Simplification Package)", "category": "Product Safety & Circularity", "lead_institution": "European Commission", "status": "Early co-legislative stage", "priority": "high", "milestones": [{"date": "2025-06-21", "label": "EC adopts Omnibus IV package", "type": "past"}, {"date": "2025-06-21", "label": "Publication of proposal for regulation and directive", "type": "past"}, {"date": "2025-06", "label": "Formal transmission to Parliament and Council", "type": "past", "approximate": true}, {"date": "2025-07", "label": "Parliament committee assignments begin (Q3 2025)", "type": "past", "approximate": true}, {"date": "2025-10", "label": "Council technical working group discussions begin (Q3–Q4 2025)", "type": "past", "approximate": true}, {"date": "2026", "label": "Legislative proposal in co-decision process (ongoing)", "type": "current", "approximate": true}], "notes": "Early first-reading stage. Parliament committee reports in progress. 2026 co-legislative process ongoing."}, {"id": "eu-customs-reform", "title": "EU Customs Reform Package", "category": "Trade", "lead_institution": "European Commission", "status": "Provisional agreement reached", "priority": "medium", "milestones": [{"date": "2023-06-17", "label": "EC adopts customs reform package", "type": "past"}, {"date": "2023-09-20", "label": "European Economic and Social Committee opinion adopted", "type": "past"}, {"date": "2024-04", "label": "European Parliament committee report adopted", "type": "past", "approximate": true}, {"date": "2024-04-13", "label": "Parliament first-reading negotiating mandate established", "type": "past"}, {"date": "2025-06-27", "label": "Council adopts general approach / negotiating mandate", "type": "past"}, {"date": "2026-02-11", "label": "Interim €150→€3 small parcel customs duty approved", "type": "past"}, {"date": "2026-04-26", "label": "Council and Parliament reach provisional political agreement (trilogue)", "type": "past"}, {"date": "2026-05", "label": "Technical finalisation and legal review ongoing", "type": "current", "approximate": true}, {"date": "2026", "label": "Formal adoption awaited", "type": "upcoming", "approximate": true}], "notes": "Provisional political agreement reached 26 April 2026. Technical finalisation and legal review ongoing. Formal adoption expected in 2026."}, {"id": "market-surveillance-revision", "title": "Market Surveillance Regulation – Revision", "category": "Product Safety & Circularity", "lead_institution": "European Commission", "status": "Pre-legislative phase", "priority": "high", "milestones": [{"date": "2025-06-21", "label": "Single Market Strategy announces future European Product Act", "type": "past"}, {"date": "2025-10-21", "label": "2026 Commission Work Programme confirms legislative review", "type": "past"}, {"date": "2026-06", "label": "Stakeholder input under review (Q1–Q2 2026)", "type": "current", "approximate": true}, {"date": "2026-09", "label": "Commission formal proposal expected (Q3 2026)", "type": "upcoming", "approximate": true}], "notes": "Revision expected as part of the broader European Product Act initiative. Commission proposal planned for Q3 2026."}, {"id": "standardisation-regulation-revision", "title": "Standardisation Regulation – Revision", "category": "Product Safety & Circularity", "lead_institution": "European Commission", "status": "Pre-legislative phase", "priority": "high", "milestones": [{"date": "2022-02-02", "label": "EU Strategy on Standardisation launches regulatory review commitment", "type": "past"}, {"date": "2022-12-08", "label": "Targeted amendment to Article 10 formally adopted", "type": "past"}, {"date": "2023", "label": "Commission launches full evaluation of Regulation", "type": "past", "approximate": true}, {"date": "2025", "label": "Competitiveness Compass confirms broader legislative revision", "type": "past", "approximate": true}, {"date": "2026", "label": "Preparatory revision work ongoing", "type": "current", "approximate": true}, {"date": "2026-09", "label": "Commission formal proposal expected (Q3 2026)", "type": "upcoming", "approximate": true}], "notes": "Full revision expected Q3 2026. Linked to the broader European Product Act initiative."}, {"id": "nlf-revision", "title": "New Legislative Framework (NLF) – Revision", "category": "Product Safety & Circularity", "lead_institution": "European Commission", "status": "Pre-legislative phase", "priority": "high", "milestones": [{"date": "2025-07-14", "label": "Commission launches NLF evaluation", "type": "past"}, {"date": "2025-09-02", "label": "Evaluation period closes", "type": "past"}, {"date": "2025-10-21", "label": "European Parliament own-initiative resolution on future-proof NLF adopted", "type": "past"}, {"date": "2026-09", "label": "Commission formal proposal planned (Q3 2026)", "type": "upcoming", "approximate": true}], "notes": "NLF revision planned as part of the European Product Act initiative. Commission formal proposal expected Q3 2026."}, {"id": "industrial-accelerator-act", "title": "Industrial Accelerator Act (IAA)", "category": "Industrial Policy", "lead_institution": "European Commission", "status": "Proposal published", "priority": "medium", "milestones": [{"date": "2026-04-04", "label": "European Commission proposal adopted", "type": "past"}, {"date": "2026", "label": "Parliament first-reading position", "type": "upcoming", "approximate": true}, {"date": "2026", "label": "Council first-reading position", "type": "upcoming", "approximate": true}], "notes": "Commission proposal adopted 4 April 2026. Currently in preparatory / first-reading phase in both co-legislators."}, {"id": "steel-safeguards", "title": "Steel Safeguards (Trade Defence)", "category": "Trade", "lead_institution": "European Commission", "status": "Post-trilogue – pre-formal adoption", "priority": "medium", "milestones": [{"date": "2025-12-14", "label": "Council adopts negotiating mandate", "type": "past"}, {"date": "2026-01-27", "label": "European Parliament committee adopts its position", "type": "past"}, {"date": "2026-02-24", "label": "Start of trilogue negotiations", "type": "past"}, {"date": "2026-05-14", "label": "Agreement reached in trilogue", "type": "upcoming"}, {"date": "2026-07-01", "label": "To be finalised by July 1", "type": "upcoming"}], "notes": "Post-trilogue technical finalisation underway. Formal adoption expected before 1 July 2026."}, {"id": "cbam-extension", "title": "CBAM Extension (Carbon Border Adjustment Mechanism)", "category": "Trade", "lead_institution": "European Commission", "status": "Early co-legislative stage", "priority": "high", "milestones": [{"date": "2025", "label": "Policy preparation / review phase (consultation)", "type": "past", "approximate": true}, {"date": "2025-12-17", "label": "Commission proposal published", "type": "past"}, {"date": "2026-01", "label": "Early legislative phase begins", "type": "past", "approximate": true}, {"date": "2026", "label": "First-reading phase ongoing", "type": "current", "approximate": true}, {"date": "2028-01-01", "label": "Planned entry into force of the extension", "type": "upcoming"}], "notes": "Commission proposal December 2025. Extension to expand CBAM to additional sectors. Entry into force targeted 1 January 2028."}, {"id": "espr", "title": "Ecodesign for Sustainable Products Regulation (ESPR)", "category": "Sustainability", "lead_institution": "European Commission", "status": "In force", "priority": "high", "source": "demo", "notes": "Framework regulation adopted April 2024. Delegated acts per product group now being developed. APPLiA engaged on prioritisation methodology.", "milestones": [{"date": "2022-03-30", "label": "Commission proposal published", "type": "past"}, {"date": "2023-07-12", "label": "EP plenary vote — first reading", "type": "past"}, {"date": "2024-04-24", "label": "Regulation entered into force", "type": "current"}, {"date": "2025 Q3", "label": "First delegated act expected (large appliances)", "type": "upcoming"}, {"date": "2026 Q1", "label": "Working plan adoption", "type": "upcoming"}]}, {"id": "psr", "title": "General Product Safety Regulation (GPSR)", "category": "Product Safety", "lead_institution": "European Commission", "status": "In force", "priority": "high", "source": "demo", "notes": "Entered into force December 2024 replacing GPSD. Online marketplaces now bear direct obligations. Member compliance project underway.", "milestones": [{"date": "2021-06-28", "label": "Commission proposal", "type": "past"}, {"date": "2023-05-10", "label": "Regulation adopted", "type": "past"}, {"date": "2024-12-13", "label": "Regulation applicable", "type": "current"}, {"date": "2025-12-31", "label": "Transitional period ends", "type": "upcoming"}]}, {"id": "cbam", "title": "Carbon Border Adjustment Mechanism (CBAM)", "category": "Trade", "lead_institution": "European Commission", "status": "In force", "priority": "medium", "source": "demo", "notes": "Transitional phase running since Oct 2023. Full implementation from 2026. Appliance components may be in scope — monitoring ongoing.", "milestones": [{"date": "2021-07-14", "label": "Commission proposal (Fit for 55 package)", "type": "past"}, {"date": "2023-04-25", "label": "Regulation adopted", "type": "past"}, {"date": "2023-10-01", "label": "Transitional phase begins", "type": "current"}, {"date": "2026-01-01", "label": "Full implementation", "type": "upcoming"}]}, {"id": "pfas", "title": "PFAS Restriction (REACH Annex XVII)", "category": "Chemicals", "lead_institution": "ECHA", "status": "Consultation", "priority": "high", "source": "demo", "notes": "Broad restriction proposed by 5-country consortium. Appliance sector submitted derogation requests for critical use cases. Decision may impact seals, coatings, lubricants.", "milestones": [{"date": "2023-02-07", "label": "Restriction proposal submitted to ECHA", "type": "past"}, {"date": "2023-03-22", "label": "Public consultation opened", "type": "past"}, {"date": "2024-09-25", "label": "ECHA SEAC opinion published", "type": "past"}, {"date": "2025 Q2", "label": "Commission decision expected", "type": "upcoming"}, {"date": "2026 Q4", "label": "Restriction enters into force (if adopted)", "type": "upcoming"}]}, {"id": "ereg", "title": "Energy Labelling — Rescaling Review", "category": "Energy", "lead_institution": "European Commission", "status": "Consultation", "priority": "medium", "source": "demo", "notes": "Commission reviewing whether rescaling is needed following post-2021 label roll-out. APPLiA monitoring; potential impact on A-class products.", "milestones": [{"date": "2021-03-01", "label": "New A–G scale applied", "type": "past"}, {"date": "2024-01-15", "label": "Commission evaluation study launched", "type": "past"}, {"date": "2025 Q1", "label": "Stakeholder consultation", "type": "current"}, {"date": "2026 Q2", "label": "Commission report to EP and Council", "type": "upcoming"}, {"date": "2027 Q1", "label": "Possible rescaling proposal", "type": "upcoming"}]}, {"id": "cea", "title": "Circular Economy Act (CEA) & WEEE Directive Revision", "category": "Circular Economy", "lead_institution": "European Commission", "status": "Legislative proposal imminent", "priority": "high", "milestones": [{"date": "2015-12-01", "label": "First Circular Economy Action Plan adopted", "type": "past"}, {"date": "2020-03-01", "label": "Second Circular Economy Action Plan adopted (European Green Deal)", "type": "past"}, {"date": "2023-11-01", "label": "Parliament mandates Commission to revise WEEE Directive by 31 December 2026 (Directive EU 2024/884)", "type": "past"}, {"date": "2024-07-01", "label": "ESPR and Right to Repair Directive enter into force", "type": "past"}, {"date": "2025-07-02", "label": "Commission publishes formal WEEE Directive evaluation (SWD) — five key shortcomings identified", "type": "past"}, {"date": "2025-07-02", "label": "High-level Clean Industrial Dialogue & WEEE Impact Assessment consultation (EVPs Séjourné and Roswall)", "type": "past"}, {"date": "2025-08-01", "label": "Call for Evidence & public consultation on CEA opens", "type": "past"}, {"date": "2025-11-06", "label": "Call for Evidence & public consultation closes", "type": "past"}, {"date": "2025-11-18", "label": "Expert Group on Circular Economy & WEEE Expert Group meetings — consultation results presented", "type": "past"}, {"date": "2025-12-01", "label": "Targeted technical consultation concludes (EPR reform, end-of-waste, recycled-content, trans-regional hubs)", "type": "past", "approximate": true}, {"date": "2026-03-01", "label": "JRC workshops on WEEE treatment standards", "type": "past", "approximate": true}, {"date": "2026-04-30", "label": "High-level Roundtable on CEA (EVP Séjourné and Commissioner Roswall) — 1,000+ participants", "type": "past"}, {"date": "2026-04-30", "label": "Final stakeholder workshop on CEA Impact Assessment", "type": "past"}, {"date": "2026-05-06", "label": "College of Commissioners meeting to discuss CEA", "type": "past"}, {"date": "2026-05-21", "label": "Digital waste shipment system goes live across EU", "type": "upcoming"}, {"date": "2026-07-01", "label": "Right to Repair Directive starts applying in Member States", "type": "upcoming", "approximate": true}, {"date": "2026-09-01", "label": "Commission adopts and publishes legislative proposal for CEA and WEEE Regulation (Q3–Q4 2026, legal deadline 31 Dec 2026)", "type": "upcoming", "approximate": true}, {"date": "2026-12-01", "label": "Legal deadline for WEEE Directive revision (31 December 2026)", "type": "upcoming"}, {"date": "2027-01-01", "label": "EP and Council trilogues begin", "type": "upcoming", "approximate": true}, {"date": "2027-12-01", "label": "Final adoption and entry into force (Commission target: within 2024–2029 mandate)", "type": "upcoming", "approximate": true}, {"date": "2028-01-01", "label": "Phased rollout across sectors begins (electronics, packaging, construction, textiles)", "type": "upcoming", "approximate": true}], "notes": "Three legislative pillars: (1) amended Waste Framework Directive & Landfill Directive; (2) revised WEEE Directive; (3) horizontal measures (end-of-waste harmonisation, EPR reform, recycled-content targets, green public procurement). WEEE evaluation identified five shortcomings: low collection rates (only 40% recycled; 3 MS met 65% target in 2022), insufficient CRM recovery, fragmented EPR schemes, inconsistent treatment standards, outdated product scope. Circularity rate target: 12.2% → 24% by 2030. APPLiA engaged on value-chain accountability, collection targets, and online marketplace registration obligations."}, {"id": "rtr", "title": "Right to Repair Directive", "category": "Circular Economy", "lead_institution": "European Commission", "status": "Adopted", "priority": "medium", "source": "demo", "notes": "Adopted June 2024. Member states have until July 2026 to transpose. Manufacturers must ensure availability of spare parts and repair information.", "milestones": [{"date": "2023-03-22", "label": "Commission proposal", "type": "past"}, {"date": "2024-04-23", "label": "EP plenary vote", "type": "past"}, {"date": "2024-06-30", "label": "Directive adopted", "type": "current"}, {"date": "2026-07-31", "label": "Transposition deadline", "type": "upcoming"}]}, {"id": "ucc", "title": "Union Customs Code — Origin Rules Reform", "category": "Trade", "lead_institution": "European Commission", "status": "Consultation", "priority": "low", "source": "demo", "notes": "Commission reviewing preferential origin rules. Potential impact on tariff classification and FTA benefits for appliances sourced globally.", "milestones": [{"date": "2023-05-17", "label": "Commission evaluation published", "type": "past"}, {"date": "2024 Q3", "label": "Stakeholder consultation", "type": "past"}, {"date": "2025 Q4", "label": "Legislative proposal expected", "type": "upcoming"}, {"date": "2027 Q2", "label": "Entry into force", "type": "upcoming"}]}, {"id": "ria", "title": "Regulation on Interoperability of Smart Appliances", "category": "Industrial Policy", "lead_institution": "European Commission", "status": "Consultation", "priority": "low", "source": "demo", "notes": "Early-stage exploratory work under the European Interoperability Framework. APPLiA monitoring links to HEMS and demand-response obligations.", "milestones": [{"date": "2024-06-01", "label": "Commission inception impact assessment", "type": "past"}, {"date": "2025 Q2", "label": "Open public consultation", "type": "current"}, {"date": "2026 Q1", "label": "Commission proposal possible", "type": "upcoming"}, {"date": "2028 Q2", "label": "Adoption (estimated)", "type": "upcoming"}]}];
+/* ─── Product taxonomy ─── */
+const PRODUCT_LABELS = {
+  "washing-machines": "Washing Machines & Washer-Dryers",
+  "dishwashers":      "Dishwashers",
+  "refrigerators":    "Refrigerators & Cold Appliances",
+  "tumble-dryers":    "Tumble Dryers",
+  "ovens-hobs-hoods": "Ovens, Hobs & Hoods",
+  "vacuum-cleaners":  "Vacuum Cleaners",
+  "water-heaters":    "Water Heaters",
+  "air-conditioners": "Air Conditioners",
+  "local-heaters":    "Local Space Heaters",
+  "lighting":         "Lighting",
+  "displays":         "Electronic Displays",
+  "professional":     "Professional Equipment",
+  "fans":             "Fans",
+  "pv-panels":        "PV Panels",
+  "all":              "All Appliances — Horizontal Legislation"
+};
+const PRODUCT_COLORS = {
+  "washing-machines": "#185FA5", "dishwashers":      "#0F6E56",
+  "refrigerators":    "#533AB7", "tumble-dryers":    "#993C1D",
+  "ovens-hobs-hoods": "#854F0B", "vacuum-cleaners":  "#27500A",
+  "water-heaters":    "#3C3489", "air-conditioners": "#0D5F6E",
+  "local-heaters":    "#8B2252", "lighting":         "#4A6741",
+  "displays":         "#1A5276", "professional":     "#5D4037",
+  "fans":             "#37474F", "pv-panels":        "#F57F17",
+  "all":              "#6b6b66"
+};
+const PRODUCT_ORDER = [
+  "washing-machines","dishwashers","refrigerators","tumble-dryers",
+  "ovens-hobs-hoods","vacuum-cleaners","water-heaters","air-conditioners",
+  "local-heaters","lighting","displays","professional","fans","pv-panels","all"
+];
 
-let activeCat="", activeStatus="", activePriority="", searchQ="";
+/* ─── Dossier data ─── */
+const ALL_DOSSIERS = [
+{"id":"espr-cold-appliances","products":["refrigerators"],"title":"Ecodesign & Energy Label – Cold Appliances (Refrigerators)","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"In force","priority":"high","milestones":[{"date":"2021","label":"Requirements entered into force (Regulation EU 2019/2019)","type":"past","approximate":true},{"date":"2025-01-01","label":"Requirements applying (current status)","type":"current"}],"notes":"Regulation EU 2019/2019 and Energy Label Regulation EU 2019/2016 in force. No imminent revision signalled in the 2026 forecast calendar."},
+{"id":"espr-lighting","products":["lighting"],"title":"Ecodesign & Energy Label – Lighting","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Revision in progress","priority":"medium","milestones":[{"date":"2021","label":"Existing requirements in force","type":"past","approximate":true},{"date":"2026-10-01","label":"Publication of revised regulation expected (Q4 2026)","type":"upcoming","approximate":true}],"notes":"Current requirements apply. Commission preparing a publication of revised/updated measures expected Q4 2026."},
+{"id":"espr-electronic-displays","products":["displays"],"title":"Ecodesign & Energy Label – Electronic Displays","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Revision in progress","priority":"high","milestones":[{"date":"2021","label":"Requirements entered into force","type":"past","approximate":true},{"date":"2026-09-30","label":"Study ends (3Q 2026)","type":"upcoming","approximate":true},{"date":"2027-10-01","label":"Publication of revised regulation expected (Q4 2027 – Q1 2028)","type":"upcoming","approximate":true},{"date":"2028-01-01","label":"Publication of revised regulation (Q1 2028, latest)","type":"upcoming","approximate":true}],"notes":"Preparatory study concluding 3Q 2026. New regulation expected Q4 2027 – Q1 2028. Ecodesign Forum planned before adoption. Current requirements remain applicable."},
+{"id":"espr-standby","products":["all"],"title":"Ecodesign – Standby and Off-Mode (Regulation EU 2019/1782)","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"In force","priority":"low","milestones":[{"date":"2019-10-25","label":"Regulation published","type":"past"},{"date":"2021-03-01","label":"Requirements in force","type":"past"}],"notes":"Requirements applying. No revision activity signalled in forecast calendar."},
+{"id":"espr-tumble-dryers","products":["tumble-dryers"],"title":"Ecodesign & Energy Label – Tumble Dryers","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Phased requirements applying","priority":"high","milestones":[{"date":"2021","label":"Energy Label requirements entered into force","type":"past","approximate":true},{"date":"2025-07-01","label":"1st Tier Ecodesign requirements apply","type":"past"},{"date":"2027-03-01","label":"Publication of revised/2nd tier regulation expected (Q1–Q2 2027)","type":"upcoming","approximate":true}],"notes":"1st Tier requirements applied 1 July 2025. New publication (2nd Tier or revision) expected Q1–Q2 2027."},
+{"id":"espr-aircon-commercial-fans","products":["air-conditioners","fans","local-heaters"],"title":"Ecodesign & Energy Label – Air Conditioners, Commercial Fans & Local Heaters EL","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Adoption process","priority":"medium","milestones":[{"date":"2025","label":"Adoption process ongoing","type":"current","approximate":true},{"date":"2026","label":"Expected publication and start of transitory period","type":"upcoming","approximate":true},{"date":"2027","label":"Requirements expected to apply (after transitory period)","type":"upcoming","approximate":true}],"notes":"Regulation covering air conditioners, commercial fans and Energy Label for local space heaters in adoption process. Transitory period length TBD."},
+{"id":"espr-water-heaters","products":["water-heaters"],"title":"Ecodesign & Energy Label – Water Heaters","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Phased requirements applying","priority":"high","milestones":[{"date":"2021","label":"Initial requirements entered into force","type":"past","approximate":true},{"date":"2025-11-24","label":"New tier or labelling requirements apply","type":"past"},{"date":"2028-11-24","label":"Further tier requirements apply","type":"upcoming"}],"notes":"Water heaters regulation with phased milestones on 24 November 2025 and 24 November 2028."},
+{"id":"espr-local-heaters","products":["local-heaters"],"title":"Ecodesign – Local Space Heaters","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"In force – under review","priority":"medium","milestones":[{"date":"2025-05-09","label":"Requirements apply / milestone date","type":"past"},{"date":"2027-05-09","label":"Commission review due","type":"upcoming"}],"notes":"Ecodesign-only regulation (no Energy Label). Review clause triggered by 9 May 2027."},
+{"id":"espr-external-power-supplies","products":["all"],"title":"Ecodesign – External Power Supplies (Regulation EU 2019/1782)","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"In force","priority":"low","milestones":[{"date":"2020-04-01","label":"Requirements entered into force","type":"past"}],"notes":"Requirements applying. No revision signalled in the forecast calendar."},
+{"id":"espr-motors","products":["all"],"title":"Ecodesign – Electric Motors (Regulation EU 2019/1781)","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"In force","priority":"low","milestones":[{"date":"2021-07-01","label":"IE3 efficiency requirements apply","type":"past"},{"date":"2023-07-01","label":"Extended scope requirements apply","type":"past"},{"date":"2025-04-01","label":"Ecodesign Forum on motors","type":"past"}],"notes":"Requirements applying. Ecodesign Forum held 1 April 2025."},
+{"id":"espr-industrial-fans","products":["fans"],"title":"Ecodesign – Industrial Fans (Regulation EU 327/2011)","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"In force","priority":"low","milestones":[{"date":"2013","label":"Requirements entered into force","type":"past","approximate":true}],"notes":"Requirements applying. No revision signalled in the forecast calendar."},
+{"id":"espr-ovens-hobs-hoods","products":["ovens-hobs-hoods"],"title":"Ecodesign & Energy Label – Ovens, Hobs & Hoods","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Revision in progress","priority":"high","milestones":[{"date":"2021","label":"Current requirements entered into force","type":"past","approximate":true},{"date":"2026-09-30","label":"Preparatory study ends (3Q 2026)","type":"upcoming","approximate":true},{"date":"2027-10-01","label":"Publication of revised regulation expected (Q4 2027 – Q1 2028)","type":"upcoming","approximate":true},{"date":"2028-01-01","label":"Publication (Q1 2028, latest estimate)","type":"upcoming","approximate":true}],"notes":"Ovens, Hobs & Hoods in preparatory/revision phase. Study concluding 3Q 2026; regulation expected Q4 2027 – Q1 2028. Ecodesign Forum planned. Transitory period then requirements apply."},
+{"id":"espr-washing-machines-washer-dryers","products":["washing-machines"],"title":"Ecodesign & Energy Label – Washing Machines and Washer-Dryers","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"In force – phased requirements","priority":"high","milestones":[{"date":"2021-03-01","label":"Main Ecodesign & Energy Label requirements entered into force (Regulations EU 2019/2023 & 2019/2014)","type":"past"},{"date":"2025-03-01","label":"Double Energy Label introduced","type":"past","approximate":true},{"date":"2025-11-24","label":"Further tier or labelling requirements apply","type":"past"},{"date":"2028-11-24","label":"Next phased requirements apply","type":"upcoming"}],"notes":"Double label introduced March 2025. Phased compliance dates: 24 November 2025 and 24 November 2028."},
+{"id":"espr-dishwashers","products":["dishwashers"],"title":"Ecodesign & Energy Label – Dishwashers","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"In force","priority":"high","milestones":[{"date":"2021-03-01","label":"Requirements entered into force (Regulations EU 2019/2022 & 2019/2014)","type":"past"}],"notes":"Requirements applying. No imminent revision signalled in 2026 forecast calendar."},
+{"id":"espr-vacuum-cleaners","products":["vacuum-cleaners"],"title":"Ecodesign & Energy Label – Vacuum Cleaners","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Revision in progress","priority":"high","milestones":[{"date":"2017","label":"Current requirements entered into force (Regulation EU 666/2013)","type":"past","approximate":true},{"date":"2025-11-28","label":"Stakeholder meeting on revision","type":"past"},{"date":"2027-01-01","label":"Repair Index applies (from 1 January 2027)","type":"upcoming"},{"date":"2027-06-01","label":"Publication of revised regulation expected (Q2 2027)","type":"upcoming","approximate":true},{"date":"2028-10-01","label":"Requirements expected to apply (Q4 2028, after transitory period)","type":"upcoming","approximate":true}],"notes":"Revision ongoing. Stakeholder meeting 28 November 2025. New regulation publication expected Q2 2027. Adoption process then transitory period. Requirements expected Q4 2028. Repair Index applies from 1 January 2027."},
+{"id":"espr-repairability-study","products":["all"],"title":"Ecodesign – Repairability Study","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Study completed","priority":"high","milestones":[{"date":"2025-06-01","label":"Publication of study results (June 2025)","type":"past","approximate":true}],"notes":"Repairability preparatory study results published June 2025. Findings feed into ongoing product-group revisions."},
+{"id":"espr-recy-crm-reco","products":["all"],"title":"Ecodesign Working Plan – Recyclability, CRM & Resource Consumption","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"In progress","priority":"high","milestones":[{"date":"2025","label":"Working Plan 2025–2030 in force; Phase 2 ongoing","type":"current","approximate":true},{"date":"2026","label":"2nd Stakeholder Meeting on Recyclability (13 April 2026)","type":"past"},{"date":"2026-04-28","label":"2nd Stakeholder Meeting on Code of Conduct Smart Appliances","type":"past"},{"date":"2026-10-01","label":"Ecodesign Forum on related subjects expected Q4 2026","type":"upcoming","approximate":true}],"notes":"Covers recyclability, critical raw materials and resource consumption. Clusters 2 & 3 revisions for white goods, HVAC and EMS ongoing."},
+{"id":"espr-professional-refrigerators","products":["professional"],"title":"Ecodesign & Energy Label – Professional Refrigerators","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Adoption process","priority":"medium","milestones":[{"date":"2026","label":"Adoption process ongoing","type":"current","approximate":true},{"date":"2027","label":"Transitory period (18 months)","type":"upcoming","approximate":true},{"date":"2028","label":"Requirements expected to apply","type":"upcoming","approximate":true}],"notes":"Ongoing study phase concluded. Adoption process underway. 18-month transitory period expected."},
+{"id":"espr-professional-dishwashers","products":["professional"],"title":"Ecodesign & Energy Label – Professional Dishwashers","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Adoption process","priority":"medium","milestones":[{"date":"2026","label":"Adoption process ongoing","type":"current","approximate":true},{"date":"2027","label":"Transitory period (18 months)","type":"upcoming","approximate":true},{"date":"2028","label":"Requirements expected to apply","type":"upcoming","approximate":true}],"notes":"Ongoing study phase. Adoption process underway. 18-month transitory period expected."},
+{"id":"espr-aluminium","products":["all"],"title":"Ecodesign – Aluminium Products","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Preparatory study","priority":"low","milestones":[{"date":"2026","label":"Preparatory study ongoing","type":"current","approximate":true},{"date":"2027","label":"Adoption process expected","type":"upcoming","approximate":true},{"date":"2028","label":"Transitory period (18 months)","type":"upcoming","approximate":true},{"date":"2029","label":"Requirements expected to apply","type":"upcoming","approximate":true}],"notes":"Early preparatory study phase for aluminium products under Ecodesign framework."},
+{"id":"espr-pv-panels-study","products":["pv-panels"],"title":"Ecodesign – PV Panels Study","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Study in progress","priority":"low","milestones":[{"date":"2025-07-01","label":"Stakeholder meeting","type":"past"},{"date":"2026","label":"Study ongoing","type":"current","approximate":true}],"notes":"Ongoing preparatory study. Stakeholder meeting held 1 July 2025."},
+{"id":"espr-code-of-conduct-smart-appliances","products":["all"],"title":"Code of Conduct – Smart Appliances 2.0","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Adopted – under revision","priority":"medium","milestones":[{"date":"2026-04-28","label":"2nd Stakeholder meeting on Code of Conduct 2.0 revision","type":"past"},{"date":"2026-10-01","label":"Ecodesign Forum on Code of Conduct expected Q4 2026","type":"upcoming","approximate":true},{"date":"2026-12-01","label":"Publication expected Q4 2026 / Q1 2027","type":"upcoming","approximate":true},{"date":"2027-01-01","label":"Code of Conduct 2.0 expected to apply (to signatories)","type":"upcoming","approximate":true}],"notes":"Code of Conduct 2.0 for smart appliances in development. Applies to voluntary signatories once published."},
+{"id":"espr-framework-el-regulation","products":["all"],"title":"Framework Energy Label Regulation – Evaluation & Omnibus","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Under evaluation","priority":"high","milestones":[{"date":"2025","label":"Evaluation of Framework EL Regulation ongoing","type":"current","approximate":true},{"date":"2026","label":"Part of Omnibus on Energy Efficiency Products","type":"current","approximate":true}],"notes":"The Framework Energy Label Regulation (EU 2017/1369) is under evaluation and linked to the Omnibus on Energy Efficiency Products."},
+{"id":"european-product-act","products":["all"],"title":"European Product Act (incl. MaSu, DPP, NLF revision)","category":"Product Safety & Circularity","lead_institution":"European Commission","status":"Proposal expected","priority":"high","milestones":[{"date":"2026","label":"Commission proposal publication expected","type":"upcoming","approximate":true},{"date":"2027","label":"Adoption process expected to begin","type":"upcoming","approximate":true}],"notes":"Horizontal legislation covering Market Surveillance (MaSu), Digital Product Passport (DPP) and New Legislative Framework (NLF) revision. Expected to replace or significantly amend existing product safety and market access framework."},
+{"id":"ppwr-main","products":["all"],"title":"Packaging and Packaging Waste Regulation (PPWR)","category":"Packaging & Sustainability","lead_institution":"European Commission","status":"Adopted – entering into force progressively","priority":"high","milestones":[{"date":"2025-12-07","label":"Member States must notify competent authorities to Commission (Art 40(3))","type":"past"},{"date":"2026-12-08","label":"PPWR general application date – main anchor for compliance (Art general)","type":"upcoming"},{"date":"2026-12-08","label":"Conformity assessment obligations begin (Art 15(2) & 38)","type":"upcoming"},{"date":"2026-12-08","label":"Heavy-metal concentration limits apply (Art 5(4))","type":"upcoming"},{"date":"2026-12-08","label":"PFAS restriction for food-contact packaging applies (Art 5(5))","type":"upcoming"},{"date":"2026-12-08","label":"Environmental claims restrictions apply (Art 14)","type":"upcoming"},{"date":"2027-12-02","label":"Member States must have penalty rules in place (Art 71)","type":"upcoming"},{"date":"2027-12-02","label":"Packaging in EPR schemes must be digitally identifiable (Art 44(1) 2nd subpara)","type":"upcoming"},{"date":"2027-12-08","label":"National producer registers must be established by Member States (Art 44(1))","type":"upcoming"},{"date":"2028-12-02","label":"Empty space in grouped/transport/e-commerce packaging must be minimised (Art 24(1))","type":"upcoming"},{"date":"2028-12-08","label":"Harmonised material-composition labels must appear on packaging (Art 12(1))","type":"upcoming"},{"date":"2028-12-08","label":"Harmonised labels on waste receptacles must be in place (Art 13)","type":"upcoming"},{"date":"2028-12-31","label":"3% prevention condition linked to possible reuse exemptions (Art 29(14)(b))","type":"upcoming"},{"date":"2029-01-01","label":"Mandatory collection objectives for packaging materials apply (Art 46)","type":"upcoming"},{"date":"2029-01-01","label":"90% separate collection or DRS obligation for beverage packaging (Art 50)","type":"upcoming"},{"date":"2029-01-01","label":"New DRS must meet Annex X requirements (Art 50)","type":"upcoming"},{"date":"2029-01-01","label":"Recycled-content calculation and verification methodology becomes operational (Art 7)","type":"upcoming"},{"date":"2029-12-02","label":"Reusable packaging must bear label and QR code or equivalent data carrier (Art 11)","type":"upcoming"},{"date":"2030-01-01","label":"All packaging placed on the market must be recyclable (Art 6(1))","type":"upcoming"},{"date":"2030-01-01","label":"2030 recycled-content targets apply for plastic packaging (Art 7(1)–7(5))","type":"upcoming"},{"date":"2030-01-01","label":"Packaging weight and volume must be reduced to minimum necessary (Art 10(1))","type":"upcoming"},{"date":"2030-01-01","label":"50% maximum empty-space ratio applies (Art 24(1)–24(2))","type":"upcoming"}],"notes":"Core anchor date is 8 December 2026. Highly relevant for APPLiA members due to impact on product packaging, conformity assessment, recycled-content obligations and transport/e-commerce packaging. Multiple secondary acts still pending (see ppwr-secondary-legislation dossier)."},
+{"id":"ppwr-secondary-legislation","products":["all"],"title":"PPWR – Secondary Legislation (Implementing & Delegated Acts)","category":"Packaging & Sustainability","lead_institution":"European Commission","status":"Multiple acts pending","priority":"high","milestones":[{"date":"2026-02-12","label":"IA – Producer register and reporting format (Art 44(14)) – draft circulating","type":"upcoming"},{"date":"2026-08-12","label":"IA – Harmonised packaging label and specifications (Art 12(6))","type":"upcoming"},{"date":"2026-08-12","label":"IA – Digital marking for packaging material composition (Art 12(7) 1st subpara)","type":"upcoming"},{"date":"2026-08-12","label":"IA – Harmonised labels for waste receptacles (Art 13(2))","type":"upcoming"},{"date":"2026-12-31","label":"DA – Methodology for calculation and verification of recycled content in plastic packaging (Art 7(8))","type":"upcoming"},{"date":"2026-12-31","label":"IA – Sustainability criteria for plastic recycling technologies (Art 7(9))","type":"upcoming"},{"date":"2026-12-31","label":"IA – Equivalence methodology for recycled content from third countries (Art 7(10))","type":"upcoming"},{"date":"2027-02-12","label":"DA – Minimum number of rotations for reusable packaging (Art 11(2))","type":"upcoming"},{"date":"2027-02-12","label":"IA – Member State reporting methodology on packaging waste (Art 30(3))","type":"upcoming"},{"date":"2027-06-30","label":"IA – Methodology for calculating re-use targets (Art 56(7))","type":"upcoming"},{"date":"2028-01-01","label":"DA – Design for recycling criteria and recyclability performance grades (Art 6(4)) – core strategic act","type":"upcoming"},{"date":"2028-01-01","label":"DA – Conditions and reporting requirements for pooling arrangements (Art 29(12))","type":"upcoming"},{"date":"2028-02-12","label":"IA – Methodology for calculating the empty-space ratio (Art 24(2))","type":"upcoming"},{"date":"2030-01-01","label":"IA – Recycled at scale methodology and chain-of-custody mechanism (Art 6(5))","type":"upcoming"},{"date":"2030-01-01","label":"IA – Digital marking for substances of concern in packaging (Art 12(7) 2nd subpara)","type":"upcoming"},{"date":"2030-02-12","label":"IA – Minimum mandatory GPP requirements for packaging (Art 63(1))","type":"upcoming"},{"date":null,"label":"DA – Possible lowering of heavy-metal concentration limits (Art 5(7)) – if Commission decides to act","type":"upcoming"},{"date":null,"label":"DA – Amendment of derogations for recycled materials in closed/controlled loops (Art 5(8)) – if Commission decides to act","type":"upcoming"},{"date":null,"label":"DA – Possible derogations for certain plastic packaging / amend exempted types (Art 7(12) 2nd subpara) – if Commission decides to act","type":"upcoming"}],"notes":"Producer register IA already circulating ahead of 12 February 2026 deadline. The Art 6(4) DA (design for recycling criteria) is the most strategically important act for APPLiA members. Secondary legislation timeline subject to Commission work programme. Acts marked 'if Commission decides to act' have no fixed deadline."},
+{"id":"ai-omnibus","products":["all"],"title":"AI Omnibus (AI Act Amendment)","category":"Digital & AI","lead_institution":"European Commission","status":"Trilogue","priority":"high","milestones":[{"date":"2025-11-19","label":"Commission proposal published","type":"past"},{"date":"2026-01-19","label":"Parliament committees appointed (IMCO + LIBE joint procedure)","type":"past"},{"date":"2026-04-13","label":"Council adopts negotiating mandate / general approach","type":"past"},{"date":"2026-04-18","label":"Committee report adopted","type":"past"},{"date":"2026-04-26","label":"Parliament first-reading position adopted in plenary","type":"past"},{"date":"2026-05","label":"Second trilogue scheduled (week commencing 4 May 2026)","type":"upcoming","approximate":true},{"date":"2026-05-28","label":"Trilogue session","type":"upcoming"},{"date":"2026-06","label":"Vote in plenary and Council adoption (expected)","type":"upcoming","approximate":true},{"date":"2026-07","label":"Publication in the Official Journal (expected)","type":"upcoming","approximate":true},{"date":"2026-08-01","label":"Entry into force, amending the EU AI Regulation","type":"upcoming"}],"notes":"Amendment to the AI Act (Regulation EU 2024/1689). Parliament adopted first-reading position 26 April 2026. Trilogue ongoing; entry into force expected 1 August 2026."},
+{"id":"digital-acquis","products":["all"],"title":"Digital Acquis Omnibus (Data Act & GDPR Simplification)","category":"Digital & AI","lead_institution":"European Commission","status":"Early co-legislative stage","priority":"high","milestones":[{"date":"2025-11-19","label":"EC adopts Digital Omnibus proposal","type":"past"},{"date":"2025-11-19","label":"Proposal formally transmitted to Parliament and Council","type":"past"},{"date":"2025-11-25","label":"EDPB/EDPS consultation launched","type":"past"},{"date":"2026-01","label":"Parliament committees assigned (IMCO/LIBE/JURI)","type":"past","approximate":true},{"date":"2026-02-11","label":"Joint EDPB/EDPS Opinion on GDPR + Data Acquis issued","type":"past"},{"date":"2026-03","label":"Parliamentary committee discussions begin (Q1 2026)","type":"past","approximate":true},{"date":"2026-06","label":"Council technical negotiations ongoing (Q1–Q2 2026)","type":"current","approximate":true}],"notes":"Cypriot Presidency drafting a second compromise text on the Data Omnibus. EP formal discussion yet to start. Awaiting Council position."},
+{"id":"cyber-resilience-act","products":["all"],"title":"Cyber Resilience Act (CRA)","category":"Digital & AI","lead_institution":"European Commission","status":"In force","priority":"high","milestones":[{"date":"2022-09-15","label":"Commission proposal published","type":"past"},{"date":"2022-12-01","label":"Council adopts general approach","type":"past","approximate":true},{"date":"2023-07-12","label":"European Parliament adopts negotiating mandate","type":"past"},{"date":"2023-11-30","label":"Provisional political agreement in trilogue","type":"past"},{"date":"2024-04-12","label":"Parliament first-reading adoption","type":"past"},{"date":"2024-10-10","label":"Council formal adoption","type":"past"},{"date":"2024-11-20","label":"Published in Official Journal (Regulation EU 2024/2847)","type":"past"},{"date":"2024-12-10","label":"Entry into force","type":"past"},{"date":"2025-08-01","label":"Regulation applicable","type":"past"}],"notes":"Legislative process complete. Regulation EU 2024/2847 in force December 2024, applicable from August 2025. Manufacturers preparing for SBOM and support period requirements."},
+{"id":"red-delegated-act","products":["all"],"title":"Radio Equipment Directive (RED) – Cybersecurity Delegated Act","category":"Digital & AI","lead_institution":"European Commission","status":"Being repealed","priority":"high","milestones":[{"date":"2021-10-29","label":"Commission adopts Delegated Regulation","type":"past"},{"date":"2022-01-12","label":"Official publication in Official Journal","type":"past"},{"date":"2022-02-01","label":"Entry into force","type":"past"},{"date":"2023-06-30","label":"Applicability postponed by Commission","type":"past"},{"date":"2024-08-01","label":"Original applicability date","type":"past"},{"date":"2025-06-01","label":"Revised applicability begins","type":"past"},{"date":"2026-02-16","label":"Commission adopts repeal Delegated Regulation","type":"past"},{"date":"2027-01-11","label":"Planned repeal effective date","type":"upcoming"}],"notes":"RED cybersecurity Delegated Act being repealed following adoption of the Cyber Resilience Act. Repeal takes effect January 2027."},
+{"id":"new-cybersecurity-package","products":["all"],"title":"New Cybersecurity Package (NIS2 Simplification + Cybersecurity Act revision)","category":"Digital & AI","lead_institution":"European Commission","status":"Proposal published","priority":"medium","milestones":[{"date":"2026-01-20","label":"Commission adopts cybersecurity package proposals","type":"past"},{"date":"2026-01-20","label":"Official publication of revised Cybersecurity Act proposal","type":"past"},{"date":"2026-01-20","label":"Official publication of NIS2 simplification/amendment proposal","type":"past"},{"date":"2026-01","label":"Transmission to Parliament and Council","type":"past","approximate":true},{"date":"2026-03","label":"Initial examination by co-legislators begins (Q1 2026)","type":"past","approximate":true},{"date":"2026-05-12","label":"Public consultation closes","type":"upcoming"}],"notes":"Package includes NIS2 simplification/amendment and revised Cybersecurity Act. Public consultation open until 12 May 2026."},
+{"id":"espr-dpp","products":["all"],"title":"ESPR – Digital Product Passport (DPP) Implementation","category":"Ecodesign & Energy Label","lead_institution":"European Commission","status":"Secondary legislation pending","priority":"high","milestones":[{"date":"2025-04-16","label":"Commission adopts ESPR Working Plan 2025–2030","type":"past"},{"date":"2025-04","label":"Public consultation on DPP service providers","type":"past","approximate":true},{"date":"2026-03","label":"JRC report on ESPR DPP data requirements methodology","type":"past","approximate":true},{"date":"2026-04","label":"CEN/CENELEC publishes 8 harmonised DPP standards","type":"past","approximate":true},{"date":"2026-05","label":"Public consultation on DPP registry","type":"upcoming","approximate":true},{"date":"2026-07","label":"EU Central DPP registry goes live","type":"upcoming","approximate":true},{"date":"2026","label":"Publication of 4 implementing and delegated acts (Q3–Q4 2026)","type":"upcoming","approximate":true},{"date":"2027-02","label":"Battery DPP becomes mandatory under Battery Regulation","type":"upcoming","approximate":true}],"notes":"DPP secondary legislation still awaited. CEN/CENELEC published 8 harmonised standards April 2026. DPP registry expected live July 2026. Four implementing/delegated acts expected Q3–Q4 2026."},
+{"id":"omnibus-iv","products":["all"],"title":"Omnibus IV (EU Simplification Package)","category":"Product Safety & Circularity","lead_institution":"European Commission","status":"Early co-legislative stage","priority":"high","milestones":[{"date":"2025-06-21","label":"EC adopts Omnibus IV package","type":"past"},{"date":"2025-06-21","label":"Publication of proposal for regulation and directive","type":"past"},{"date":"2025-06","label":"Formal transmission to Parliament and Council","type":"past","approximate":true},{"date":"2025-07","label":"Parliament committee assignments begin (Q3 2025)","type":"past","approximate":true},{"date":"2025-10","label":"Council technical working group discussions begin (Q3–Q4 2025)","type":"past","approximate":true},{"date":"2026","label":"Legislative proposal in co-decision process (ongoing)","type":"current","approximate":true}],"notes":"Early first-reading stage. Parliament committee reports in progress. 2026 co-legislative process ongoing."},
+{"id":"eu-customs-reform","products":["all"],"title":"EU Customs Reform Package","category":"Trade","lead_institution":"European Commission","status":"Provisional agreement reached","priority":"medium","milestones":[{"date":"2023-06-17","label":"EC adopts customs reform package","type":"past"},{"date":"2023-09-20","label":"European Economic and Social Committee opinion adopted","type":"past"},{"date":"2024-04","label":"European Parliament committee report adopted","type":"past","approximate":true},{"date":"2024-04-13","label":"Parliament first-reading negotiating mandate established","type":"past"},{"date":"2025-06-27","label":"Council adopts general approach / negotiating mandate","type":"past"},{"date":"2026-02-11","label":"Interim €150→€3 small parcel customs duty approved","type":"past"},{"date":"2026-04-26","label":"Council and Parliament reach provisional political agreement (trilogue)","type":"past"},{"date":"2026-05","label":"Technical finalisation and legal review ongoing","type":"current","approximate":true},{"date":"2026","label":"Formal adoption awaited","type":"upcoming","approximate":true}],"notes":"Provisional political agreement reached 26 April 2026. Technical finalisation and legal review ongoing. Formal adoption expected in 2026."},
+{"id":"market-surveillance-revision","products":["all"],"title":"Market Surveillance Regulation – Revision","category":"Product Safety & Circularity","lead_institution":"European Commission","status":"Pre-legislative phase","priority":"high","milestones":[{"date":"2025-06-21","label":"Single Market Strategy announces future European Product Act","type":"past"},{"date":"2025-10-21","label":"2026 Commission Work Programme confirms legislative review","type":"past"},{"date":"2026-06","label":"Stakeholder input under review (Q1–Q2 2026)","type":"current","approximate":true},{"date":"2026-09","label":"Commission formal proposal expected (Q3 2026)","type":"upcoming","approximate":true}],"notes":"Revision expected as part of the broader European Product Act initiative. Commission proposal planned for Q3 2026."},
+{"id":"standardisation-regulation-revision","products":["all"],"title":"Standardisation Regulation – Revision","category":"Product Safety & Circularity","lead_institution":"European Commission","status":"Pre-legislative phase","priority":"high","milestones":[{"date":"2022-02-02","label":"EU Strategy on Standardisation launches regulatory review commitment","type":"past"},{"date":"2022-12-08","label":"Targeted amendment to Article 10 formally adopted","type":"past"},{"date":"2023","label":"Commission launches full evaluation of Regulation","type":"past","approximate":true},{"date":"2025","label":"Competitiveness Compass confirms broader legislative revision","type":"past","approximate":true},{"date":"2026","label":"Preparatory revision work ongoing","type":"current","approximate":true},{"date":"2026-09","label":"Commission formal proposal expected (Q3 2026)","type":"upcoming","approximate":true}],"notes":"Full revision expected Q3 2026. Linked to the broader European Product Act initiative."},
+{"id":"nlf-revision","products":["all"],"title":"New Legislative Framework (NLF) – Revision","category":"Product Safety & Circularity","lead_institution":"European Commission","status":"Pre-legislative phase","priority":"high","milestones":[{"date":"2025-07-14","label":"Commission launches NLF evaluation","type":"past"},{"date":"2025-09-02","label":"Evaluation period closes","type":"past"},{"date":"2025-10-21","label":"European Parliament own-initiative resolution on future-proof NLF adopted","type":"past"},{"date":"2026-09","label":"Commission formal proposal planned (Q3 2026)","type":"upcoming","approximate":true}],"notes":"NLF revision planned as part of the European Product Act initiative. Commission formal proposal expected Q3 2026."},
+{"id":"industrial-accelerator-act","products":["all"],"title":"Industrial Accelerator Act (IAA)","category":"Industrial Policy","lead_institution":"European Commission","status":"Proposal published","priority":"medium","milestones":[{"date":"2026-04-04","label":"European Commission proposal adopted","type":"past"},{"date":"2026","label":"Parliament first-reading position","type":"upcoming","approximate":true},{"date":"2026","label":"Council first-reading position","type":"upcoming","approximate":true}],"notes":"Commission proposal adopted 4 April 2026. Currently in preparatory / first-reading phase in both co-legislators."},
+{"id":"steel-safeguards","products":["all"],"title":"Steel Safeguards (Trade Defence)","category":"Trade","lead_institution":"European Commission","status":"Post-trilogue – pre-formal adoption","priority":"medium","milestones":[{"date":"2025-12-14","label":"Council adopts negotiating mandate","type":"past"},{"date":"2026-01-27","label":"European Parliament committee adopts its position","type":"past"},{"date":"2026-02-24","label":"Start of trilogue negotiations","type":"past"},{"date":"2026-05-14","label":"Agreement reached in trilogue","type":"upcoming"},{"date":"2026-07-01","label":"To be finalised by July 1","type":"upcoming"}],"notes":"Post-trilogue technical finalisation underway. Formal adoption expected before 1 July 2026."},
+{"id":"cbam-extension","products":["all"],"title":"CBAM Extension (Carbon Border Adjustment Mechanism)","category":"Trade","lead_institution":"European Commission","status":"Early co-legislative stage","priority":"high","milestones":[{"date":"2025","label":"Policy preparation / review phase (consultation)","type":"past","approximate":true},{"date":"2025-12-17","label":"Commission proposal published","type":"past"},{"date":"2026-01","label":"Early legislative phase begins","type":"past","approximate":true},{"date":"2026","label":"First-reading phase ongoing","type":"current","approximate":true},{"date":"2028-01-01","label":"Planned entry into force of the extension","type":"upcoming"}],"notes":"Commission proposal December 2025. Extension to expand CBAM to additional sectors. Entry into force targeted 1 January 2028."},
+{"id":"espr","products":["all"],"title":"Ecodesign for Sustainable Products Regulation (ESPR)","category":"Sustainability","lead_institution":"European Commission","status":"In force","priority":"high","source":"demo","notes":"Framework regulation adopted April 2024. Delegated acts per product group now being developed. APPLiA engaged on prioritisation methodology.","milestones":[{"date":"2022-03-30","label":"Commission proposal published","type":"past"},{"date":"2023-07-12","label":"EP plenary vote — first reading","type":"past"},{"date":"2024-04-24","label":"Regulation entered into force","type":"current"},{"date":"2025 Q3","label":"First delegated act expected (large appliances)","type":"upcoming"},{"date":"2026 Q1","label":"Working plan adoption","type":"upcoming"}]},
+{"id":"psr","products":["all"],"title":"General Product Safety Regulation (GPSR)","category":"Product Safety","lead_institution":"European Commission","status":"In force","priority":"high","source":"demo","notes":"Entered into force December 2024 replacing GPSD. Online marketplaces now bear direct obligations. Member compliance project underway.","milestones":[{"date":"2021-06-28","label":"Commission proposal","type":"past"},{"date":"2023-05-10","label":"Regulation adopted","type":"past"},{"date":"2024-12-13","label":"Regulation applicable","type":"current"},{"date":"2025-12-31","label":"Transitional period ends","type":"upcoming"}]},
+{"id":"cbam","products":["all"],"title":"Carbon Border Adjustment Mechanism (CBAM)","category":"Trade","lead_institution":"European Commission","status":"In force","priority":"medium","source":"demo","notes":"Transitional phase running since Oct 2023. Full implementation from 2026. Appliance components may be in scope — monitoring ongoing.","milestones":[{"date":"2021-07-14","label":"Commission proposal (Fit for 55 package)","type":"past"},{"date":"2023-04-25","label":"Regulation adopted","type":"past"},{"date":"2023-10-01","label":"Transitional phase begins","type":"current"},{"date":"2026-01-01","label":"Full implementation","type":"upcoming"}]},
+{"id":"pfas","products":["all"],"title":"PFAS Restriction (REACH Annex XVII)","category":"Chemicals","lead_institution":"ECHA","status":"Consultation","priority":"high","source":"demo","notes":"Broad restriction proposed by 5-country consortium. Appliance sector submitted derogation requests for critical use cases. Decision may impact seals, coatings, lubricants.","milestones":[{"date":"2023-02-07","label":"Restriction proposal submitted to ECHA","type":"past"},{"date":"2023-03-22","label":"Public consultation opened","type":"past"},{"date":"2024-09-25","label":"ECHA SEAC opinion published","type":"past"},{"date":"2025 Q2","label":"Commission decision expected","type":"upcoming"},{"date":"2026 Q4","label":"Restriction enters into force (if adopted)","type":"upcoming"}]},
+{"id":"ereg","products":["all"],"title":"Energy Labelling — Rescaling Review","category":"Energy","lead_institution":"European Commission","status":"Consultation","priority":"medium","source":"demo","notes":"Commission reviewing whether rescaling is needed following post-2021 label roll-out. APPLiA monitoring; potential impact on A-class products.","milestones":[{"date":"2021-03-01","label":"New A–G scale applied","type":"past"},{"date":"2024-01-15","label":"Commission evaluation study launched","type":"past"},{"date":"2025 Q1","label":"Stakeholder consultation","type":"current"},{"date":"2026 Q2","label":"Commission report to EP and Council","type":"upcoming"},{"date":"2027 Q1","label":"Possible rescaling proposal","type":"upcoming"}]},
+{"id":"cea","products":["all"],"title":"Circular Economy Act (CEA) & WEEE Directive Revision","category":"Circular Economy","lead_institution":"European Commission","status":"Legislative proposal imminent","priority":"high","milestones":[{"date":"2015-12-01","label":"First Circular Economy Action Plan adopted","type":"past"},{"date":"2020-03-01","label":"Second Circular Economy Action Plan adopted (European Green Deal)","type":"past"},{"date":"2023-11-01","label":"Parliament mandates Commission to revise WEEE Directive by 31 December 2026 (Directive EU 2024/884)","type":"past"},{"date":"2024-07-01","label":"ESPR and Right to Repair Directive enter into force","type":"past"},{"date":"2025-07-02","label":"Commission publishes formal WEEE Directive evaluation (SWD) — five key shortcomings identified","type":"past"},{"date":"2025-07-02","label":"High-level Clean Industrial Dialogue & WEEE Impact Assessment consultation (EVPs Séjourné and Roswall)","type":"past"},{"date":"2025-08-01","label":"Call for Evidence & public consultation on CEA opens","type":"past"},{"date":"2025-11-06","label":"Call for Evidence & public consultation closes","type":"past"},{"date":"2025-11-18","label":"Expert Group on Circular Economy & WEEE Expert Group meetings — consultation results presented","type":"past"},{"date":"2025-12-01","label":"Targeted technical consultation concludes (EPR reform, end-of-waste, recycled-content, trans-regional hubs)","type":"past","approximate":true},{"date":"2026-03-01","label":"JRC workshops on WEEE treatment standards","type":"past","approximate":true},{"date":"2026-04-30","label":"High-level Roundtable on CEA (EVP Séjourné and Commissioner Roswall) — 1,000+ participants","type":"past"},{"date":"2026-04-30","label":"Final stakeholder workshop on CEA Impact Assessment","type":"past"},{"date":"2026-05-06","label":"College of Commissioners meeting to discuss CEA","type":"past"},{"date":"2026-05-21","label":"Digital waste shipment system goes live across EU","type":"upcoming"},{"date":"2026-07-01","label":"Right to Repair Directive starts applying in Member States","type":"upcoming","approximate":true},{"date":"2026-09-01","label":"Commission adopts and publishes legislative proposal for CEA and WEEE Regulation (Q3–Q4 2026, legal deadline 31 Dec 2026)","type":"upcoming","approximate":true},{"date":"2026-12-01","label":"Legal deadline for WEEE Directive revision (31 December 2026)","type":"upcoming"},{"date":"2027-01-01","label":"EP and Council trilogues begin","type":"upcoming","approximate":true},{"date":"2027-12-01","label":"Final adoption and entry into force (Commission target: within 2024–2029 mandate)","type":"upcoming","approximate":true},{"date":"2028-01-01","label":"Phased rollout across sectors begins (electronics, packaging, construction, textiles)","type":"upcoming","approximate":true}],"notes":"Three legislative pillars: (1) amended Waste Framework Directive & Landfill Directive; (2) revised WEEE Directive; (3) horizontal measures (end-of-waste harmonisation, EPR reform, recycled-content targets, green public procurement). WEEE evaluation identified five shortcomings: low collection rates (only 40% recycled; 3 MS met 65% target in 2022), insufficient CRM recovery, fragmented EPR schemes, inconsistent treatment standards, outdated product scope. Circularity rate target: 12.2% → 24% by 2030. APPLiA engaged on value-chain accountability, collection targets, and online marketplace registration obligations."},
+{"id":"rtr","products":["all"],"title":"Right to Repair Directive","category":"Circular Economy","lead_institution":"European Commission","status":"Adopted","priority":"medium","source":"demo","notes":"Adopted June 2024. Member states have until July 2026 to transpose. Manufacturers must ensure availability of spare parts and repair information.","milestones":[{"date":"2023-03-22","label":"Commission proposal","type":"past"},{"date":"2024-04-23","label":"EP plenary vote","type":"past"},{"date":"2024-06-30","label":"Directive adopted","type":"current"},{"date":"2026-07-31","label":"Transposition deadline","type":"upcoming"}]},
+{"id":"ucc","products":["all"],"title":"Union Customs Code — Origin Rules Reform","category":"Trade","lead_institution":"European Commission","status":"Consultation","priority":"low","source":"demo","notes":"Commission reviewing preferential origin rules. Potential impact on tariff classification and FTA benefits for appliances sourced globally.","milestones":[{"date":"2023-05-17","label":"Commission evaluation published","type":"past"},{"date":"2024 Q3","label":"Stakeholder consultation","type":"past"},{"date":"2025 Q4","label":"Legislative proposal expected","type":"upcoming"},{"date":"2027 Q2","label":"Entry into force","type":"upcoming"}]},
+{"id":"ria","products":["all"],"title":"Regulation on Interoperability of Smart Appliances","category":"Industrial Policy","lead_institution":"European Commission","status":"Consultation","priority":"low","source":"demo","notes":"Early-stage exploratory work under the European Interoperability Framework. APPLiA monitoring links to HEMS and demand-response obligations.","milestones":[{"date":"2024-06-01","label":"Commission inception impact assessment","type":"past"},{"date":"2025 Q2","label":"Open public consultation","type":"current"},{"date":"2026 Q1","label":"Commission proposal possible","type":"upcoming"},{"date":"2028 Q2","label":"Adoption (estimated)","type":"upcoming"}]}
+];
 
-function getCategories(){ return [...new Set(ALL_DOSSIERS.map(d=>d.category))]; }
-function getAllStatuses(){ return [...new Set(ALL_DOSSIERS.map(d=>d.status))].sort(); }
+/* ─── State ─── */
+let activeCat = "", activeStatus = "", activePriority = "", searchQ = "", activeView = "list";
 
-function filtered(){
-  return ALL_DOSSIERS.filter(d=>{
-    if(activeCat && d.category!==activeCat) return false;
-    if(activeStatus && d.status!==activeStatus) return false;
-    if(activePriority && d.priority!==activePriority) return false;
-    if(searchQ){
-      const q=searchQ.toLowerCase();
-      if(!d.title.toLowerCase().includes(q) && !(d.notes||"").toLowerCase().includes(q) && !(d.category||"").toLowerCase().includes(q)) return false;
+/* ─── Helpers ─── */
+function getCategories()  { return [...new Set(ALL_DOSSIERS.map(d => d.category))]; }
+function getAllStatuses()  { return [...new Set(ALL_DOSSIERS.map(d => d.status))].sort(); }
+
+function filtered() {
+  return ALL_DOSSIERS.filter(d => {
+    if (activeCat      && d.category !== activeCat)       return false;
+    if (activeStatus   && d.status   !== activeStatus)    return false;
+    if (activePriority && d.priority !== activePriority)  return false;
+    if (searchQ) {
+      const q = searchQ.toLowerCase();
+      if (!d.title.toLowerCase().includes(q) && !(d.notes||"").toLowerCase().includes(q) && !(d.category||"").toLowerCase().includes(q)) return false;
     }
     return true;
   });
 }
 
-function renderStats(data){
-  const c={high:0,medium:0,low:0};
-  data.forEach(d=>c[d.priority]++);
-  const upcoming=data.reduce((n,d)=>n+d.milestones.filter(m=>m.type==="upcoming").length,0);
-  const demoCount=data.filter(d=>d.source==="demo").length;
-  document.getElementById("stats").innerHTML=`
+/* ─── Date utilities ─── */
+function parseDate(str) {
+  if (!str) return null;
+  const qm = str.match(/^(\d{4})\s*Q(\d)$/);
+  if (qm) { const m = (parseInt(qm[2]) - 1) * 3; return new Date(parseInt(qm[1]), m, 1); }
+  if (/^\d{4}$/.test(str)) return new Date(parseInt(str), 0, 1);
+  // year-month "2026-05"
+  if (/^\d{4}-\d{2}$/.test(str)) { const p = str.split('-'); return new Date(parseInt(p[0]), parseInt(p[1])-1, 1); }
+  const d = new Date(str);
+  return isNaN(d.getTime()) ? null : d;
+}
+
+function formatDateDisplay(str) {
+  if (!str) return '—';
+  const qm = str.match(/^(\d{4})\s*Q(\d)$/);
+  if (qm) return `Q${qm[2]} ${qm[1]}`;
+  if (/^\d{4}$/.test(str)) return str;
+  const d = parseDate(str);
+  if (!d) return str;
+  if (str.length >= 8 && str.split('-').length === 3) {
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+  return d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+}
+
+function dateToQuarterKey(d) {
+  if (!d) return { label: 'Date TBD', sort: 99999 };
+  const q = Math.floor(d.getMonth() / 3) + 1;
+  const y = d.getFullYear();
+  return { label: `Q${q} ${y}`, sort: y * 10 + q };
+}
+
+/* ─── Stats ─── */
+function renderStats(data) {
+  const c = { high: 0, medium: 0, low: 0 };
+  data.forEach(d => c[d.priority]++);
+  const upcoming  = data.reduce((n, d) => n + d.milestones.filter(m => m.type === "upcoming").length, 0);
+  const demoCount = data.filter(d => d.source === "demo").length;
+  document.getElementById("stats").innerHTML = `
     <div class="stat"><div class="stat-n">${data.length}</div><div class="stat-l">Dossiers tracked</div></div>
     <div class="stat"><div class="stat-n" style="color:#993C1D">${c.high}</div><div class="stat-l">High priority</div></div>
     <div class="stat"><div class="stat-n" style="color:#185FA5">${upcoming}</div><div class="stat-l">Upcoming milestones</div></div>
-    <div class="stat"><div class="stat-n">${data.filter(d=>d.status==="In force"||d.status==="Adopted"||(d.status||"").startsWith("Adopted")).length}</div><div class="stat-l">Adopted / in force</div></div>
-    <div class="stat"><div class="stat-n" style="color:#854F0B">${demoCount}</div><div class="stat-l">Pending real source</div></div>
-  `;
+    <div class="stat"><div class="stat-n">${data.filter(d => d.status === "In force" || (d.status||"").startsWith("Adopted")).length}</div><div class="stat-l">Adopted / in force</div></div>
+    <div class="stat"><div class="stat-n" style="color:#854F0B">${demoCount}</div><div class="stat-l">Pending real source</div></div>`;
 }
 
-function groupByCategory(data){
-  const g={};
-  data.forEach(d=>{ if(!g[d.category]) g[d.category]=[]; g[d.category].push(d); });
+/* ─── Shared dossier card ─── */
+function dossierCardHTML(d) {
+  const color  = CAT_COLORS[d.category] || "#888";
+  const isDemo = d.source === "demo";
+  return `<div class="dossier" id="d-${d.id}">
+    <div class="dossier-header" onclick="toggle('${d.id}')">
+      <div class="dossier-left">
+        <div class="cat-dot" style="background:${color}"></div>
+        <span class="dossier-title">${d.title}</span>
+      </div>
+      <div class="dossier-meta">
+        ${d.lead_institution ? `<span class="lead-label">${d.lead_institution}</span>` : ""}
+        <span class="badge p-${d.priority}">${d.priority}</span>
+        <span class="badge b-status" title="${d.status}">${d.status}</span>
+        ${isDemo ? '<span class="badge b-demo">demo</span>' : ""}
+        <span class="chevron">&#9656;</span>
+      </div>
+    </div>
+    <div class="dossier-body">
+      <div class="timeline">
+        ${d.milestones.map(m => `<div class="milestone ${m.type}">
+          <div class="ms-date">${m.date || "Date TBD"}</div>
+          <div class="ms-label ${m.type}">${m.label}${m.approximate ? ' <em style="font-size:11px;opacity:.6">(approx.)</em>' : ""}</div>
+        </div>`).join("")}
+      </div>
+      ${d.notes ? `<div class="dossier-notes">${d.notes}</div>` : ""}
+    </div>
+  </div>`;
+}
+
+function toggle(id) { document.getElementById("d-" + id).classList.toggle("open"); }
+
+/* ─── List view ─── */
+function groupByCategory(data) {
+  const g = {};
+  data.forEach(d => { if (!g[d.category]) g[d.category] = []; g[d.category].push(d); });
   return g;
 }
 
-function renderList(data){
-  const root=document.getElementById("list-root");
-  if(!data.length){ root.innerHTML='<div class="empty">No dossiers match the current filters.</div>'; return; }
-  const grouped=groupByCategory(data);
-  let html='';
-  for(const cat of Object.keys(grouped)){
-    const color=CAT_COLORS[cat]||"#888";
-    html+=`<div class="section-label" style="color:${color}">
+function renderList(data) {
+  const root = document.getElementById("list-root");
+  if (!data.length) { root.innerHTML = '<div class="empty">No dossiers match the current filters.</div>'; return; }
+  const grouped = groupByCategory(data);
+  let html = "";
+  for (const cat of Object.keys(grouped)) {
+    const color = CAT_COLORS[cat] || "#888";
+    html += `<div class="section-label" style="color:${color}">
       <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${color};flex-shrink:0"></span>
       ${cat} <span style="font-weight:400;color:var(--text-tertiary)">(${grouped[cat].length})</span>
     </div><div class="dossier-list">`;
-    grouped[cat].forEach(d=>{
-      const isDemo=d.source==="demo";
-      html+=`<div class="dossier" id="d-${d.id}">
-        <div class="dossier-header" onclick="toggle('${d.id}')">
-          <div class="dossier-left">
-            <div class="cat-dot" style="background:${color}"></div>
-            <span class="dossier-title">${d.title}</span>
-          </div>
-          <div class="dossier-meta">
-            ${d.lead_institution?'<span class="lead-label">'+d.lead_institution+'</span>':""}
-            <span class="badge p-${d.priority}">${d.priority}</span>
-            <span class="badge b-status" title="${d.status}">${d.status}</span>
-            ${isDemo?'<span class="badge b-demo">demo</span>':""}
-            <span class="chevron">&#9656;</span>
-          </div>
-        </div>
-        <div class="dossier-body">
-          <div class="timeline">
-            ${d.milestones.map(m=>`<div class="milestone ${m.type}">
-              <div class="ms-date">${m.date||"Date TBD"}</div>
-              <div class="ms-label ${m.type}">${m.label}${m.approximate?' <em style="font-size:11px;opacity:.6">(approx.)</em>':""}</div>
-            </div>`).join("")}
-          </div>
-          ${d.notes?`<div class="dossier-notes">${d.notes}</div>`:""}
-        </div>
-      </div>`;
-    });
-    html+='</div>';
+    grouped[cat].forEach(d => { html += dossierCardHTML(d); });
+    html += "</div>";
   }
-  root.innerHTML=html;
+  root.innerHTML = html;
 }
 
-function toggle(id){ document.getElementById("d-"+id).classList.toggle("open"); }
+/* ─── Timeline view ─── */
+function tlEntryHTML(e) {
+  const dotColor = e.type === "past" ? "#1D9E75" : e.type === "current" ? "#185FA5" : "#BA7517";
+  const catColor = CAT_COLORS[e.dossier.category] || "#888";
+  return `<div class="tl-entry">
+    <div class="tl-dot" style="background:${dotColor}"></div>
+    <div class="tl-date">${formatDateDisplay(e.date)}</div>
+    <div class="tl-content">
+      <div class="tl-dossier-name">
+        <span class="tl-dossier-dot" style="background:${catColor}"></span>${e.dossier.title}
+      </div>
+      <div class="tl-ms-label ${e.type}">${e.label}${e.approximate ? ' <em style="font-size:11px;opacity:.55">(approx.)</em>' : ""}</div>
+    </div>
+    <div class="tl-badges"><span class="badge p-${e.dossier.priority}">${e.dossier.priority}</span></div>
+  </div>`;
+}
 
-function renderCatPills(){
-  const cats=getCategories();
-  const container=document.getElementById("cat-pills");
-  container.innerHTML=`<span class="pill ${!activeCat?"active-all":""}" onclick="setCat('')">All categories</span>`+
-    cats.map(c=>{
-      const isActive=activeCat===c;
-      const col=CAT_COLORS[c]||"#888";
+function renderTimeline(data) {
+  const root = document.getElementById("list-root");
+  if (!data.length) { root.innerHTML = '<div class="empty">No dossiers match the current filters.</div>'; return; }
+
+  // Flatten milestones
+  const entries = [];
+  data.forEach(d => d.milestones.forEach(m => entries.push({ ...m, dossier: d, parsed: parseDate(m.date) })));
+
+  const FAR = new Date(9999, 0, 1);
+  const past    = entries.filter(e => e.type === "past").sort((a, b) => (b.parsed || FAR) - (a.parsed || FAR));
+  const current = entries.filter(e => e.type === "current").sort((a, b) => (a.parsed || FAR) - (b.parsed || FAR));
+  const upcoming= entries.filter(e => e.type === "upcoming").sort((a, b) => (a.parsed || FAR) - (b.parsed || FAR));
+
+  // Group upcoming by quarter
+  const groups = {};
+  upcoming.forEach(e => {
+    const qk = dateToQuarterKey(e.parsed);
+    if (!groups[qk.label]) groups[qk.label] = { entries: [], sort: qk.sort };
+    groups[qk.label].entries.push(e);
+  });
+  const sortedGroups = Object.keys(groups).sort((a, b) => groups[a].sort - groups[b].sort);
+
+  let html = "";
+
+  // Past section (collapsed)
+  if (past.length) {
+    html += `<div class="tl-past-bar" id="tl-past-bar" onclick="toggleTlPast()">
+      <span><span id="tl-arrow">▸</span> Past milestones <span style="opacity:.55">(${past.length})</span></span>
+      <span id="tl-hint" style="font-size:11px;opacity:.45">expand</span>
+    </div>
+    <div class="tl-past-content" id="tl-past">
+      <div class="tl-entries" style="margin-bottom:.65rem">${past.map(e => tlEntryHTML(e)).join("")}</div>
+    </div>`;
+  }
+
+  // Current / Active section
+  if (current.length) {
+    html += `<div class="tl-active-header">
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#185FA5"></span>
+      Active &amp; current stage
+    </div>
+    <div class="tl-entries" style="margin-bottom:.65rem">${current.map(e => tlEntryHTML(e)).join("")}</div>`;
+  }
+
+  // Upcoming by quarter
+  if (sortedGroups.length) {
+    html += `<div class="tl-upcoming-header">
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;border:2px dashed #BA7517"></span>
+      Upcoming milestones
+    </div>`;
+    sortedGroups.forEach(label => {
+      html += `<div class="tl-quarter">
+        <div class="tl-quarter-label">${label}</div>
+        <div class="tl-entries">${groups[label].entries.map(e => tlEntryHTML(e)).join("")}</div>
+      </div>`;
+    });
+  }
+
+  if (!past.length && !current.length && !upcoming.length) {
+    html = '<div class="empty">No milestones match the current filters.</div>';
+  }
+
+  root.innerHTML = html;
+}
+
+function toggleTlPast() {
+  const content = document.getElementById("tl-past");
+  const arrow   = document.getElementById("tl-arrow");
+  const hint    = document.getElementById("tl-hint");
+  if (!content) return;
+  const open = content.classList.toggle("open");
+  arrow.textContent = open ? "▾" : "▸";
+  hint.textContent  = open ? "collapse" : "expand";
+}
+
+/* ─── Product view ─── */
+function renderByProduct(data) {
+  const root = document.getElementById("list-root");
+  if (!data.length) { root.innerHTML = '<div class="empty">No dossiers match the current filters.</div>'; return; }
+
+  // Index by product key
+  const byProduct = {};
+  data.forEach(d => {
+    (d.products || ["all"]).forEach(p => {
+      if (!byProduct[p]) byProduct[p] = [];
+      byProduct[p].push(d);
+    });
+  });
+
+  let html = "";
+  const specificKeys = PRODUCT_ORDER.filter(p => p !== "all" && byProduct[p]);
+  const allDossiers  = byProduct["all"] || [];
+
+  specificKeys.forEach(p => {
+    const color    = PRODUCT_COLORS[p] || "#888";
+    const dossiers = byProduct[p];
+    html += `<div class="prod-section">
+      <div class="section-label" style="color:${color}">
+        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${color};flex-shrink:0"></span>
+        ${PRODUCT_LABELS[p]} <span style="font-weight:400;color:var(--text-tertiary)">(${dossiers.length})</span>
+      </div>
+      <div class="dossier-list">${dossiers.map(d => dossierCardHTML(d)).join("")}</div>
+    </div>`;
+  });
+
+  if (allDossiers.length) {
+    const sep = specificKeys.length ? ' class="prod-all-sep"' : "";
+    html += `<div${sep}>
+      <div class="section-label" style="color:var(--text-tertiary)">
+        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--text-tertiary);flex-shrink:0"></span>
+        All Appliances — Horizontal Legislation <span style="font-weight:400;color:var(--text-tertiary)">(${allDossiers.length})</span>
+      </div>
+      <div class="dossier-list">${allDossiers.map(d => dossierCardHTML(d)).join("")}</div>
+    </div>`;
+  }
+
+  root.innerHTML = html;
+}
+
+/* ─── View switcher ─── */
+function setView(v) {
+  activeView = v;
+  document.querySelectorAll(".vbtn").forEach(b => b.classList.toggle("active", b.dataset.view === v));
+  render();
+}
+
+/* ─── Category pills ─── */
+function renderCatPills() {
+  const cats = getCategories();
+  const container = document.getElementById("cat-pills");
+  container.innerHTML = `<span class="pill ${!activeCat ? "active-all" : ""}" onclick="setCat('')">All categories</span>` +
+    cats.map(c => {
+      const isActive = activeCat === c;
+      const col = CAT_COLORS[c] || "#888";
       return `<span class="pill" onclick="setCat('${c}')"
-        style="${isActive?"background:"+col+";color:#fff;border-color:"+col:"color:"+col+";border-color:"+col+"44"}">
-        <span class="pill-dot" style="background:${isActive?"#fff":col}"></span>${c}
+        style="${isActive ? "background:"+col+";color:#fff;border-color:"+col : "color:"+col+";border-color:"+col+"44"}">
+        <span class="pill-dot" style="background:${isActive ? "#fff" : col}"></span>${c}
       </span>`;
     }).join("");
 }
 
-function populateStatusSelect(){
-  const sel=document.getElementById("status-sel");
-  getAllStatuses().forEach(s=>{ const o=document.createElement("option"); o.value=s; o.textContent=s; sel.appendChild(o); });
+function setCat(c) { activeCat = c; render(); }
+
+function populateStatusSelect() {
+  const sel = document.getElementById("status-sel");
+  getAllStatuses().forEach(s => { const o = document.createElement("option"); o.value = s; o.textContent = s; sel.appendChild(o); });
 }
 
-function setCat(c){ activeCat=c; render(); }
-
-function render(){
+/* ─── Main render ─── */
+function render() {
   renderCatPills();
-  const data=filtered();
+  const data = filtered();
   renderStats(data);
-  renderList(data);
+  if      (activeView === "timeline") renderTimeline(data);
+  else if (activeView === "product")  renderByProduct(data);
+  else                                renderList(data);
 }
 
-document.getElementById("status-sel").addEventListener("change",e=>{ activeStatus=e.target.value; render(); });
-document.getElementById("priority-sel").addEventListener("change",e=>{ activePriority=e.target.value; render(); });
-document.getElementById("search-input").addEventListener("input",e=>{ searchQ=e.target.value.trim(); render(); });
+/* ─── Event listeners ─── */
+document.getElementById("status-sel").addEventListener("change", e => { activeStatus   = e.target.value; render(); });
+document.getElementById("priority-sel").addEventListener("change", e => { activePriority = e.target.value; render(); });
+document.getElementById("search-input").addEventListener("input", e => { searchQ = e.target.value.trim(); render(); });
 
-const realCount=ALL_DOSSIERS.filter(d=>d.source!=="demo").length;
-const demoCount=ALL_DOSSIERS.filter(d=>d.source==="demo").length;
-const now=new Date();
-document.getElementById("last-updated").textContent=
-  realCount+" real · "+demoCount+" demo dossiers\n"+
-  now.toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+/* ─── Init ─── */
+const realCount = ALL_DOSSIERS.filter(d => d.source !== "demo").length;
+const demoCount = ALL_DOSSIERS.filter(d => d.source === "demo").length;
+const now = new Date();
+document.getElementById("last-updated").textContent =
+  realCount + " real · " + demoCount + " demo dossiers\n" +
+  now.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
 populateStatusSelect();
 render();
