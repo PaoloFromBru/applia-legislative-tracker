@@ -61,6 +61,10 @@
   .spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid var(--border-med); border-top-color: var(--text-secondary); border-radius: 50%; animation: spin .7s linear infinite; margin-bottom: .75rem; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
+  /* ── Section headings ── */
+  .section-heading { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--text-tertiary); padding: 1.25rem 0 .4rem; display: flex; align-items: center; gap: 8px; }
+  .section-heading::after { content: ''; flex: 1; height: 0.5px; background: var(--border-med); }
+
   /* ── Group cards ── */
   .group-card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 5px; transition: border-color .15s; border-left-width: 3px; }
   .group-card:hover { border-color: var(--border-med); }
@@ -107,7 +111,9 @@
   .act-text ul li { padding-left: 11px; position: relative; margin-bottom: 1px; }
   .act-text ul li::before { content: '·'; position: absolute; left: 2px; color: var(--text-tertiary); font-size: 14px; line-height: 1; top: 1px; }
   .people-cell { display: flex; flex-direction: column; gap: 3px; }
+  .people-row { display: flex; gap: 4px; flex-wrap: wrap; }
   .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-secondary); font-size: 14px; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); }
+  .no-topics { padding: .75rem 1rem; font-size: 12px; color: var(--text-tertiary); }
 
   @media (max-width: 780px) {
     .page-header { padding: 1rem; flex-wrap: wrap; gap: 6px; }
@@ -149,6 +155,10 @@
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
       Spreadsheet
     </a>
+    <a href="https://docs.google.com/document/d/1sVZFe53me6qyBSrmXAggrqSO8queykA-vRZM130Yik0/edit" target="_blank" rel="noopener" class="hdr-link">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Doc
+    </a>
     <a href="/" class="hdr-link">← Tracker</a>
   </div>
 </header>
@@ -157,6 +167,11 @@
   <div class="toolbar">
     <div class="selects">
       <div class="search-wrap"><input type="text" id="search-input" placeholder="Search groups, topics, activities…"></div>
+      <select id="cluster-sel">
+        <option value="">All areas</option>
+        <option value="sustainability">Sustainability &amp; Circular Economy</option>
+        <option value="digital">Digital &amp; Competitiveness</option>
+      </select>
       <select id="person-sel"><option value="">All people</option></select>
       <select id="type-sel">
         <option value="">All types</option>
@@ -206,12 +221,99 @@ const PERSON_COLORS = {
   KHY:"#0F6E56", GZA:"#185FA5", CRO:"#854F0B", FFI:"#533AB7",
   MRB:"#993C1D", AAV:"#3C3489", CRS:"#27500A", MOC:"#4A6741",
   EBR:"#5D4037", MZI:"#8B2252", PFI:"#0D5F6E", IFA:"#37474F",
-  EBR:"#5D4037", KHY:"#0F6E56"
+  RDN:"#1A5276", YLS:"#6A1B9A"
 };
 
 const TYPE_BORDER = { WG:"#185FA5", SG:"#0F6E56", TF:"#854F0B", CG:"#533AB7" };
 
-/* ─── CSV parser (handles quoted multi-line fields) ─── */
+const CLUSTER_LABELS = {
+  sustainability: "Sustainability & Circular Economy",
+  digital:        "Digital & Competitiveness"
+};
+
+/* ─── Digital & Competitiveness data (from Google Doc) ─── */
+const DIGITAL_GROUPS = [
+  {
+    name: "WG Digital Economy", type: "WG", cluster: "digital",
+    shortName: "Digital Economy", cadence: "", lead: "IFA/MZI", support: "",
+    topics: [
+      { topic: "AI Omnibus (AI Act)",              activities: "", lead: "IFA", support: "" },
+      { topic: "Digital Acquis (Data Act & GDPR)", activities: "", lead: "IFA", support: "" },
+      { topic: "Cyber Resilience Act (CRA)",       activities: "", lead: "MZI", support: "" },
+      { topic: "Radio Equipment Directive (RED)",  activities: "", lead: "MZI", support: "" },
+      { topic: "New Cybersecurity Act",            activities: "", lead: "MZI", support: "" },
+      { topic: "Energy Smart Appliances",          activities: "", lead: "IFA", support: "" },
+      { topic: "Code of Conduct V2 (CoC)",         activities: "", lead: "IFA", support: "" },
+    ]
+  },
+  {
+    name: "TF Digital Product Passport", type: "TF", cluster: "digital",
+    shortName: "Digital Product Passport", cadence: "", lead: "IFA/MZI", support: "",
+    topics: []
+  },
+  {
+    name: "WG Harmonised Legislation", type: "WG", cluster: "digital",
+    shortName: "Harmonised Legislation", cadence: "", lead: "MZI/RDN/MOC", support: "",
+    topics: [
+      { topic: "Omnibus IV",                               activities: "", lead: "MOC",     support: "" },
+      { topic: "European Product Act",                     activities: "", lead: "MZI/RDN", support: "" },
+      { topic: "New Legislative Framework (NLF) Revision", activities: "", lead: "MZI/MOC", support: "" },
+      { topic: "Market Surveillance Revision",             activities: "", lead: "MZI/RDN", support: "" },
+      { topic: "Standardisation Regulation",               activities: "", lead: "MZI/RDN", support: "" },
+    ]
+  },
+  {
+    name: "TF on-line Market Platforms", type: "TF", cluster: "digital",
+    shortName: "on-line Market Platforms", cadence: "", lead: "MZI/RDN", support: "",
+    topics: [
+      { topic: "Union Customs Code Reform", activities: "", lead: "RDN", support: "" },
+    ]
+  },
+  {
+    name: "WG Trade", type: "WG", cluster: "digital",
+    shortName: "Trade", cadence: "", lead: "RDN/MOC", support: "",
+    topics: [
+      { topic: "Industrial Accelerator Act", activities: "", lead: "RDN", support: "" },
+      { topic: "Steel Safeguards",           activities: "", lead: "MOC", support: "" },
+      { topic: "Union Customs Code Reform",  activities: "", lead: "RDN", support: "" },
+      { topic: "JRC Methodologies",         activities: "", lead: "RDN", support: "" },
+    ]
+  },
+  {
+    name: "TF CBAM", type: "TF", cluster: "digital",
+    shortName: "CBAM", cadence: "", lead: "MOC", support: "",
+    topics: [
+      { topic: "CBAM", activities: "", lead: "MOC", support: "" },
+    ]
+  },
+  {
+    name: "APPLiA – AMDEA", type: "CG", cluster: "digital",
+    shortName: "APPLiA – AMDEA", cadence: "", lead: "RDN", support: "",
+    topics: []
+  },
+  {
+    name: "WG Non-Medical Devices in MDR", type: "WG", cluster: "digital",
+    shortName: "Non-Medical Devices in MDR", cadence: "", lead: "MZI", support: "",
+    topics: []
+  },
+  {
+    name: "WG Product Information", type: "WG", cluster: "digital",
+    shortName: "Product Information", cadence: "", lead: "IFA/YLS", support: "",
+    topics: []
+  },
+  {
+    name: "WG Data Collection", type: "WG", cluster: "digital",
+    shortName: "Data Collection", cadence: "", lead: "IFA/YLS", support: "",
+    topics: []
+  },
+  {
+    name: "Bilateral Verification Procedure", type: "CG", cluster: "digital",
+    shortName: "Bilateral Verification Procedure", cadence: "", lead: "MZI", support: "",
+    topics: []
+  },
+];
+
+/* ─── CSV parser ─── */
 function parseCSV(str) {
   const rows = [];
   let inQ = false, cur = '', row = [];
@@ -229,32 +331,31 @@ function parseCSV(str) {
   return rows;
 }
 
-/* ─── Data processing ─── */
+/* ─── Data processing (Sustainability sheet) ─── */
 function processRows(rows) {
   if (rows.length < 2) return [];
   const groups = [];
   let current = null;
   for (let i = 1; i < rows.length; i++) {
     const r = rows[i] || [];
-    const g         = (r[0]||'').trim();
-    const topic     = (r[1]||'').trim();
-    const activities= (r[2]||'').trim();
-    const lead      = (r[3]||'').trim();
-    const support   = (r[4]||'').trim();
+    const g          = (r[0]||'').trim();
+    const topic      = (r[1]||'').trim();
+    const activities = (r[2]||'').trim();
+    const lead       = (r[3]||'').trim();
+    const support    = (r[4]||'').trim();
 
     if (g) {
       const type = g.startsWith('WG ') ? 'WG' : g.startsWith('SG ') ? 'SG' : g.startsWith('TF ') ? 'TF' : 'CG';
-      current = { idx: groups.length, name: g, type,
+      current = { idx: 0, name: g, type, cluster: 'sustainability',
                   shortName: g.replace(/^(WG|SG|TF)\s+/,''),
                   cadence:'', lead:'', support:'', topics:[] };
       groups.push(current);
     }
     if (!current) continue;
-
     if (topic === 'Management') {
-      current.cadence  = activities;
-      current.lead     = lead;
-      current.support  = support;
+      current.cadence = activities;
+      current.lead    = lead;
+      current.support = support;
     } else if (topic || lead) {
       current.topics.push({ topic, activities, lead, support });
     }
@@ -263,9 +364,7 @@ function processRows(rows) {
 }
 
 /* ─── Formatters ─── */
-function esc(s) {
-  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function formatTopic(raw) {
   if (!raw) return '<em style="color:var(--text-tertiary)">—</em>';
@@ -308,23 +407,63 @@ function chips(str, isSupport) {
   }).filter(Boolean).join(' ');
 }
 
+/* ─── Card HTML builders ─── */
+function buildSustainabilityBody(g) {
+  if (!g.topics.length)
+    return '<div class="no-topics">No topics listed.</div>';
+  return `<table class="topics-table">
+    <thead><tr>
+      <th style="width:32%">Topic / Key Element</th>
+      <th style="width:44%">Activities</th>
+      <th style="width:12%">Lead</th>
+      <th style="width:12%">Support</th>
+    </tr></thead>
+    <tbody>
+      ${g.topics.map(t => `<tr>
+        <td>${formatTopic(t.topic)}</td>
+        <td>${formatActivities(t.activities)}</td>
+        <td><div class="people-cell">${chips(t.lead, false)}</div></td>
+        <td><div class="people-cell">${chips(t.support, true)}</div></td>
+      </tr>`).join('')}
+    </tbody>
+  </table>`;
+}
+
+function buildDigitalBody(g) {
+  if (!g.topics.length)
+    return '<div class="no-topics">No policy areas listed — see source document for details.</div>';
+  return `<table class="topics-table">
+    <thead><tr>
+      <th style="width:75%">Policy Area</th>
+      <th style="width:25%">Contact</th>
+    </tr></thead>
+    <tbody>
+      ${g.topics.map(t => `<tr>
+        <td><div class="topic-title">${esc(t.topic)}</div></td>
+        <td><div class="people-row">${chips(t.lead, false)}</div></td>
+      </tr>`).join('')}
+    </tbody>
+  </table>`;
+}
+
 /* ─── State & filters ─── */
-let allGroups = [], fSearch = '', fPerson = '', fType = '';
+let allGroups = [], fSearch = '', fPerson = '', fType = '', fCluster = '';
 
 function splitPeople(str) { return (str||'').split('/').map(p=>p.trim()).filter(Boolean); }
 
 function groupMatches(g) {
-  if (fType && g.type !== fType) return false;
+  if (fCluster && g.cluster !== fCluster) return false;
+  if (fType   && g.type    !== fType)    return false;
   if (fPerson) {
     const hasPerson = (str) => splitPeople(str).includes(fPerson);
-    const groupHas = hasPerson(g.lead) || hasPerson(g.support);
-    const topicHas = g.topics.some(t => hasPerson(t.lead) || hasPerson(t.support));
+    const groupHas  = hasPerson(g.lead) || hasPerson(g.support);
+    const topicHas  = g.topics.some(t => hasPerson(t.lead) || hasPerson(t.support));
     if (!groupHas && !topicHas) return false;
   }
   if (fSearch) {
     const q = fSearch.toLowerCase();
     const inName   = g.name.toLowerCase().includes(q);
-    const inTopics = g.topics.some(t => t.topic.toLowerCase().includes(q) || t.activities.toLowerCase().includes(q));
+    const inTopics = g.topics.some(t => t.topic.toLowerCase().includes(q) || (t.activities||'').toLowerCase().includes(q));
     if (!inName && !inTopics) return false;
   }
   return true;
@@ -333,6 +472,7 @@ function groupMatches(g) {
 /* ─── Render ─── */
 function render() {
   const root = document.getElementById('list-root');
+  if (!root) return;
   const visible = allGroups.filter(groupMatches);
   document.getElementById('count-info').textContent = `${visible.length} of ${allGroups.length} groups`;
 
@@ -341,60 +481,65 @@ function render() {
     return;
   }
 
-  root.innerHTML = visible.map(g => {
-    const borderColor = TYPE_BORDER[g.type] || '#888';
-    const cadence = g.cadence ? g.cadence.split(/\./)[0].trim() : '';
+  // Group by cluster for section headings when no cluster filter is active
+  const showSections = !fCluster;
+  const clusters = showSections
+    ? ['sustainability', 'digital']
+    : [fCluster || visible[0]?.cluster];
 
-    const topicsHTML = g.topics.length
-      ? `<table class="topics-table">
-          <thead><tr>
-            <th style="width:35%">Topic / Key Element</th>
-            <th style="width:43%">Activities</th>
-            <th style="width:11%">Lead</th>
-            <th style="width:11%">Support</th>
-          </tr></thead>
-          <tbody>
-            ${g.topics.map(t => `<tr>
-              <td>${formatTopic(t.topic)}</td>
-              <td>${formatActivities(t.activities)}</td>
-              <td><div class="people-cell">${chips(t.lead, false)}</div></td>
-              <td><div class="people-cell">${chips(t.support, true)}</div></td>
-            </tr>`).join('')}
-          </tbody>
-        </table>`
-      : '<div style="padding:.75rem 1rem;font-size:12px;color:var(--text-tertiary)">No topics listed.</div>';
+  let html = '';
+  for (const cl of clusters) {
+    const clItems = showSections ? visible.filter(g => g.cluster === cl) : visible;
+    if (!clItems.length) continue;
 
-    return `<div class="group-card" id="gc-${g.idx}" style="border-left-color:${borderColor}">
-      <div class="group-header" onclick="toggleCard(${g.idx})">
-        <div class="group-left">
-          <span class="type-badge type-${g.type}">${g.type}</span>
-          <span class="group-name">${esc(g.shortName)}</span>
-          ${g.topics.length ? `<span class="n-badge">${g.topics.length}</span>` : ''}
+    if (showSections) {
+      html += `<div class="section-heading">${esc(CLUSTER_LABELS[cl])}</div>`;
+    }
+
+    html += clItems.map(g => {
+      const borderColor = TYPE_BORDER[g.type] || '#888';
+      const cadence     = g.cadence ? g.cadence.split(/\./)[0].trim() : '';
+      const bodyHTML    = g.cluster === 'digital'
+        ? buildDigitalBody(g)
+        : buildSustainabilityBody(g);
+
+      return `<div class="group-card" id="gc-${g.idx}" style="border-left-color:${borderColor}">
+        <div class="group-header" onclick="toggleCard(${g.idx})">
+          <div class="group-left">
+            <span class="type-badge type-${g.type}">${g.type}</span>
+            <span class="group-name">${esc(g.shortName)}</span>
+            ${g.topics.length ? `<span class="n-badge">${g.topics.length}</span>` : ''}
+          </div>
+          <div class="group-right">
+            ${cadence ? `<span class="cadence-pill">${esc(cadence)}</span>` : ''}
+            ${chips(g.lead, false)}
+            ${g.support ? chips(g.support, true) : ''}
+            <span class="chevron">&#9656;</span>
+          </div>
         </div>
-        <div class="group-right">
-          ${cadence ? `<span class="cadence-pill">${esc(cadence)}</span>` : ''}
-          ${chips(g.lead, false)}
-          ${g.support ? chips(g.support, true) : ''}
-          <span class="chevron">&#9656;</span>
-        </div>
-      </div>
-      <div class="group-body">${topicsHTML}</div>
-    </div>`;
-  }).join('');
+        <div class="group-body">${bodyHTML}</div>
+      </div>`;
+    }).join('');
+
+    if (showSections) break; // only loop once in non-sectioned mode
+  }
+
+  root.innerHTML = html;
 }
 
 function toggleCard(idx) {
   document.getElementById('gc-' + idx)?.classList.toggle('open');
 }
 
-/* ─── Person filter population ─── */
+/* ─── Person filter ─── */
 function populatePersonFilter() {
   const people = new Set();
   allGroups.forEach(g => {
-    [g.lead, g.support, ...g.topics.flatMap(t=>[t.lead,t.support])]
+    [g.lead, g.support, ...g.topics.flatMap(t=>[t.lead, t.support])]
       .forEach(s => splitPeople(s).forEach(p => people.add(p)));
   });
   const sel = document.getElementById('person-sel');
+  sel.innerHTML = '<option value="">All people</option>';
   [...people].sort().forEach(p => {
     const o = document.createElement('option'); o.value = p; o.textContent = p; sel.appendChild(o);
   });
@@ -408,10 +553,11 @@ async function initPage() {
     const res = await fetch(SHEET_URL);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const csv = await res.text();
-    allGroups = processRows(parseCSV(csv));
-    // Reset & repopulate person filter
-    const sel = document.getElementById('person-sel');
-    sel.innerHTML = '<option value="">All people</option>';
+    const sustainabilityGroups = processRows(parseCSV(csv));
+
+    // Merge and index
+    allGroups = [...sustainabilityGroups, ...DIGITAL_GROUPS].map((g, i) => ({ ...g, idx: i }));
+
     populatePersonFilter();
     const now = new Date();
     document.getElementById('sync-info').textContent =
@@ -429,17 +575,19 @@ async function initPage() {
 }
 
 async function refreshData() {
-  fSearch = ''; fPerson = ''; fType = '';
+  fSearch = ''; fPerson = ''; fType = ''; fCluster = '';
   document.getElementById('search-input').value = '';
-  document.getElementById('person-sel').value = '';
-  document.getElementById('type-sel').value = '';
+  document.getElementById('person-sel').value   = '';
+  document.getElementById('type-sel').value     = '';
+  document.getElementById('cluster-sel').value  = '';
   await initPage();
 }
 
 /* ─── Event listeners ─── */
-document.getElementById('search-input').addEventListener('input',  e => { fSearch = e.target.value.trim(); render(); });
-document.getElementById('person-sel').addEventListener('change',   e => { fPerson = e.target.value; render(); });
-document.getElementById('type-sel').addEventListener('change',     e => { fType   = e.target.value; render(); });
+document.getElementById('search-input').addEventListener('input',  e => { fSearch  = e.target.value.trim(); render(); });
+document.getElementById('cluster-sel').addEventListener('change',  e => { fCluster = e.target.value; render(); });
+document.getElementById('person-sel').addEventListener('change',   e => { fPerson  = e.target.value; render(); });
+document.getElementById('type-sel').addEventListener('change',     e => { fType    = e.target.value; render(); });
 
 /* ─── Auto-init if already authenticated ─── */
 if (sessionStorage.getItem("applia_team_auth") === "1") initPage();
