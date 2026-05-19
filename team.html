@@ -21,7 +21,7 @@
   }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg-tertiary); color: var(--text); font-size: 15px; line-height: 1.6; min-height: 100vh; }
 
-  /* Lock screen */
+  /* ── Lock screen ── */
   #lock-screen { position: fixed; inset: 0; background: var(--bg-tertiary); z-index: 999; display: flex; align-items: center; justify-content: center; }
   .lock-card { background: var(--bg); border: 0.5px solid var(--border-med); border-radius: var(--radius-lg); padding: 2.5rem 2rem; width: 320px; text-align: center; }
   .lock-icon { font-size: 28px; margin-bottom: 1rem; }
@@ -33,55 +33,88 @@
   .lock-btn:hover { opacity: 0.85; }
   .lock-error { font-size: 12px; color: #993C1D; margin-top: 8px; display: none; }
 
-  /* Main layout */
+  /* ── Main layout ── */
   #main-content { display: none; }
   .page-header { background: var(--bg); border-bottom: 0.5px solid var(--border-med); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
   .logo-area { display: flex; align-items: center; gap: 12px; }
   .logo-mark { width: 36px; height: 36px; background: #1a1a18; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 600; letter-spacing: -0.5px; flex-shrink: 0; }
   .logo-text { font-size: 15px; font-weight: 500; color: var(--text); }
   .logo-sub { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
-  .header-right { display: flex; align-items: center; gap: 12px; }
-  .back-link { font-size: 12px; color: var(--text-secondary); text-decoration: none; border: 0.5px solid var(--border-med); border-radius: 20px; padding: 3px 10px; }
-  .back-link:hover { border-color: var(--border-strong); color: var(--text); }
+  .header-right { display: flex; align-items: center; gap: 10px; }
+  .hdr-link { font-size: 12px; color: var(--text-secondary); text-decoration: none; border: 0.5px solid var(--border-med); border-radius: 20px; padding: 3px 10px; white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; background: transparent; cursor: pointer; font-family: inherit; }
+  .hdr-link:hover { border-color: var(--border-strong); color: var(--text); }
+  .sync-info { font-size: 11px; color: var(--text-tertiary); white-space: nowrap; }
 
+  /* ── Container & toolbar ── */
   .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
-
   .toolbar { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: .85rem 1.1rem; margin-bottom: .85rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-  .selects { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
+  .selects { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; align-items: center; }
   .search-wrap { flex: 1; min-width: 200px; }
   select, input[type=text] { font-size: 13px; height: 32px; border-radius: var(--radius-md); border: 0.5px solid var(--border-med); background: var(--bg); color: var(--text); }
   select { padding: 4px 24px 4px 10px; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
   input[type=text] { width: 100%; padding: 4px 10px; }
   input[type=text]::placeholder { color: var(--text-tertiary); }
+  .count-info { font-size: 12px; color: var(--text-tertiary); margin-left: auto; white-space: nowrap; }
 
-  /* Person sections */
-  .person-section { margin-bottom: 1.5rem; }
-  .person-header { display: flex; align-items: center; gap: 10px; margin-bottom: .6rem; }
-  .person-badge { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #fff; flex-shrink: 0; }
-  .person-name { font-size: 15px; font-weight: 500; }
-  .person-count { font-size: 12px; color: var(--text-tertiary); }
+  /* ── Loading / error ── */
+  .state-card { text-align: center; padding: 3rem 1rem; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); color: var(--text-secondary); font-size: 14px; }
+  .spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid var(--border-med); border-top-color: var(--text-secondary); border-radius: 50%; animation: spin .7s linear infinite; margin-bottom: .75rem; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* Table */
-  .resp-table { width: 100%; border-collapse: collapse; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; font-size: 13px; }
-  .resp-table thead tr { background: var(--bg-secondary); border-bottom: 0.5px solid var(--border-med); }
-  .resp-table th { padding: .5rem .8rem; text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; color: var(--text-secondary); white-space: nowrap; }
-  .resp-table td { padding: .5rem .8rem; border-bottom: 0.5px solid var(--border); vertical-align: top; }
-  .resp-table tr:last-child td { border-bottom: none; }
-  .resp-table tr:hover td { background: var(--bg-secondary); }
-  .cat-tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 10px; white-space: nowrap; }
-  .wg-tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 10px; background: var(--bg-secondary); color: var(--text-secondary); border: 0.5px solid var(--border-med); margin: 1px 2px 1px 0; white-space: nowrap; }
-  .file-title { color: var(--text); font-weight: 400; }
-  .file-sub { font-size: 11px; color: var(--text-tertiary); margin-top: 1px; }
-  .responsible { color: var(--text-secondary); font-size: 12px; }
+  /* ── Group cards ── */
+  .group-card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 5px; transition: border-color .15s; border-left-width: 3px; }
+  .group-card:hover { border-color: var(--border-med); }
+  .group-header { display: flex; align-items: center; gap: 10px; padding: .65rem 1rem; cursor: pointer; user-select: none; }
+  .group-left { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
+  .type-badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 8px; flex-shrink: 0; text-transform: uppercase; letter-spacing: .04em; }
+  .type-WG { background: #E6F1FB; color: #185FA5; }
+  .type-SG { background: #E8F5EE; color: #0F6E56; }
+  .type-TF { background: #FEF3E6; color: #854F0B; }
+  .type-CG { background: #EDE8FB; color: #533AB7; }
+  @media (prefers-color-scheme: dark) {
+    .type-WG { background: #042C53; color: #85B7EB; }
+    .type-SG { background: #0A2E1F; color: #6DC99E; }
+    .type-TF { background: #2E1B00; color: #FAC775; }
+    .type-CG { background: #1E1260; color: #B8A5F0; }
+  }
+  .group-name { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .n-badge { font-size: 11px; color: var(--text-tertiary); background: var(--bg-secondary); border: 0.5px solid var(--border); padding: 1px 7px; border-radius: 10px; flex-shrink: 0; }
+  .group-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .cadence-pill { font-size: 11px; color: var(--text-tertiary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
+  .chevron { font-size: 11px; color: var(--text-tertiary); transition: transform .2s; flex-shrink: 0; }
+  .group-card.open .chevron { transform: rotate(90deg); }
+  .group-body { display: none; border-top: 0.5px solid var(--border); }
+  .group-card.open .group-body { display: block; }
 
-  .section-divider { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; color: var(--text-tertiary); padding: .4rem .8rem; background: var(--bg-tertiary); border-bottom: 0.5px solid var(--border); }
+  /* ── Person chips ── */
+  .pchip { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 22px; border-radius: 11px; font-size: 10px; font-weight: 700; color: #fff; padding: 0 7px; white-space: nowrap; letter-spacing: .02em; }
+  .pchip.sup { opacity: 0.6; }
 
-  .empty { text-align: center; padding: 3rem 1rem; color: var(--text-secondary); font-size: 14px; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); }
+  /* ── Topics table ── */
+  .topics-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .topics-table th { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; color: var(--text-tertiary); padding: .4rem .9rem; text-align: left; background: var(--bg-secondary); border-bottom: 0.5px solid var(--border); white-space: nowrap; }
+  .topics-table td { padding: .55rem .9rem; border-bottom: 0.5px solid var(--border); vertical-align: top; line-height: 1.45; }
+  .topics-table tr:last-child td { border-bottom: none; }
+  .topics-table tr:hover td { background: var(--bg-secondary); }
+  .topic-title { font-weight: 500; color: var(--text); line-height: 1.4; }
+  .topic-subs { list-style: none; padding: 0; margin-top: 4px; }
+  .topic-subs li { font-size: 11px; color: var(--text-secondary); padding-left: 11px; position: relative; margin-bottom: 1px; line-height: 1.4; }
+  .topic-subs li::before { content: '·'; position: absolute; left: 2px; color: var(--text-tertiary); font-size: 14px; line-height: 1; top: 1px; }
+  .act-text { color: var(--text-secondary); font-size: 12px; line-height: 1.5; }
+  .act-text p { margin-bottom: 3px; }
+  .act-text p:last-child { margin-bottom: 0; }
+  .act-text ul { list-style: none; padding: 0; margin: 3px 0; }
+  .act-text ul li { padding-left: 11px; position: relative; margin-bottom: 1px; }
+  .act-text ul li::before { content: '·'; position: absolute; left: 2px; color: var(--text-tertiary); font-size: 14px; line-height: 1; top: 1px; }
+  .people-cell { display: flex; flex-direction: column; gap: 3px; }
+  .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-secondary); font-size: 14px; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); }
 
-  @media (max-width: 700px) {
+  @media (max-width: 780px) {
     .page-header { padding: 1rem; flex-wrap: wrap; gap: 6px; }
     .container { padding: 1rem; }
-    .resp-table td:nth-child(3), .resp-table th:nth-child(3) { display: none; }
+    .cadence-pill { display: none; }
+    .topics-table td:nth-child(2), .topics-table th:nth-child(2) { display: none; }
+    .sync-info { display: none; }
   }
 </style>
 </head>
@@ -110,223 +143,306 @@
     </div>
   </div>
   <div class="header-right">
-    <a href="https://docs.google.com/spreadsheets/d/1uFMeNO4UCyQS0QHuAQRKVHTMzyuh4rmTt_c4D67p-Lw/edit?gid=0#gid=0" target="_blank" rel="noopener" class="back-link" style="display:inline-flex;align-items:center;gap:5px;">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    <span class="sync-info" id="sync-info"></span>
+    <button class="hdr-link" onclick="refreshData()">↻ Refresh</button>
+    <a href="https://docs.google.com/spreadsheets/d/1uFMeNO4UCyQS0QHuAQRKVHTMzyuh4rmTt_c4D67p-Lw/edit" target="_blank" rel="noopener" class="hdr-link">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
       Spreadsheet
     </a>
-    <a href="/" class="back-link">← Legislative Tracker</a>
+    <a href="/" class="hdr-link">← Tracker</a>
   </div>
 </header>
 
 <div class="container">
   <div class="toolbar">
     <div class="selects">
-      <div class="search-wrap"><input type="text" id="search-input" placeholder="Search files or topics…"></div>
-      <select id="person-sel"><option value="">All team members</option></select>
-      <select id="wg-sel"><option value="">All WG/SG/TF</option></select>
-      <select id="div-sel"><option value="">All divisions</option></select>
+      <div class="search-wrap"><input type="text" id="search-input" placeholder="Search groups, topics, activities…"></div>
+      <select id="person-sel"><option value="">All people</option></select>
+      <select id="type-sel">
+        <option value="">All types</option>
+        <option value="WG">Working Groups (WG)</option>
+        <option value="SG">Sub-Groups (SG)</option>
+        <option value="TF">Task Forces (TF)</option>
+        <option value="CG">Core Groups</option>
+      </select>
+      <span class="count-info" id="count-info"></span>
     </div>
   </div>
-  <div id="list-root"></div>
+  <div id="list-root">
+    <div class="state-card"><div class="spinner"></div><div>Loading from spreadsheet…</div></div>
+  </div>
 </div>
 </div>
 
 <script>
-// ── Password ──────────────────────────────────────────────
-const PW_HASH = "be919b1122270c98381d4f3d9733c03ff7419eb609eb96655d2577f6d0dae4d4"; // APPLiA2026 
-
-async function sha256(str) {
-  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
+/* ─── Auth ─── */
+const PW_HASH = "be919b1122270c98381d4f3d9733c03ff7419eb609eb96655d2577f6d0dae4d4";
+async function sha256(s) {
+  const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("");
 }
-
 async function checkPw() {
-  const val = document.getElementById("pw-input").value;
-  const hash = await sha256(val);
-  if (hash === PW_HASH) {
+  const v = document.getElementById("pw-input").value;
+  if (await sha256(v) === PW_HASH) {
     document.getElementById("lock-screen").style.display = "none";
     document.getElementById("main-content").style.display = "block";
-    sessionStorage.setItem("applia_team_auth", "1");
+    sessionStorage.setItem("applia_team_auth","1");
+    initPage();
   } else {
     document.getElementById("pw-error").style.display = "block";
     document.getElementById("pw-input").value = "";
     document.getElementById("pw-input").focus();
   }
 }
-
-// Auto-unlock if already authenticated this session
 if (sessionStorage.getItem("applia_team_auth") === "1") {
   document.getElementById("lock-screen").style.display = "none";
   document.getElementById("main-content").style.display = "block";
 }
 
-// ── Data ──────────────────────────────────────────────────
-const DATA = [
-  // ── MRB ──────────────────────────────────────────────
-  { person:"MRB", division:"General Assembly", topic:"Energy Labelling Framework", responsible:"MRB", wgs:["TF Energy Label"], group:"Energy Labelling Framework" },
-  { person:"MRB", division:"General Assembly", topic:"EPREL", responsible:"AAV → MRB", wgs:["SG EPREL"], group:"Energy Labelling Framework" },
-  { person:"MRB", division:"General Assembly", topic:"Energy Product Omnibus", responsible:"ALL → MRB", wgs:["WG Energy"], group:"Energy Labelling Framework" },
-  { person:"MRB", division:"General Assembly", topic:"Digital Label", responsible:"MRB", wgs:["TF Energy Label"], group:"Energy Labelling Framework" },
-  { person:"MRB", division:"General Assembly", topic:"Horizontal enquiries on energy labelling", responsible:"ALL → MRB", wgs:["WG Energy"], group:"Energy Labelling Framework" },
-  { person:"MRB", division:"General Assembly", topic:"JWG Cooking", responsible:"MRB", wgs:["JWG Cooking"], group:"Energy Labelling Framework" },
-  { person:"MRB", division:"General Assembly", topic:"WG Energy (secretariat)", responsible:"MRB", wgs:["WG Energy"], group:"Energy Labelling Framework" },
-  { person:"MRB", division:"HCD", topic:"Heating and Cooling Strategy", responsible:"MRB", wgs:["WG Energy"], group:"Heating and Cooling Strategy" },
-  { person:"MRB", division:"HCD", topic:"Heat Pump Accelerator Plan", responsible:"MRB", wgs:["WG Energy"], group:"Heating and Cooling Strategy" },
-  { person:"MRB", division:"General Assembly", topic:"EPBD", responsible:"MRB, CRD & CfES", wgs:["WG Energy"], group:"Heating and Cooling Strategy" },
-  { person:"MRB", division:"General Assembly", topic:"Affordable Housing Action Plan", responsible:"AAV → MRB", wgs:["WG Energy"], group:"Heating and Cooling Strategy" },
-  { person:"MRB", division:"SAD", topic:"WG Small Kitchen Appliances", responsible:"MRB", wgs:["WG Small Kitchen Appliances"], group:"Products" },
-  { person:"MRB", division:"LAD", topic:"Ovens, hobs and hoods", responsible:"MRB", wgs:["WG Cooking","SG Hobs","SG Hoods","SG Ovens"], group:"Products" },
-  { person:"MRB", division:"LAD", topic:"Refrigerators and freezers", responsible:"AAV → MRB", wgs:["WG COLD"], group:"Products" },
-  { person:"MRB", division:"HCD", topic:"Water Heaters", responsible:"MRB", wgs:["WG WH"], group:"Products" },
-  { person:"MRB", division:"HCD", topic:"Local Space Heaters", responsible:"MRB", wgs:["WG LSH"], group:"Products" },
-  { person:"MRB", division:"HCD", topic:"Air-conditioning", responsible:"MRB", wgs:["WG Airco"], group:"Products" },
-  { person:"MRB", division:"HCD", topic:"Comfort fans", responsible:"MRB", wgs:["WG CF"], group:"Products" },
-  { person:"MRB", division:"General Assembly", topic:"External Power Supply", responsible:"AAV → MRB", wgs:["SG EPS"], group:"Products" },
-  { person:"MRB", division:"General Assembly", topic:"Standby", responsible:"AAV → MRB", wgs:["SG Standby"], group:"Products" },
-
-  // ── GZA ──────────────────────────────────────────────
-  { person:"GZA", division:"General Assembly", topic:"ESPR – Ecodesign for Sustainable Products Regulation", responsible:"GZA → KHY & MRB", wgs:["WG Circular Economy"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"ESPR – Environment Omnibus", responsible:"GZA → KHY", wgs:["WG Circular Economy"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"ESPR Label", responsible:"CRS → GZA", wgs:["TF ESPR"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"ESPR Methodology", responsible:"APPLiA team → GZA", wgs:["TF ESPR","SG MEErP"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"ESPR – Horizontal requirements", responsible:"CRS → GZA", wgs:["WG Circular Economy"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Repairability", responsible:"CRS → GZA", wgs:["SG Repair"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Recycled content and recyclability", responsible:"CRS → GZA, KHY", wgs:["TBD"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Intermediary products", responsible:"GZA → KHY", wgs:["SG Working Plan"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Irons & steel", responsible:"CRS → GZA, KHY", wgs:["SG Working Plan"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Aluminium", responsible:"CRS → GZA, KHY", wgs:["SG Working Plan"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Subassemblies & components", responsible:"GZA", wgs:["WG Energy"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Displays", responsible:"AAV → GZA", wgs:["SG Displays"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Motors", responsible:"AAV → GZA", wgs:["SG Motors"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Fans", responsible:"AAV → GZA", wgs:["SG Fans"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Lighting", responsible:"GZA", wgs:["SG Lighting"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Non-APPLiA products", responsible:"GZA", wgs:["SG Working Plan"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Textile", responsible:"CRS → GZA", wgs:["SG Microfibers","SG Working Plan"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"PEA CG", responsible:"GZA & CRS → KHY", wgs:["WG Circular Economy"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"DPP – Digital Product Passport", responsible:"Digital Team → MZI", wgs:["TF DPP"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Unsold goods", responsible:"CRD", wgs:["WG Consumers"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Substances of Concern", responsible:"CRO → KHY", wgs:["WG Chemicals"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"ESPR – Horizontal enquiries", responsible:"ALL → GZA", wgs:["WG Circular Economy"], group:"ESPR" },
-  { person:"GZA", division:"General Assembly", topic:"Coalition for Energy Savings – SC & GA", responsible:"GZA → PFI", wgs:["WG Energy"], group:"Coalition for Energy Savings" },
-  { person:"GZA", division:"General Assembly", topic:"CfES – WG Advocacy", responsible:"AAV & MOC → GZA", wgs:["WG Energy"], group:"Coalition for Energy Savings" },
-  { person:"GZA", division:"General Assembly", topic:"ETS 2", responsible:"GZA & MOC", wgs:["WG Energy"], group:"Coalition for Energy Savings" },
-  { person:"GZA", division:"General Assembly", topic:"EED – Energy Efficiency Directive", responsible:"GZA & AAV", wgs:["WG Energy"], group:"Coalition for Energy Savings" },
-  { person:"GZA", division:"General Assembly", topic:"Energy Efficiency Financing Coalition", responsible:"PFI, GZA, AAV", wgs:["WG Energy"], group:"Coalition for Energy Savings" },
-  { person:"GZA", division:"General Assembly", topic:"Governance Regulation", responsible:"GZA, AAV", wgs:["WG Energy"], group:"Coalition for Energy Savings" },
-  { person:"GZA", division:"General Assembly", topic:"Electrification Action Plan", responsible:"GZA, AAV", wgs:["WG Energy"], group:"Coalition for Energy Savings" },
-  { person:"GZA", division:"General Assembly", topic:"Drinking Water Directive – Implementing & Delegated Acts", responsible:"AAV & CRO", wgs:["TF DWD"], group:"Drinking Water Directive" },
-  { person:"GZA", division:"General Assembly", topic:"Drinking Water Directive – Main Directive", responsible:"AAV → GZA", wgs:["TF DWD"], group:"Drinking Water Directive" },
-  { person:"GZA", division:"General Assembly", topic:"Repairability Indexes", responsible:"CRS → GZA", wgs:["SG Repair"], group:"Resource and Material Efficiency" },
-  { person:"GZA", division:"General Assembly", topic:"CENELEC TC59X WG 23", responsible:"CRS → GZA", wgs:["SG Resource and Material Efficiency"], group:"Resource and Material Efficiency" },
-  { person:"GZA", division:"LAD", topic:"WET – Washing & Drying", responsible:"GZA & CRS", wgs:["WG WET","SG WM","SG WD","SG TD","SG DW","SG MF"], group:"Products" },
-  { person:"GZA", division:"SAD", topic:"Irons", responsible:"AAV → GZA", wgs:["WG Irons"], group:"Products" },
-  { person:"GZA", division:"SAD", topic:"Coffee Machines", responsible:"CRS → GZA", wgs:["SG Coffee Machines"], group:"Products" },
-  { person:"GZA", division:"SAD", topic:"Kettles", responsible:"CRS → GZA", wgs:["SG Kettles"], group:"Products" },
-  { person:"GZA", division:"SAD", topic:"Vacuum cleaners", responsible:"GZA", wgs:["WG Vacuum Cleaners"], group:"Products" },
-
-  // ── PFI ──────────────────────────────────────────────
-  { person:"PFI", division:"General Assembly", topic:"SmartEN", responsible:"AAV & IFA", wgs:["WG Energy","SG Energy Smart Appliances"], group:"Energy Smart Appliances" },
-
-  // ── MRB & MZI ────────────────────────────────────────
-  { person:"MRB & MZI", division:"General Assembly", topic:"Code of Conduct for Energy Smart Appliances", responsible:"AAV & IFA", wgs:["SG Energy Smart Appliances","PEA CG"], group:"Energy Smart Appliances" },
-];
+/* ─── Constants ─── */
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/1uFMeNO4UCyQS0QHuAQRKVHTMzyuh4rmTt_c4D67p-Lw/gviz/tq?tqx=out:csv&gid=0";
 
 const PERSON_COLORS = {
-  "MRB":      "#185FA5",
-  "GZA":      "#0F6E56",
-  "PFI":      "#533AB7",
-  "MRB & MZI":"#854F0B",
+  KHY:"#0F6E56", GZA:"#185FA5", CRO:"#854F0B", FFI:"#533AB7",
+  MRB:"#993C1D", AAV:"#3C3489", CRS:"#27500A", MOC:"#4A6741",
+  EBR:"#5D4037", MZI:"#8B2252", PFI:"#0D5F6E", IFA:"#37474F",
+  EBR:"#5D4037", KHY:"#0F6E56"
 };
 
-// ── Filters ───────────────────────────────────────────────
-let fPerson="", fWg="", fDiv="", fSearch="";
+const TYPE_BORDER = { WG:"#185FA5", SG:"#0F6E56", TF:"#854F0B", CG:"#533AB7" };
 
-function allPersons(){ return [...new Set(DATA.map(r=>r.person))]; }
-function allWgs(){ return [...new Set(DATA.flatMap(r=>r.wgs))].sort(); }
-function allDivs(){ return [...new Set(DATA.map(r=>r.division))].sort(); }
-
-function filtered(){
-  return DATA.filter(r=>{
-    if(fPerson && r.person!==fPerson) return false;
-    if(fDiv && r.division!==fDiv) return false;
-    if(fWg && !r.wgs.includes(fWg)) return false;
-    if(fSearch){
-      const q=fSearch.toLowerCase();
-      if(!r.topic.toLowerCase().includes(q) && !r.responsible.toLowerCase().includes(q) && !r.wgs.join(" ").toLowerCase().includes(q) && !r.group.toLowerCase().includes(q)) return false;
-    }
-    return true;
-  });
+/* ─── CSV parser (handles quoted multi-line fields) ─── */
+function parseCSV(str) {
+  const rows = [];
+  let inQ = false, cur = '', row = [];
+  for (let i = 0; i < str.length; i++) {
+    const c = str[i];
+    if (inQ) {
+      if (c === '"') { if (str[i+1] === '"') { cur += '"'; i++; } else inQ = false; }
+      else cur += c;
+    } else if (c === '"') { inQ = true; }
+    else if (c === ',') { row.push(cur); cur = ''; }
+    else if (c === '\n') { row.push(cur); rows.push(row); row = []; cur = ''; }
+    else if (c !== '\r') { cur += c; }
+  }
+  if (cur || row.length) { row.push(cur); rows.push(row); }
+  return rows;
 }
 
-function populateSelects(){
-  const ps=document.getElementById("person-sel");
-  allPersons().forEach(p=>{ const o=document.createElement("option"); o.value=p; o.textContent=p; ps.appendChild(o); });
-  const ws=document.getElementById("wg-sel");
-  allWgs().forEach(w=>{ const o=document.createElement("option"); o.value=w; o.textContent=w; ws.appendChild(o); });
-  const ds=document.getElementById("div-sel");
-  allDivs().forEach(d=>{ const o=document.createElement("option"); o.value=d; o.textContent=d; ds.appendChild(o); });
+/* ─── Data processing ─── */
+function processRows(rows) {
+  if (rows.length < 2) return [];
+  const groups = [];
+  let current = null;
+  for (let i = 1; i < rows.length; i++) {
+    const r = rows[i] || [];
+    const g         = (r[0]||'').trim();
+    const topic     = (r[1]||'').trim();
+    const activities= (r[2]||'').trim();
+    const lead      = (r[3]||'').trim();
+    const support   = (r[4]||'').trim();
+
+    if (g) {
+      const type = g.startsWith('WG ') ? 'WG' : g.startsWith('SG ') ? 'SG' : g.startsWith('TF ') ? 'TF' : 'CG';
+      current = { idx: groups.length, name: g, type,
+                  shortName: g.replace(/^(WG|SG|TF)\s+/,''),
+                  cadence:'', lead:'', support:'', topics:[] };
+      groups.push(current);
+    }
+    if (!current) continue;
+
+    if (topic === 'Management') {
+      current.cadence  = activities;
+      current.lead     = lead;
+      current.support  = support;
+    } else if (topic || lead) {
+      current.topics.push({ topic, activities, lead, support });
+    }
+  }
+  return groups;
 }
 
-function render(){
-  const data=filtered();
-  const root=document.getElementById("list-root");
-  if(!data.length){ root.innerHTML='<div class="empty">No entries match the current filters.</div>'; return; }
+/* ─── Formatters ─── */
+function esc(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 
-  // Group by person, then by group
-  const byPerson={};
-  data.forEach(r=>{
-    if(!byPerson[r.person]) byPerson[r.person]=[];
-    byPerson[r.person].push(r);
-  });
+function formatTopic(raw) {
+  if (!raw) return '<em style="color:var(--text-tertiary)">—</em>';
+  const lines = raw.split('\n').map(l=>l.trim()).filter(Boolean);
+  let title = '', bullets = [];
+  for (const l of lines) {
+    if (/^[-•]\s/.test(l)) bullets.push(l.replace(/^[-•]\s+/,''));
+    else if (!title) title = l;
+  }
+  if (!title && bullets.length) title = bullets.shift();
+  let h = `<div class="topic-title">${esc(title)}</div>`;
+  if (bullets.length)
+    h += `<ul class="topic-subs">${bullets.map(b=>`<li>${esc(b)}</li>`).join('')}</ul>`;
+  return h;
+}
 
-  let html="";
-  for(const person of Object.keys(byPerson)){
-    const rows=byPerson[person];
-    const color=PERSON_COLORS[person]||"#888";
-    // sub-group within person
-    const byGroup={};
-    rows.forEach(r=>{ if(!byGroup[r.group]) byGroup[r.group]=[]; byGroup[r.group].push(r); });
-
-    html+=`<div class="person-section">
-      <div class="person-header">
-        <div class="person-badge" style="background:${color}">${person}</div>
-        <span class="person-name">${person}</span>
-        <span class="person-count">${rows.length} file${rows.length!==1?"s":""}</span>
-      </div>
-      <table class="resp-table">
-        <thead><tr>
-          <th>File / Topic</th>
-          <th>Division</th>
-          <th>Responsible</th>
-          <th>WG / SG / TF</th>
-        </tr></thead>
-        <tbody>`;
-
-    for(const grp of Object.keys(byGroup)){
-      html+=`<tr><td colspan="4" class="section-divider">${grp}</td></tr>`;
-      byGroup[grp].forEach(r=>{
-        html+=`<tr>
-          <td class="file-title">${r.topic}</td>
-          <td><span class="wg-tag">${r.division}</span></td>
-          <td class="responsible">${r.responsible}</td>
-          <td>${r.wgs.map(w=>`<span class="wg-tag">${w}</span>`).join("")}</td>
-        </tr>`;
-      });
+function formatActivities(raw) {
+  if (!raw) return '<span style="color:var(--text-tertiary)">—</span>';
+  const lines = raw.split('\n').map(l=>l.trim()).filter(Boolean);
+  let html = '<div class="act-text">', inList = false;
+  for (const l of lines) {
+    if (/^[-•]\s/.test(l)) {
+      if (!inList) { html += '<ul>'; inList = true; }
+      html += `<li>${esc(l.replace(/^[-•]\s+/,''))}</li>`;
+    } else {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += `<p>${esc(l)}</p>`;
     }
+  }
+  if (inList) html += '</ul>';
+  return html + '</div>';
+}
 
-    html+=`</tbody></table></div>`;
+function chips(str, isSupport) {
+  if (!str) return isSupport ? '' : '<span style="color:var(--text-tertiary);font-size:11px">—</span>';
+  return str.split('/').map(p => {
+    p = p.trim(); if (!p) return '';
+    const col = PERSON_COLORS[p] || '#888';
+    return `<span class="pchip${isSupport?' sup':''}" style="background:${col}" title="${isSupport?'Support':'Lead'}: ${esc(p)}">${esc(p)}</span>`;
+  }).filter(Boolean).join(' ');
+}
+
+/* ─── State & filters ─── */
+let allGroups = [], fSearch = '', fPerson = '', fType = '';
+
+function splitPeople(str) { return (str||'').split('/').map(p=>p.trim()).filter(Boolean); }
+
+function groupMatches(g) {
+  if (fType && g.type !== fType) return false;
+  if (fPerson) {
+    const hasPerson = (str) => splitPeople(str).includes(fPerson);
+    const groupHas = hasPerson(g.lead) || hasPerson(g.support);
+    const topicHas = g.topics.some(t => hasPerson(t.lead) || hasPerson(t.support));
+    if (!groupHas && !topicHas) return false;
+  }
+  if (fSearch) {
+    const q = fSearch.toLowerCase();
+    const inName   = g.name.toLowerCase().includes(q);
+    const inTopics = g.topics.some(t => t.topic.toLowerCase().includes(q) || t.activities.toLowerCase().includes(q));
+    if (!inName && !inTopics) return false;
+  }
+  return true;
+}
+
+/* ─── Render ─── */
+function render() {
+  const root = document.getElementById('list-root');
+  const visible = allGroups.filter(groupMatches);
+  document.getElementById('count-info').textContent = `${visible.length} of ${allGroups.length} groups`;
+
+  if (!visible.length) {
+    root.innerHTML = '<div class="empty-state">No groups match the current filters.</div>';
+    return;
   }
 
-  root.innerHTML=html;
+  root.innerHTML = visible.map(g => {
+    const borderColor = TYPE_BORDER[g.type] || '#888';
+    const cadence = g.cadence ? g.cadence.split(/\./)[0].trim() : '';
+
+    const topicsHTML = g.topics.length
+      ? `<table class="topics-table">
+          <thead><tr>
+            <th style="width:35%">Topic / Key Element</th>
+            <th style="width:43%">Activities</th>
+            <th style="width:11%">Lead</th>
+            <th style="width:11%">Support</th>
+          </tr></thead>
+          <tbody>
+            ${g.topics.map(t => `<tr>
+              <td>${formatTopic(t.topic)}</td>
+              <td>${formatActivities(t.activities)}</td>
+              <td><div class="people-cell">${chips(t.lead, false)}</div></td>
+              <td><div class="people-cell">${chips(t.support, true)}</div></td>
+            </tr>`).join('')}
+          </tbody>
+        </table>`
+      : '<div style="padding:.75rem 1rem;font-size:12px;color:var(--text-tertiary)">No topics listed.</div>';
+
+    return `<div class="group-card" id="gc-${g.idx}" style="border-left-color:${borderColor}">
+      <div class="group-header" onclick="toggleCard(${g.idx})">
+        <div class="group-left">
+          <span class="type-badge type-${g.type}">${g.type}</span>
+          <span class="group-name">${esc(g.shortName)}</span>
+          ${g.topics.length ? `<span class="n-badge">${g.topics.length}</span>` : ''}
+        </div>
+        <div class="group-right">
+          ${cadence ? `<span class="cadence-pill">${esc(cadence)}</span>` : ''}
+          ${chips(g.lead, false)}
+          ${g.support ? chips(g.support, true) : ''}
+          <span class="chevron">&#9656;</span>
+        </div>
+      </div>
+      <div class="group-body">${topicsHTML}</div>
+    </div>`;
+  }).join('');
 }
 
-document.getElementById("person-sel").addEventListener("change",e=>{ fPerson=e.target.value; render(); });
-document.getElementById("wg-sel").addEventListener("change",e=>{ fWg=e.target.value; render(); });
-document.getElementById("div-sel").addEventListener("change",e=>{ fDiv=e.target.value; render(); });
-document.getElementById("search-input").addEventListener("input",e=>{ fSearch=e.target.value.trim(); render(); });
+function toggleCard(idx) {
+  document.getElementById('gc-' + idx)?.classList.toggle('open');
+}
 
-populateSelects();
-render();
+/* ─── Person filter population ─── */
+function populatePersonFilter() {
+  const people = new Set();
+  allGroups.forEach(g => {
+    [g.lead, g.support, ...g.topics.flatMap(t=>[t.lead,t.support])]
+      .forEach(s => splitPeople(s).forEach(p => people.add(p)));
+  });
+  const sel = document.getElementById('person-sel');
+  [...people].sort().forEach(p => {
+    const o = document.createElement('option'); o.value = p; o.textContent = p; sel.appendChild(o);
+  });
+}
+
+/* ─── Fetch & init ─── */
+async function initPage() {
+  document.getElementById('list-root').innerHTML =
+    '<div class="state-card"><div class="spinner"></div><div>Loading from spreadsheet…</div></div>';
+  try {
+    const res = await fetch(SHEET_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const csv = await res.text();
+    allGroups = processRows(parseCSV(csv));
+    // Reset & repopulate person filter
+    const sel = document.getElementById('person-sel');
+    sel.innerHTML = '<option value="">All people</option>';
+    populatePersonFilter();
+    const now = new Date();
+    document.getElementById('sync-info').textContent =
+      'Synced at ' + now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    render();
+  } catch(e) {
+    document.getElementById('list-root').innerHTML =
+      `<div class="state-card">
+        <div style="font-size:24px;margin-bottom:.5rem">⚠️</div>
+        <div style="font-weight:500;margin-bottom:.4rem">Could not load spreadsheet</div>
+        <div style="font-size:12px;color:var(--text-tertiary)">${esc(e.message)}<br><br>
+          Make sure the sheet is shared as "Anyone with the link → Viewer".</div>
+      </div>`;
+  }
+}
+
+async function refreshData() {
+  fSearch = ''; fPerson = ''; fType = '';
+  document.getElementById('search-input').value = '';
+  document.getElementById('person-sel').value = '';
+  document.getElementById('type-sel').value = '';
+  await initPage();
+}
+
+/* ─── Event listeners ─── */
+document.getElementById('search-input').addEventListener('input',  e => { fSearch = e.target.value.trim(); render(); });
+document.getElementById('person-sel').addEventListener('change',   e => { fPerson = e.target.value; render(); });
+document.getElementById('type-sel').addEventListener('change',     e => { fType   = e.target.value; render(); });
+
+/* ─── Auto-init if already authenticated ─── */
+if (sessionStorage.getItem("applia_team_auth") === "1") initPage();
 </script>
 </body>
 </html>
