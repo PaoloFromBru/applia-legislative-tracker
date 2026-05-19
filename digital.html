@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APPLiA — Digital &amp; Competitiveness</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #ffffff; --bg-secondary: #f5f5f3; --bg-tertiary: #eeece6;
+    --text: #1a1a18; --text-secondary: #6b6b66; --text-tertiary: #9a9a94;
+    --border: rgba(0,0,0,0.10); --border-med: rgba(0,0,0,0.18); --border-strong: rgba(0,0,0,0.28);
+    --radius-md: 8px; --radius-lg: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a; --bg-secondary: #242422; --bg-tertiary: #2c2c2a;
+      --text: #f0ede6; --text-secondary: #a0a09a; --text-tertiary: #6b6b66;
+      --border: rgba(255,255,255,0.08); --border-med: rgba(255,255,255,0.14); --border-strong: rgba(255,255,255,0.22);
+    }
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg-tertiary); color: var(--text); font-size: 15px; line-height: 1.6; min-height: 100vh; }
+
+  /* ── Lock screen ── */
+  #lock-screen { position: fixed; inset: 0; background: var(--bg-tertiary); z-index: 999; display: flex; align-items: center; justify-content: center; }
+  .lock-card { background: var(--bg); border: 0.5px solid var(--border-med); border-radius: var(--radius-lg); padding: 2.5rem 2rem; width: 320px; text-align: center; }
+  .lock-icon { font-size: 28px; margin-bottom: 1rem; }
+  .lock-title { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+  .lock-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 1.5rem; }
+  .lock-input { width: 100%; height: 38px; border: 0.5px solid var(--border-med); border-radius: var(--radius-md); background: var(--bg-secondary); color: var(--text); font-size: 14px; padding: 0 12px; text-align: center; letter-spacing: 2px; margin-bottom: 10px; }
+  .lock-input:focus { outline: none; border-color: var(--border-strong); }
+  .lock-btn { width: 100%; height: 38px; background: var(--text); color: var(--bg); border: none; border-radius: var(--radius-md); font-size: 14px; font-weight: 500; cursor: pointer; }
+  .lock-btn:hover { opacity: 0.85; }
+  .lock-error { font-size: 12px; color: #993C1D; margin-top: 8px; display: none; }
+
+  /* ── Main layout ── */
+  #main-content { display: none; }
+  .page-header { background: var(--bg); border-bottom: 0.5px solid var(--border-med); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .logo-area { display: flex; align-items: center; gap: 12px; }
+  .logo-mark { width: 36px; height: 36px; background: #1a1a18; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 600; letter-spacing: -0.5px; flex-shrink: 0; }
+  .logo-text { font-size: 15px; font-weight: 500; color: var(--text); }
+  .logo-sub { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
+  .header-right { display: flex; align-items: center; gap: 10px; }
+  .hdr-link { font-size: 12px; color: var(--text-secondary); text-decoration: none; border: 0.5px solid var(--border-med); border-radius: 20px; padding: 3px 10px; white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; background: transparent; cursor: pointer; font-family: inherit; }
+  .hdr-link:hover { border-color: var(--border-strong); color: var(--text); }
+
+  /* ── Container & toolbar ── */
+  .container { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
+  .toolbar { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: .85rem 1.1rem; margin-bottom: .85rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .selects { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; align-items: center; }
+  .search-wrap { flex: 1; min-width: 200px; }
+  select, input[type=text] { font-size: 13px; height: 32px; border-radius: var(--radius-md); border: 0.5px solid var(--border-med); background: var(--bg); color: var(--text); }
+  select { padding: 4px 24px 4px 10px; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
+  input[type=text] { width: 100%; padding: 4px 10px; }
+  input[type=text]::placeholder { color: var(--text-tertiary); }
+  .count-info { font-size: 12px; color: var(--text-tertiary); margin-left: auto; white-space: nowrap; }
+
+  /* ── Group cards ── */
+  .group-card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 5px; transition: border-color .15s; border-left-width: 3px; }
+  .group-card:hover { border-color: var(--border-med); }
+  .group-header { display: flex; align-items: center; gap: 10px; padding: .65rem 1rem; cursor: pointer; user-select: none; }
+  .group-left { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
+  .type-badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 8px; flex-shrink: 0; text-transform: uppercase; letter-spacing: .04em; }
+  .type-WG { background: #E6F1FB; color: #185FA5; }
+  .type-SG { background: #E8F5EE; color: #0F6E56; }
+  .type-TF { background: #FEF3E6; color: #854F0B; }
+  .type-CG { background: #EDE8FB; color: #533AB7; }
+  @media (prefers-color-scheme: dark) {
+    .type-WG { background: #042C53; color: #85B7EB; }
+    .type-SG { background: #0A2E1F; color: #6DC99E; }
+    .type-TF { background: #2E1B00; color: #FAC775; }
+    .type-CG { background: #1E1260; color: #B8A5F0; }
+  }
+  .group-name { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .n-badge { font-size: 11px; color: var(--text-tertiary); background: var(--bg-secondary); border: 0.5px solid var(--border); padding: 1px 7px; border-radius: 10px; flex-shrink: 0; }
+  .group-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .chevron { font-size: 11px; color: var(--text-tertiary); transition: transform .2s; flex-shrink: 0; }
+  .group-card.open .chevron { transform: rotate(90deg); }
+  .group-body { display: none; border-top: 0.5px solid var(--border); }
+  .group-card.open .group-body { display: block; }
+
+  /* ── Person chips ── */
+  .pchip { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 22px; border-radius: 11px; font-size: 10px; font-weight: 700; color: #fff; padding: 0 7px; white-space: nowrap; letter-spacing: .02em; }
+
+  /* ── Policy table ── */
+  .policy-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .policy-table th { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; color: var(--text-tertiary); padding: .4rem .9rem; text-align: left; background: var(--bg-secondary); border-bottom: 0.5px solid var(--border); white-space: nowrap; }
+  .policy-table td { padding: .55rem .9rem; border-bottom: 0.5px solid var(--border); vertical-align: middle; line-height: 1.45; }
+  .policy-table tr:last-child td { border-bottom: none; }
+  .policy-table tr:hover td { background: var(--bg-secondary); }
+  .policy-name { font-weight: 500; color: var(--text); }
+  .people-cell { display: flex; gap: 4px; flex-wrap: wrap; }
+  .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-secondary); font-size: 14px; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); }
+  .no-topics { padding: .75rem 1rem; font-size: 12px; color: var(--text-tertiary); }
+
+  @media (max-width: 640px) {
+    .page-header { padding: 1rem; flex-wrap: wrap; gap: 6px; }
+    .container { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Lock screen -->
+<div id="lock-screen">
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <div class="lock-title">APPLiA Internal</div>
+    <div class="lock-sub">Digital &amp; Competitiveness — restricted access</div>
+    <input type="password" class="lock-input" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
+    <button class="lock-btn" onclick="checkPw()">Enter</button>
+    <div class="lock-error" id="pw-error">Incorrect password</div>
+  </div>
+</div>
+
+<!-- Main content -->
+<div id="main-content">
+<header class="page-header">
+  <div class="logo-area">
+    <div class="logo-mark">A</div>
+    <div>
+      <div class="logo-text">APPLiA</div>
+      <div class="logo-sub">Digital &amp; Competitiveness</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <a href="https://docs.google.com/document/d/1sVZFe53me6qyBSrmXAggrqSO8queykA-vRZM130Yik0/edit" target="_blank" rel="noopener" class="hdr-link">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Source doc
+    </a>
+    <a href="/team.html" class="hdr-link">Team</a>
+    <a href="/" class="hdr-link">← Tracker</a>
+  </div>
+</header>
+
+<div class="container">
+  <div class="toolbar">
+    <div class="selects">
+      <div class="search-wrap"><input type="text" id="search-input" placeholder="Search groups or policy areas…"></div>
+      <select id="person-sel"><option value="">All people</option></select>
+      <select id="type-sel">
+        <option value="">All types</option>
+        <option value="WG">Working Groups (WG)</option>
+        <option value="TF">Task Forces (TF)</option>
+        <option value="CG">Other</option>
+      </select>
+      <span class="count-info" id="count-info"></span>
+    </div>
+  </div>
+  <div id="list-root"></div>
+</div>
+</div>
+
+<script>
+/* ─── Auth ─── */
+const PW_HASH = "be919b1122270c98381d4f3d9733c03ff7419eb609eb96655d2577f6d0dae4d4";
+async function sha256(s) {
+  const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2,"0")).join("");
+}
+async function checkPw() {
+  const v = document.getElementById("pw-input").value;
+  if (await sha256(v) === PW_HASH) {
+    document.getElementById("lock-screen").style.display = "none";
+    document.getElementById("main-content").style.display = "block";
+    sessionStorage.setItem("applia_digital_auth","1");
+    render();
+  } else {
+    document.getElementById("pw-error").style.display = "block";
+    document.getElementById("pw-input").value = "";
+    document.getElementById("pw-input").focus();
+  }
+}
+if (sessionStorage.getItem("applia_digital_auth") === "1") {
+  document.getElementById("lock-screen").style.display = "none";
+  document.getElementById("main-content").style.display = "block";
+}
+
+/* ─── Person colours ─── */
+const PERSON_COLORS = {
+  IFA: "#37474F",
+  MZI: "#8B2252",
+  MOC: "#4A6741",
+  RDN: "#1A5276",
+  YLS: "#6A1B9A",
+  KHY: "#0F6E56",
+  GZA: "#185FA5",
+  CRO: "#854F0B",
+  FFI: "#533AB7",
+  MRB: "#993C1D",
+  AAV: "#3C3489",
+  CRS: "#27500A",
+};
+
+const TYPE_BORDER = { WG: "#185FA5", SG: "#0F6E56", TF: "#854F0B", CG: "#533AB7" };
+
+/* ─── Data (sourced from Google Doc — last synced May 2026) ─── */
+const GROUPS = [
+  {
+    name: "WG Digital Economy",
+    type: "WG",
+    contacts: ["IFA", "MZI"],
+    policies: [
+      { area: "AI Omnibus (AI Act)",              contacts: ["IFA"] },
+      { area: "Digital Acquis (Data Act & GDPR)", contacts: ["IFA"] },
+      { area: "Cyber Resilience Act (CRA)",       contacts: ["MZI"] },
+      { area: "Radio Equipment Directive (RED)",  contacts: ["MZI"] },
+      { area: "New Cybersecurity Act",            contacts: ["MZI"] },
+      { area: "Energy Smart Appliances",          contacts: ["IFA"] },
+      { area: "Code of Conduct V2 (CoC)",         contacts: ["IFA"] },
+    ]
+  },
+  {
+    name: "TF Digital Product Passport",
+    type: "TF",
+    contacts: ["IFA", "MZI"],
+    policies: []
+  },
+  {
+    name: "WG Harmonised Legislation",
+    type: "WG",
+    contacts: ["MZI", "RDN", "MOC"],
+    policies: [
+      { area: "Omnibus IV",                              contacts: ["MOC"] },
+      { area: "European Product Act",                    contacts: ["MZI", "RDN"] },
+      { area: "New Legislative Framework (NLF) Revision",contacts: ["MZI", "MOC"] },
+      { area: "Market Surveillance Revision",            contacts: ["MZI", "RDN"] },
+      { area: "Standardisation Regulation",              contacts: ["MZI", "RDN"] },
+    ]
+  },
+  {
+    name: "TF on-line Market Platforms",
+    type: "TF",
+    contacts: ["MZI", "RDN"],
+    policies: [
+      { area: "Union Customs Code Reform", contacts: ["RDN"] },
+    ]
+  },
+  {
+    name: "WG Trade",
+    type: "WG",
+    contacts: ["RDN", "MOC"],
+    policies: [
+      { area: "Industrial Accelerator Act", contacts: ["RDN"] },
+      { area: "Steel Safeguards",           contacts: ["MOC"] },
+      { area: "Union Customs Code Reform",  contacts: ["RDN"] },
+      { area: "JRC Methodologies",          contacts: ["RDN"] },
+    ]
+  },
+  {
+    name: "TF CBAM",
+    type: "TF",
+    contacts: ["MOC"],
+    policies: [
+      { area: "CBAM", contacts: ["MOC"] },
+    ]
+  },
+  {
+    name: "APPLiA – AMDEA",
+    type: "CG",
+    contacts: ["RDN"],
+    policies: []
+  },
+  {
+    name: "WG Non-Medical Devices in MDR",
+    type: "WG",
+    contacts: ["MZI"],
+    policies: []
+  },
+  {
+    name: "WG Product Information",
+    type: "WG",
+    contacts: ["IFA", "YLS"],
+    policies: []
+  },
+  {
+    name: "WG Data Collection",
+    type: "WG",
+    contacts: ["IFA", "YLS"],
+    policies: []
+  },
+  {
+    name: "Bilateral Verification Procedure",
+    type: "CG",
+    contacts: ["MZI"],
+    policies: []
+  },
+];
+
+/* ─── Helpers ─── */
+function esc(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function chip(person) {
+  const col = PERSON_COLORS[person] || "#888";
+  return `<span class="pchip" style="background:${col}" title="${esc(person)}">${esc(person)}</span>`;
+}
+
+function chips(people) {
+  if (!people || !people.length) return '<span style="color:var(--text-tertiary);font-size:11px">—</span>';
+  return people.map(chip).join(' ');
+}
+
+/* ─── State ─── */
+let fSearch = '', fPerson = '', fType = '';
+
+function groupMatches(g) {
+  if (fType && g.type !== fType) return false;
+  if (fPerson) {
+    const inGroup   = g.contacts.includes(fPerson);
+    const inPolicies = g.policies.some(p => p.contacts.includes(fPerson));
+    if (!inGroup && !inPolicies) return false;
+  }
+  if (fSearch) {
+    const q = fSearch.toLowerCase();
+    const inName   = g.name.toLowerCase().includes(q);
+    const inPols   = g.policies.some(p => p.area.toLowerCase().includes(q));
+    if (!inName && !inPols) return false;
+  }
+  return true;
+}
+
+/* ─── Render ─── */
+function render() {
+  const root = document.getElementById('list-root');
+  if (!root) return;
+  const visible = GROUPS.filter(groupMatches);
+  document.getElementById('count-info').textContent =
+    `${visible.length} of ${GROUPS.length} groups`;
+
+  if (!visible.length) {
+    root.innerHTML = '<div class="empty-state">No groups match the current filters.</div>';
+    return;
+  }
+
+  root.innerHTML = visible.map((g, idx) => {
+    const borderColor = TYPE_BORDER[g.type] || '#888';
+    const shortName   = g.name.replace(/^(WG|SG|TF)\s+/, '');
+
+    const bodyHTML = g.policies.length
+      ? `<table class="policy-table">
+          <thead><tr>
+            <th style="width:70%">Policy Area</th>
+            <th style="width:30%">Contact</th>
+          </tr></thead>
+          <tbody>
+            ${g.policies.map(p => `<tr>
+              <td><span class="policy-name">${esc(p.area)}</span></td>
+              <td><div class="people-cell">${chips(p.contacts)}</div></td>
+            </tr>`).join('')}
+          </tbody>
+        </table>`
+      : `<div class="no-topics">No policy areas listed — see source document for details.</div>`;
+
+    return `<div class="group-card" id="gc-${idx}" style="border-left-color:${borderColor}">
+      <div class="group-header" onclick="toggleCard(${idx})">
+        <div class="group-left">
+          <span class="type-badge type-${g.type}">${g.type}</span>
+          <span class="group-name">${esc(shortName)}</span>
+          ${g.policies.length ? `<span class="n-badge">${g.policies.length}</span>` : ''}
+        </div>
+        <div class="group-right">
+          <div class="people-cell">${chips(g.contacts)}</div>
+          <span class="chevron">&#9656;</span>
+        </div>
+      </div>
+      <div class="group-body">${bodyHTML}</div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCard(idx) {
+  document.getElementById('gc-' + idx)?.classList.toggle('open');
+}
+
+/* ─── Populate person filter ─── */
+function populatePersonFilter() {
+  const people = new Set();
+  GROUPS.forEach(g => {
+    g.contacts.forEach(p => people.add(p));
+    g.policies.forEach(p => p.contacts.forEach(c => people.add(c)));
+  });
+  const sel = document.getElementById('person-sel');
+  [...people].sort().forEach(p => {
+    const o = document.createElement('option'); o.value = p; o.textContent = p; sel.appendChild(o);
+  });
+}
+
+/* ─── Event listeners ─── */
+document.getElementById('search-input').addEventListener('input',  e => { fSearch = e.target.value.trim(); render(); });
+document.getElementById('person-sel').addEventListener('change',   e => { fPerson = e.target.value; render(); });
+document.getElementById('type-sel').addEventListener('change',     e => { fType   = e.target.value; render(); });
+
+/* ─── Init ─── */
+populatePersonFilter();
+if (sessionStorage.getItem("applia_digital_auth") === "1") render();
+</script>
+</body>
+</html>
