@@ -157,7 +157,11 @@
     </a>
     <a href="https://docs.google.com/document/d/1sVZFe53me6qyBSrmXAggrqSO8queykA-vRZM130Yik0/edit" target="_blank" rel="noopener" class="hdr-link">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      Doc
+      Digital doc
+    </a>
+    <a href="https://docs.google.com/document/d/1EFbo2pAMRygbQhCyThscCda85NLBbHyOI4XrfKArSbs/edit" target="_blank" rel="noopener" class="hdr-link">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Energy doc
     </a>
     <a href="/" class="hdr-link">← Tracker</a>
   </div>
@@ -170,6 +174,7 @@
       <select id="cluster-sel">
         <option value="">All areas</option>
         <option value="sustainability">Sustainability &amp; Circular Economy</option>
+        <option value="energy">Energy</option>
         <option value="digital">Digital &amp; Competitiveness</option>
       </select>
       <select id="person-sel"><option value="">All people</option></select>
@@ -228,6 +233,7 @@ const TYPE_BORDER = { WG:"#185FA5", SG:"#0F6E56", TF:"#854F0B", CG:"#533AB7" };
 
 const CLUSTER_LABELS = {
   sustainability: "Sustainability & Circular Economy",
+  energy:         "Energy",
   digital:        "Digital & Competitiveness"
 };
 
@@ -310,6 +316,124 @@ const DIGITAL_GROUPS = [
     name: "Bilateral Verification Procedure", type: "CG", cluster: "digital",
     shortName: "Bilateral Verification Procedure", cadence: "", lead: "MZI", support: "",
     topics: []
+  },
+];
+
+/* ─── Energy data (from Google Doc) ─── */
+const ENERGY_GROUPS = [
+  {
+    name: "Energy Labelling", type: "TF", cluster: "energy",
+    shortName: "Energy Labelling", cadence: "", lead: "MRB", support: "",
+    topics: [
+      { topic: "Energy Labelling Framework",              forum: "TF Energy Label",  lead: "MRB", support: "" },
+      { topic: "EPREL",                                   forum: "SG EPREL",         lead: "AAV", support: "MRB" },
+      { topic: "Energy Product Omnibus",                  forum: "WG Energy",        lead: "MRB", support: "" },
+      { topic: "Digital Label",                           forum: "TF Energy Label",  lead: "MRB", support: "" },
+      { topic: "Horizontal enquiries on energy labelling",forum: "WG Energy",        lead: "MRB", support: "" },
+      { topic: "JWG Cooking",                             forum: "JWG Cooking",      lead: "MRB", support: "" },
+      { topic: "WG Energy (coordination)",                forum: "WG Energy",        lead: "MRB", support: "" },
+    ]
+  },
+  {
+    name: "Heating & Cooling Strategy", type: "WG", cluster: "energy",
+    shortName: "Heating & Cooling Strategy", cadence: "", lead: "MRB", support: "",
+    topics: [
+      { topic: "Heating and Cooling Strategy",   forum: "WG Energy", lead: "MRB", support: "" },
+      { topic: "Heat Pump Accelerator Plan",     forum: "WG Energy", lead: "MRB", support: "" },
+      { topic: "EPBD",                           forum: "WG Energy", lead: "MRB", support: "" },
+      { topic: "Affordable Housing Action Plan", forum: "WG Energy", lead: "AAV", support: "MRB" },
+    ]
+  },
+  {
+    name: "Products – Energy", type: "WG", cluster: "energy",
+    shortName: "Products – Energy", cadence: "", lead: "MRB", support: "",
+    topics: [
+      { topic: "WG Small Kitchen Appliances",  forum: "WG Small Kitchen Appliances",              lead: "MRB", support: "" },
+      { topic: "Ovens, hobs and hoods",        forum: "WG Cooking, SG Hobs, SG Hoods, SG Ovens", lead: "MRB", support: "" },
+      { topic: "Refrigerators and freezers",   forum: "WG COLD",                                  lead: "AAV", support: "MRB" },
+      { topic: "Water Heaters",                forum: "WG WH",                                    lead: "MRB", support: "" },
+      { topic: "Local Space Heaters",          forum: "WG LSH",                                   lead: "MRB", support: "" },
+      { topic: "Air-conditioning",             forum: "WG Airco",                                 lead: "MRB", support: "" },
+      { topic: "Comfort fans",                 forum: "WG CF",                                    lead: "MRB", support: "" },
+      { topic: "External Power Supply",        forum: "SG EPS",                                   lead: "AAV", support: "MRB" },
+      { topic: "Standby",                      forum: "SG Standby",                               lead: "AAV", support: "MRB" },
+    ]
+  },
+  {
+    name: "ESPR & Circular Economy", type: "WG", cluster: "energy",
+    shortName: "ESPR & Circular Economy", cadence: "", lead: "GZA", support: "KHY/MRB",
+    topics: [
+      { topic: "Ecodesign for Sustainable Products Regulation", forum: "WG Circular Economy",           lead: "GZA",     support: "KHY/MRB" },
+      { topic: "Environment Omnibus on ESPR",                   forum: "WG Circular Economy",           lead: "GZA",     support: "KHY" },
+      { topic: "ESPR Label",                                    forum: "TF ESPR",                       lead: "CRS",     support: "GZA" },
+      { topic: "ESPR Methodology",                              forum: "TF ESPR, SG MEErP",             lead: "GZA",     support: "" },
+      { topic: "Horizontal requirements",                       forum: "WG Circular Economy",           lead: "CRS",     support: "GZA" },
+      { topic: "Repairability",                                 forum: "SG Repair",                     lead: "CRS",     support: "GZA" },
+      { topic: "Recycled content and recyclability",            forum: "",                              lead: "CRS",     support: "GZA/KHY" },
+      { topic: "Intermediary products",                         forum: "SG Working Plan",               lead: "GZA",     support: "KHY" },
+      { topic: "Irons & steel",                                 forum: "SG Working Plan",               lead: "CRS",     support: "GZA/KHY" },
+      { topic: "Aluminium",                                     forum: "SG Working Plan",               lead: "CRS",     support: "GZA/KHY" },
+      { topic: "Subassemblies & components",                    forum: "WG Energy",                     lead: "GZA",     support: "" },
+      { topic: "Displays",                                      forum: "SG Displays",                   lead: "AAV",     support: "GZA" },
+      { topic: "Motors",                                        forum: "SG Motors",                     lead: "AAV",     support: "GZA" },
+      { topic: "Fans",                                          forum: "SG Fans",                       lead: "AAV",     support: "GZA" },
+      { topic: "Lighting",                                      forum: "SG Lighting",                   lead: "GZA",     support: "" },
+      { topic: "Non-APPLiA products",                          forum: "SG Working Plan",               lead: "GZA",     support: "" },
+      { topic: "Textile",                                       forum: "SG Microfibers, SG Working Plan", lead: "CRS",   support: "GZA" },
+      { topic: "PEA Core Group",                               forum: "WG Circular Economy",           lead: "GZA/CRS", support: "KHY" },
+      { topic: "DPP",                                          forum: "TF DPP",                        lead: "MZI",     support: "" },
+      { topic: "Unsold goods",                                  forum: "WG Consumers",                  lead: "GZA",     support: "" },
+      { topic: "Substances of Concern",                        forum: "WG Chemicals",                  lead: "CRO",     support: "KHY" },
+      { topic: "Horizontal enquiries on ESPR",                 forum: "WG Circular Economy",           lead: "GZA",     support: "" },
+    ]
+  },
+  {
+    name: "Coalition for Energy Savings", type: "WG", cluster: "energy",
+    shortName: "Coalition for Energy Savings", cadence: "", lead: "GZA", support: "PFI",
+    topics: [
+      { topic: "Steering Committee & General Assembly",  forum: "WG Energy", lead: "GZA",     support: "PFI" },
+      { topic: "WG Advocacy",                           forum: "WG Energy", lead: "AAV/MOC", support: "GZA" },
+      { topic: "ETS 2",                                 forum: "WG Energy", lead: "GZA/MOC", support: "" },
+      { topic: "EED",                                   forum: "WG Energy", lead: "GZA/AAV", support: "" },
+      { topic: "Energy Efficiency Financing Coalition", forum: "WG Energy", lead: "PFI/GZA/AAV", support: "" },
+      { topic: "Governance Regulation",                 forum: "WG Energy", lead: "GZA/AAV", support: "" },
+      { topic: "Electrification Action Plan",           forum: "WG Energy", lead: "GZA/AAV", support: "" },
+    ]
+  },
+  {
+    name: "Drinking Water Directive", type: "TF", cluster: "energy",
+    shortName: "Drinking Water Directive", cadence: "", lead: "GZA", support: "",
+    topics: [
+      { topic: "Implementing and Delegated Acts", forum: "TF DWD", lead: "AAV/CRO", support: "" },
+      { topic: "Main Directive",                  forum: "TF DWD", lead: "AAV",     support: "GZA" },
+    ]
+  },
+  {
+    name: "Resource & Material Efficiency", type: "SG", cluster: "energy",
+    shortName: "Resource & Material Efficiency", cadence: "", lead: "GZA", support: "",
+    topics: [
+      { topic: "Repairability Indexes",  forum: "SG Repair",                          lead: "CRS", support: "GZA" },
+      { topic: "CENELEC TC59X WG 23",   forum: "SG Resource and Material Efficiency", lead: "CRS", support: "GZA" },
+    ]
+  },
+  {
+    name: "Products – Resource & Material", type: "WG", cluster: "energy",
+    shortName: "Products – Resource & Material", cadence: "", lead: "GZA", support: "",
+    topics: [
+      { topic: "WET",             forum: "WG WET, SG WM, SG WD, SG TD, SG DW, SG MF", lead: "GZA",     support: "CRS" },
+      { topic: "Irons",           forum: "WG Irons",                                    lead: "AAV",     support: "GZA" },
+      { topic: "Coffee Machines", forum: "SG Coffee Machines",                          lead: "CRS",     support: "GZA" },
+      { topic: "Kettles",         forum: "SG Kettles",                                  lead: "CRS",     support: "GZA" },
+      { topic: "Vacuum cleaners", forum: "WG Vacuum Cleaners",                          lead: "GZA",     support: "" },
+    ]
+  },
+  {
+    name: "Energy Smart Appliances", type: "SG", cluster: "energy",
+    shortName: "Energy Smart Appliances", cadence: "", lead: "PFI", support: "",
+    topics: [
+      { topic: "SmartEN",                                     forum: "WG Energy, SG Energy Smart Appliances",      lead: "AAV/IFA", support: "PFI" },
+      { topic: "Code of Conduct for Energy Smart Appliances", forum: "SG Energy Smart Appliances, PEA CG",         lead: "AAV/IFA", support: "MRB/MZI" },
+    ]
   },
 ];
 
@@ -446,6 +570,27 @@ function buildDigitalBody(g) {
   </table>`;
 }
 
+function buildEnergyBody(g) {
+  if (!g.topics.length)
+    return '<div class="no-topics">No topics listed — see source document for details.</div>';
+  return `<table class="topics-table">
+    <thead><tr>
+      <th style="width:38%">File / Topic</th>
+      <th style="width:32%">Forum</th>
+      <th style="width:15%">Lead</th>
+      <th style="width:15%">Support</th>
+    </tr></thead>
+    <tbody>
+      ${g.topics.map(t => `<tr>
+        <td><div class="topic-title">${esc(t.topic)}</div></td>
+        <td><span style="font-size:11px;color:var(--text-secondary)">${esc(t.forum||'—')}</span></td>
+        <td><div class="people-cell">${chips(t.lead, false)}</div></td>
+        <td><div class="people-cell">${chips(t.support, true)}</div></td>
+      </tr>`).join('')}
+    </tbody>
+  </table>`;
+}
+
 /* ─── State & filters ─── */
 let allGroups = [], fSearch = '', fPerson = '', fType = '', fCluster = '';
 
@@ -463,7 +608,7 @@ function groupMatches(g) {
   if (fSearch) {
     const q = fSearch.toLowerCase();
     const inName   = g.name.toLowerCase().includes(q);
-    const inTopics = g.topics.some(t => t.topic.toLowerCase().includes(q) || (t.activities||'').toLowerCase().includes(q));
+    const inTopics = g.topics.some(t => t.topic.toLowerCase().includes(q) || (t.activities||'').toLowerCase().includes(q) || (t.forum||'').toLowerCase().includes(q));
     if (!inName && !inTopics) return false;
   }
   return true;
@@ -481,47 +626,41 @@ function render() {
     return;
   }
 
-  // Group by cluster for section headings when no cluster filter is active
-  const showSections = !fCluster;
-  const clusters = showSections
-    ? ['sustainability', 'digital']
-    : [fCluster || visible[0]?.cluster];
+  function buildCard(g) {
+    const borderColor = TYPE_BORDER[g.type] || '#888';
+    const cadence     = g.cadence ? g.cadence.split(/\./)[0].trim() : '';
+    const bodyHTML    = g.cluster === 'digital'  ? buildDigitalBody(g)
+                      : g.cluster === 'energy'   ? buildEnergyBody(g)
+                      :                            buildSustainabilityBody(g);
+    return `<div class="group-card" id="gc-${g.idx}" style="border-left-color:${borderColor}">
+      <div class="group-header" onclick="toggleCard(${g.idx})">
+        <div class="group-left">
+          <span class="type-badge type-${g.type}">${g.type}</span>
+          <span class="group-name">${esc(g.shortName)}</span>
+          ${g.topics.length ? `<span class="n-badge">${g.topics.length}</span>` : ''}
+        </div>
+        <div class="group-right">
+          ${cadence ? `<span class="cadence-pill">${esc(cadence)}</span>` : ''}
+          ${chips(g.lead, false)}
+          ${g.support ? chips(g.support, true) : ''}
+          <span class="chevron">&#9656;</span>
+        </div>
+      </div>
+      <div class="group-body">${bodyHTML}</div>
+    </div>`;
+  }
 
   let html = '';
-  for (const cl of clusters) {
-    const clItems = showSections ? visible.filter(g => g.cluster === cl) : visible;
-    if (!clItems.length) continue;
-
-    if (showSections) {
+  if (!fCluster) {
+    // Show all three clusters with section headings
+    for (const cl of ['sustainability', 'energy', 'digital']) {
+      const clItems = visible.filter(g => g.cluster === cl);
+      if (!clItems.length) continue;
       html += `<div class="section-heading">${esc(CLUSTER_LABELS[cl])}</div>`;
+      html += clItems.map(buildCard).join('');
     }
-
-    html += clItems.map(g => {
-      const borderColor = TYPE_BORDER[g.type] || '#888';
-      const cadence     = g.cadence ? g.cadence.split(/\./)[0].trim() : '';
-      const bodyHTML    = g.cluster === 'digital'
-        ? buildDigitalBody(g)
-        : buildSustainabilityBody(g);
-
-      return `<div class="group-card" id="gc-${g.idx}" style="border-left-color:${borderColor}">
-        <div class="group-header" onclick="toggleCard(${g.idx})">
-          <div class="group-left">
-            <span class="type-badge type-${g.type}">${g.type}</span>
-            <span class="group-name">${esc(g.shortName)}</span>
-            ${g.topics.length ? `<span class="n-badge">${g.topics.length}</span>` : ''}
-          </div>
-          <div class="group-right">
-            ${cadence ? `<span class="cadence-pill">${esc(cadence)}</span>` : ''}
-            ${chips(g.lead, false)}
-            ${g.support ? chips(g.support, true) : ''}
-            <span class="chevron">&#9656;</span>
-          </div>
-        </div>
-        <div class="group-body">${bodyHTML}</div>
-      </div>`;
-    }).join('');
-
-    if (showSections) break; // only loop once in non-sectioned mode
+  } else {
+    html = visible.map(buildCard).join('');
   }
 
   root.innerHTML = html;
@@ -556,7 +695,7 @@ async function initPage() {
     const sustainabilityGroups = processRows(parseCSV(csv));
 
     // Merge and index
-    allGroups = [...sustainabilityGroups, ...DIGITAL_GROUPS].map((g, i) => ({ ...g, idx: i }));
+    allGroups = [...sustainabilityGroups, ...ENERGY_GROUPS, ...DIGITAL_GROUPS].map((g, i) => ({ ...g, idx: i }));
 
     populatePersonFilter();
     const now = new Date();
