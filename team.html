@@ -129,9 +129,9 @@
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
       Spreadsheet
     </a>
-    <a href="https://docs.google.com/document/d/1sVZFe53me6qyBSrmXAggrqSO8queykA-vRZM130Yik0/edit" target="_blank" rel="noopener" class="hdr-link">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      Digital doc
+    <a href="https://docs.google.com/spreadsheets/d/1OeRMabUsjDFAajKsTTeD7TqY8r8TGbMg7r8k0FSNx8s/edit" target="_blank" rel="noopener" class="hdr-link">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      Competitiveness
     </a>
     <a href="https://docs.google.com/document/d/1EFbo2pAMRygbQhCyThscCda85NLBbHyOI4XrfKArSbs/edit" target="_blank" rel="noopener" class="hdr-link">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -171,8 +171,9 @@
 
 <script>
 /* ─── Constants ─── */
-const SHEET_URL      = "https://docs.google.com/spreadsheets/d/1uFMeNO4UCyQS0QHuAQRKVHTMzyuh4rmTt_c4D67p-Lw/gviz/tq?tqx=out:csv&gid=0";
-const COMMS_SHEET_URL = "https://docs.google.com/spreadsheets/d/1uFMeNO4UCyQS0QHuAQRKVHTMzyuh4rmTt_c4D67p-Lw/gviz/tq?tqx=out:csv&sheet=COMMS%20Team%20Organisation";
+const SHEET_URL               = "https://docs.google.com/spreadsheets/d/1uFMeNO4UCyQS0QHuAQRKVHTMzyuh4rmTt_c4D67p-Lw/gviz/tq?tqx=out:csv&gid=0";
+const COMMS_SHEET_URL         = "https://docs.google.com/spreadsheets/d/1uFMeNO4UCyQS0QHuAQRKVHTMzyuh4rmTt_c4D67p-Lw/gviz/tq?tqx=out:csv&sheet=COMMS%20Team%20Organisation";
+const COMPETITIVENESS_SHEET_URL = "https://docs.google.com/spreadsheets/d/1OeRMabUsjDFAajKsTTeD7TqY8r8TGbMg7r8k0FSNx8s/gviz/tq?tqx=out:csv&gid=0";
 
 const PERSON_COLORS = {
   KHY:"#0F6E56", GZA:"#185FA5", CRO:"#854F0B", FFI:"#533AB7",
@@ -191,87 +192,6 @@ const CLUSTER_LABELS = {
   comms:          "Communication Team"
 };
 
-/* ─── Digital & Competitiveness data (from Google Doc) ─── */
-const DIGITAL_GROUPS = [
-  {
-    name: "WG Digital Economy", type: "WG", cluster: "digital",
-    shortName: "Digital Economy", cadence: "", lead: "IFA/MZI", support: "",
-    topics: [
-      { topic: "AI Omnibus (AI Act)",              activities: "", lead: "IFA", support: "" },
-      { topic: "Digital Acquis (Data Act & GDPR)", activities: "", lead: "IFA", support: "" },
-      { topic: "Cyber Resilience Act (CRA)",       activities: "", lead: "MZI", support: "" },
-      { topic: "Radio Equipment Directive (RED)",  activities: "", lead: "MZI", support: "" },
-      { topic: "New Cybersecurity Act",            activities: "", lead: "MZI", support: "" },
-      { topic: "Energy Smart Appliances",          activities: "", lead: "IFA", support: "" },
-      { topic: "Code of Conduct V2 (CoC)",         activities: "", lead: "IFA", support: "" },
-    ]
-  },
-  {
-    name: "TF Digital Product Passport", type: "TF", cluster: "digital",
-    shortName: "Digital Product Passport", cadence: "", lead: "IFA/MZI", support: "",
-    topics: []
-  },
-  {
-    name: "WG Harmonised Legislation", type: "WG", cluster: "digital",
-    shortName: "Harmonised Legislation", cadence: "", lead: "MZI/RDN/MOC", support: "",
-    topics: [
-      { topic: "Omnibus IV",                               activities: "", lead: "MOC",     support: "" },
-      { topic: "European Product Act",                     activities: "", lead: "MZI/RDN", support: "" },
-      { topic: "New Legislative Framework (NLF) Revision", activities: "", lead: "MZI/MOC", support: "" },
-      { topic: "Market Surveillance Revision",             activities: "", lead: "MZI/RDN", support: "" },
-      { topic: "Standardisation Regulation",               activities: "", lead: "MZI/RDN", support: "" },
-    ]
-  },
-  {
-    name: "TF on-line Market Platforms", type: "TF", cluster: "digital",
-    shortName: "on-line Market Platforms", cadence: "", lead: "MZI/RDN", support: "",
-    topics: [
-      { topic: "Union Customs Code Reform", activities: "", lead: "RDN", support: "" },
-    ]
-  },
-  {
-    name: "WG Trade", type: "WG", cluster: "digital",
-    shortName: "Trade", cadence: "", lead: "RDN/MOC", support: "",
-    topics: [
-      { topic: "Industrial Accelerator Act", activities: "", lead: "RDN", support: "" },
-      { topic: "Steel Safeguards",           activities: "", lead: "MOC", support: "" },
-      { topic: "Union Customs Code Reform",  activities: "", lead: "RDN", support: "" },
-      { topic: "JRC Methodologies",         activities: "", lead: "RDN", support: "" },
-    ]
-  },
-  {
-    name: "TF CBAM", type: "TF", cluster: "digital",
-    shortName: "CBAM", cadence: "", lead: "MOC", support: "",
-    topics: [
-      { topic: "CBAM", activities: "", lead: "MOC", support: "" },
-    ]
-  },
-  {
-    name: "APPLiA – AMDEA", type: "CG", cluster: "digital",
-    shortName: "APPLiA – AMDEA", cadence: "", lead: "RDN", support: "",
-    topics: []
-  },
-  {
-    name: "WG Non-Medical Devices in MDR", type: "WG", cluster: "digital",
-    shortName: "Non-Medical Devices in MDR", cadence: "", lead: "MZI", support: "",
-    topics: []
-  },
-  {
-    name: "WG Product Information", type: "WG", cluster: "digital",
-    shortName: "Product Information", cadence: "", lead: "IFA/YLS", support: "",
-    topics: []
-  },
-  {
-    name: "WG Data Collection", type: "WG", cluster: "digital",
-    shortName: "Data Collection", cadence: "", lead: "IFA/YLS", support: "",
-    topics: []
-  },
-  {
-    name: "Bilateral Verification Procedure", type: "CG", cluster: "digital",
-    shortName: "Bilateral Verification Procedure", cadence: "", lead: "MZI", support: "",
-    topics: []
-  },
-];
 
 /* ─── Energy data (from Google Doc) ─── */
 const ENERGY_GROUPS = [
@@ -643,16 +563,18 @@ async function initPage() {
   document.getElementById('list-root').innerHTML =
     '<div class="state-card"><div class="spinner"></div><div>Loading from spreadsheet…</div></div>';
   try {
-    const [res1, res2] = await Promise.all([fetch(SHEET_URL), fetch(COMMS_SHEET_URL)]);
+    const [res1, res2, res3] = await Promise.all([fetch(SHEET_URL), fetch(COMMS_SHEET_URL), fetch(COMPETITIVENESS_SHEET_URL)]);
     if (!res1.ok) throw new Error(`HTTP ${res1.status} (sustainability sheet)`);
     if (!res2.ok) throw new Error(`HTTP ${res2.status} (comms sheet)`);
-    const [csv1, csv2] = await Promise.all([res1.text(), res2.text()]);
+    if (!res3.ok) throw new Error(`HTTP ${res3.status} (competitiveness sheet)`);
+    const [csv1, csv2, csv3] = await Promise.all([res1.text(), res2.text(), res3.text()]);
 
-    const sustainabilityGroups = processRows(parseCSV(csv1), 'sustainability');
-    const commsGroups          = processRows(parseCSV(csv2), 'comms');
+    const sustainabilityGroups   = processRows(parseCSV(csv1), 'sustainability');
+    const commsGroups            = processRows(parseCSV(csv2), 'comms');
+    const competitivenessGroups  = processRows(parseCSV(csv3), 'digital');
 
     // Merge and index
-    allGroups = [...sustainabilityGroups, ...ENERGY_GROUPS, ...DIGITAL_GROUPS, ...commsGroups].map((g, i) => ({ ...g, idx: i }));
+    allGroups = [...sustainabilityGroups, ...ENERGY_GROUPS, ...competitivenessGroups, ...commsGroups].map((g, i) => ({ ...g, idx: i }));
 
     populatePersonFilter();
     const now = new Date();
