@@ -150,6 +150,7 @@
         <option value="sustainability">Sustainability &amp; Circular Economy</option>
         <option value="energy">Energy</option>
         <option value="digital">Digital &amp; Competitiveness</option>
+        <option value="comms">Communication Team</option>
       </select>
       <select id="person-sel"><option value="">All people</option></select>
       <select id="type-sel">
@@ -170,13 +171,15 @@
 
 <script>
 /* ─── Constants ─── */
-const SHEET_URL = "https://docs.google.com/spreadsheets/d/1uFMeNO4UCyQS0QHuAQRKVHTMzyuh4rmTt_c4D67p-Lw/gviz/tq?tqx=out:csv&gid=0";
+const SHEET_URL      = "https://docs.google.com/spreadsheets/d/1uFMeNO4UCyQS0QHuAQRKVHTMzyuh4rmTt_c4D67p-Lw/gviz/tq?tqx=out:csv&gid=0";
+const COMMS_SHEET_URL = "https://docs.google.com/spreadsheets/d/1uFMeNO4UCyQS0QHuAQRKVHTMzyuh4rmTt_c4D67p-Lw/gviz/tq?tqx=out:csv&sheet=COMMS%20Team%20Organisation";
 
 const PERSON_COLORS = {
   KHY:"#0F6E56", GZA:"#185FA5", CRO:"#854F0B", FFI:"#533AB7",
   MRB:"#993C1D", AAV:"#3C3489", CRS:"#27500A", MOC:"#4A6741",
   EBR:"#5D4037", MZI:"#8B2252", PFI:"#0D5F6E", IFA:"#37474F",
-  RDN:"#1A5276", YLS:"#6A1B9A"
+  RDN:"#1A5276", YLS:"#6A1B9A",
+  FLO:"#C0392B", MMA:"#2471A3", ARO:"#117A65", MFL:"#7D6608"
 };
 
 const TYPE_BORDER = { WG:"#185FA5", SG:"#0F6E56", TF:"#854F0B", CG:"#533AB7" };
@@ -184,7 +187,8 @@ const TYPE_BORDER = { WG:"#185FA5", SG:"#0F6E56", TF:"#854F0B", CG:"#533AB7" };
 const CLUSTER_LABELS = {
   sustainability: "Sustainability & Circular Economy",
   energy:         "Energy",
-  digital:        "Digital & Competitiveness"
+  digital:        "Digital & Competitiveness",
+  comms:          "Communication Team"
 };
 
 /* ─── Digital & Competitiveness data (from Google Doc) ─── */
@@ -405,8 +409,8 @@ function parseCSV(str) {
   return rows;
 }
 
-/* ─── Data processing (Sustainability sheet) ─── */
-function processRows(rows) {
+/* ─── Data processing (sheet rows → group objects) ─── */
+function processRows(rows, cluster) {
   if (rows.length < 2) return [];
   const groups = [];
   let current = null;
@@ -420,7 +424,7 @@ function processRows(rows) {
 
     if (g) {
       const type = g.startsWith('WG ') ? 'WG' : g.startsWith('SG ') ? 'SG' : g.startsWith('TF ') ? 'TF' : 'CG';
-      current = { idx: 0, name: g, type, cluster: 'sustainability',
+      current = { idx: 0, name: g, type, cluster,
                   shortName: g.replace(/^(WG|SG|TF)\s+/,''),
                   cadence:'', lead:'', support:'', topics:[] };
       groups.push(current);
@@ -603,7 +607,7 @@ function render() {
   let html = '';
   if (!fCluster) {
     // Show all three clusters with section headings
-    for (const cl of ['sustainability', 'energy', 'digital']) {
+    for (const cl of ['sustainability', 'energy', 'digital', 'comms']) {
       const clItems = visible.filter(g => g.cluster === cl);
       if (!clItems.length) continue;
       html += `<div class="section-heading">${esc(CLUSTER_LABELS[cl])}</div>`;
@@ -639,13 +643,16 @@ async function initPage() {
   document.getElementById('list-root').innerHTML =
     '<div class="state-card"><div class="spinner"></div><div>Loading from spreadsheet…</div></div>';
   try {
-    const res = await fetch(SHEET_URL);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const csv = await res.text();
-    const sustainabilityGroups = processRows(parseCSV(csv));
+    const [res1, res2] = await Promise.all([fetch(SHEET_URL), fetch(COMMS_SHEET_URL)]);
+    if (!res1.ok) throw new Error(`HTTP ${res1.status} (sustainability sheet)`);
+    if (!res2.ok) throw new Error(`HTTP ${res2.status} (comms sheet)`);
+    const [csv1, csv2] = await Promise.all([res1.text(), res2.text()]);
+
+    const sustainabilityGroups = processRows(parseCSV(csv1), 'sustainability');
+    const commsGroups          = processRows(parseCSV(csv2), 'comms');
 
     // Merge and index
-    allGroups = [...sustainabilityGroups, ...ENERGY_GROUPS, ...DIGITAL_GROUPS].map((g, i) => ({ ...g, idx: i }));
+    allGroups = [...sustainabilityGroups, ...ENERGY_GROUPS, ...DIGITAL_GROUPS, ...commsGroups].map((g, i) => ({ ...g, idx: i }));
 
     populatePersonFilter();
     const now = new Date();
