@@ -306,6 +306,16 @@ const ALL_DOSSIERS = [
 {"id":"crma","products":["all"],"title":"Critical Raw Materials Act (CRMA)","category":"Industrial Policy","lead_institution":"European Commission / DG Grow","status":"In force — amendment in progress","priority":"high","source":"official","notes":"Regulation (EU) 2024/1252 in force since 23 May 2024. Most relevant obligations for appliance manufacturers: (1) permanent magnet labelling (Art. 28, from Nov 2028) and (2) disclosure of recycled content in permanent magnets >0.2 kg (Art. 29, from May 2027). Commission proposed CRMA amendments on 3 Dec 2025 alongside the RESourceEU Action Plan; Council adopted its general approach 4 March 2026. Amendment vote expected Q4 2026.","milestones":[{"date":"2024-05-23","label":"Regulation (EU) 2024/1252 entered into force","type":"past"},{"date":"2025-12-03","label":"Commission proposal to amend CRMA published + RESourceEU Action Plan","type":"past"},{"date":"2026-03-04","label":"Council adopted general approach on CRMA amendment","type":"past"},{"date":"2026-05-24","label":"Commission delegated act on recycled content calculation/verification due (Art. 29(2))","type":"current"},{"date":"2026-07-01","label":"EP ITRE committee to adopt position on the amendment","type":"upcoming","approximate":true},{"date":"2026-10-01","label":"Amendment adoption forecasted (Q4 2026) following trilogue","type":"upcoming","approximate":true},{"date":"2026-11-24","label":"Commission implementing act on permanent magnet labelling format due (Art. 28(2))","type":"upcoming"},{"date":"2027-05-24","label":"Economic operators to publicly disclose recycled content of permanent magnets >0.2 kg (Art. 29(1))","type":"upcoming"},{"date":"2028-11-24","label":"Permanent magnet labelling mandatory for listed products (Art. 28(1))","type":"upcoming"},{"date":"2029-05-24","label":"Permanent magnet obligations extended to additional product categories (Art. 28(10))","type":"upcoming"},{"date":"2031-12-31","label":"Deadline for Commission delegated acts setting minimum recycled content shares in permanent magnets (Art. 29(3))","type":"upcoming"}]}
 ];
 
+/* ─── Timeline sheet ─── */
+const TIMELINE_SHEET_URL = "https://docs.google.com/spreadsheets/d/1NJJDofr6yD_5_cWJNGfDOVSvRyJzeM3371S5DBFp2mA/gviz/tq?tqx=out:csv&gid=2145233034";
+// Each entry maps to the corresponding section (table) in the sheet, in order
+const TIMELINE_DOSSIER_MAP = [
+  "ai-omnibus","digital-acquis","red-delegated-act","cyber-resilience-act",
+  "new-cybersecurity-package","espr-dpp","omnibus-iv","eu-customs-reform",
+  "market-surveillance-revision","standardisation-regulation-revision",
+  "nlf-revision","industrial-accelerator-act","steel-safeguards","cbam-extension"
+];
+
 /* ─── State ─── */
 let activeCat = "", activeStatus = "", activePriority = "", searchQ = "", activeView = "list";
 
@@ -353,6 +363,84 @@ function dateToQuarterKey(d) {
   if (!d) return { label: 'Date TBD', sort: 99999 };
   const q = Math.floor(d.getMonth() / 3) + 1;
   return { label: `Q${q} ${d.getFullYear()}`, sort: d.getFullYear() * 10 + q };
+}
+
+/* ─── CSV parser ─── */
+function parseCSV(str) {
+  const rows = [];
+  let inQ = false, cur = '', row = [];
+  for (let i = 0; i < str.length; i++) {
+    const c = str[i];
+    if (inQ) {
+      if (c === '"') { if (str[i+1] === '"') { cur += '"'; i++; } else inQ = false; }
+      else cur += c;
+    } else if (c === '"') { inQ = true; }
+    else if (c === ',') { row.push(cur); cur = ''; }
+    else if (c === '\n') { row.push(cur); rows.push(row); row = []; cur = ''; }
+    else if (c !== '\r') { cur += c; }
+  }
+  if (cur || row.length) { row.push(cur); rows.push(row); }
+  return rows;
+}
+
+/* ─── Timeline sheet helpers ─── */
+function parseSheetDate(raw) {
+  if (!raw) return null;
+  const s = raw.trim();
+  const dmy = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (dmy) return `${dmy[3]}-${dmy[2].padStart(2,'0')}-${dmy[1].padStart(2,'0')}`;
+  const my = s.match(/^(\d{1,2})\/(\d{4})$/);
+  if (my) return `${my[2]}-${my[1].padStart(2,'0')}`;
+  if (/^\d{4}$/.test(s)) return s;
+  const qm = s.match(/Q(\d)[^0-9]*(\d{4})|(\d{4})[^0-9]+Q(\d)/);
+  if (qm) return qm[4] ? `${qm[3]} Q${qm[4]}` : `${qm[2]} Q${qm[1]}`;
+  const MONTHS = {january:1,february:2,march:3,april:4,may:5,june:6,july:7,august:8,september:9,october:10,november:11,december:12};
+  const myr = s.match(/([a-z]+)[^0-9]*(\d{4})/i);
+  if (myr) { const m = MONTHS[myr[1].toLowerCase()]; if (m) return `${myr[2]}-${String(m).padStart(2,'0')}`; }
+  return s;
+}
+
+function isApprox(raw) {
+  return raw ? !/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(raw.trim()) : false;
+}
+
+function parseTimelineSections(rows) {
+  const sections = [];
+  let cur = null;
+  for (const r of rows) {
+    if ((r[0]||'').trim() === 'Date' && (r[1]||'').trim() === 'Actor') {
+      cur = []; sections.push(cur);
+    } else if (cur !== null && (r[0]||'').trim()) {
+      cur.push(r);
+    }
+  }
+  return sections;
+}
+
+async function loadTimelineSheet() {
+  try {
+    const res = await fetch(TIMELINE_SHEET_URL);
+    if (!res.ok) return;
+    const sections = parseTimelineSections(parseCSV(await res.text()));
+    const today = new Date(); today.setHours(0,0,0,0);
+    sections.forEach((sRows, idx) => {
+      const id = TIMELINE_DOSSIER_MAP[idx];
+      const dossier = id && ALL_DOSSIERS.find(d => d.id === id);
+      if (!dossier) return;
+      const milestones = sRows.map(r => {
+        const rawDate = (r[0]||'').trim();
+        const action  = (r[2]||'').trim();
+        if (!action) return null;
+        const isoDate = parseSheetDate(rawDate);
+        const parsed  = parseDate(isoDate);
+        const type    = parsed ? (parsed < today ? 'past' : 'upcoming') : 'upcoming';
+        const approx  = isApprox(rawDate);
+        return { date: isoDate || rawDate, label: action, type, ...(approx ? {approximate:true} : {}) };
+      }).filter(Boolean);
+      if (milestones.length) dossier.milestones = milestones;
+    });
+    render();
+  } catch(e) { console.warn('Timeline sheet load failed:', e); }
 }
 
 /* ─── Stats ─── */
@@ -595,6 +683,7 @@ document.getElementById("last-updated").textContent =
 
 populateStatusSelect();
 render();
+loadTimelineSheet();
 </script>
 </div><!-- /#main-content -->
 
