@@ -21,20 +21,7 @@
   }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg-tertiary); color: var(--text); font-size: 15px; line-height: 1.6; min-height: 100vh; }
 
-  /* ── Lock screen ── */
-  #lock-screen { position: fixed; inset: 0; background: var(--bg-tertiary); z-index: 999; display: flex; align-items: center; justify-content: center; }
-  .lock-card { background: var(--bg); border: 0.5px solid var(--border-med); border-radius: var(--radius-lg); padding: 2.5rem 2rem; width: 320px; text-align: center; }
-  .lock-icon { font-size: 28px; margin-bottom: 1rem; }
-  .lock-title { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
-  .lock-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 1.5rem; }
-  .lock-input { width: 100%; height: 38px; border: 0.5px solid var(--border-med); border-radius: var(--radius-md); background: var(--bg-secondary); color: var(--text); font-size: 14px; padding: 0 12px; text-align: center; letter-spacing: 2px; margin-bottom: 10px; }
-  .lock-input:focus { outline: none; border-color: var(--border-strong); }
-  .lock-btn { width: 100%; height: 38px; background: var(--text); color: var(--bg); border: none; border-radius: var(--radius-md); font-size: 14px; font-weight: 500; cursor: pointer; }
-  .lock-btn:hover { opacity: 0.85; }
-  .lock-error { font-size: 12px; color: #993C1D; margin-top: 8px; display: none; }
-
   /* ── Main layout ── */
-  #main-content { display: none; }
   .page-header { background: var(--bg); border-bottom: 0.5px solid var(--border-med); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
   .logo-area { display: flex; align-items: center; gap: 12px; }
   .logo-mark { width: 36px; height: 36px; background: #1a1a18; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 600; letter-spacing: -0.5px; flex-shrink: 0; }
@@ -126,20 +113,7 @@
 </head>
 <body>
 
-<!-- Lock screen -->
-<div id="lock-screen">
-  <div class="lock-card">
-    <div class="lock-icon">🔒</div>
-    <div class="lock-title">APPLiA Internal</div>
-    <div class="lock-sub">Team responsibilities — restricted access</div>
-    <input type="password" class="lock-input" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
-    <button class="lock-btn" onclick="checkPw()">Enter</button>
-    <div class="lock-error" id="pw-error">Incorrect password</div>
-  </div>
-</div>
-
-<!-- Main content -->
-<div id="main-content">
+<div id="main-content" style="display:block">
 <header class="page-header">
   <div class="logo-area">
     <div class="logo-mark">A</div>
@@ -195,30 +169,6 @@
 </div>
 
 <script>
-/* ─── Auth ─── */
-const PW_HASH = "be919b1122270c98381d4f3d9733c03ff7419eb609eb96655d2577f6d0dae4d4";
-async function sha256(s) {
-  const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
-  return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("");
-}
-async function checkPw() {
-  const v = document.getElementById("pw-input").value;
-  if (await sha256(v) === PW_HASH) {
-    document.getElementById("lock-screen").style.display = "none";
-    document.getElementById("main-content").style.display = "block";
-    sessionStorage.setItem("applia_team_auth","1");
-    initPage();
-  } else {
-    document.getElementById("pw-error").style.display = "block";
-    document.getElementById("pw-input").value = "";
-    document.getElementById("pw-input").focus();
-  }
-}
-if (sessionStorage.getItem("applia_team_auth") === "1") {
-  document.getElementById("lock-screen").style.display = "none";
-  document.getElementById("main-content").style.display = "block";
-}
-
 /* ─── Constants ─── */
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/1uFMeNO4UCyQS0QHuAQRKVHTMzyuh4rmTt_c4D67p-Lw/gviz/tq?tqx=out:csv&gid=0";
 
@@ -728,8 +678,8 @@ document.getElementById('cluster-sel').addEventListener('change',  e => { fClust
 document.getElementById('person-sel').addEventListener('change',   e => { fPerson  = e.target.value; render(); });
 document.getElementById('type-sel').addEventListener('change',     e => { fType    = e.target.value; render(); });
 
-/* ─── Auto-init if already authenticated ─── */
-if (sessionStorage.getItem("applia_team_auth") === "1") initPage();
+/* ─── Init ─── */
+initPage();
 </script>
 </body>
 </html>
