@@ -1,6 +1,7 @@
 {
   "rewrites": [
-    { "source": "/",        "destination": "/team.html" },
-    { "source": "/tracker", "destination": "/applia_legislative_tracker_v3.html" }
+    { "source": "/",            "destination": "/team.html" },
+    { "source": "/tracker",     "destination": "/applia_legislative_tracker_v3.html" },
+    { "source": "/secretariat", "destination": "/secretariat.html" }
   ]
 }
