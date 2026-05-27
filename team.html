@@ -21,16 +21,26 @@
   }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg-tertiary); color: var(--text); font-size: 15px; line-height: 1.6; min-height: 100vh; }
 
-  /* ── Main layout ── */
-  .page-header { background: var(--bg); border-bottom: 0.5px solid var(--border-med); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-  .logo-area { display: flex; align-items: center; gap: 12px; }
-  .logo-mark { width: 36px; height: 36px; background: #1a1a18; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 600; letter-spacing: -0.5px; flex-shrink: 0; }
-  .logo-text { font-size: 15px; font-weight: 500; color: var(--text); }
-  .logo-sub { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
-  .header-right { display: flex; align-items: center; gap: 10px; }
-  .hdr-link { font-size: 12px; color: var(--text-secondary); text-decoration: none; border: 0.5px solid var(--border-med); border-radius: 20px; padding: 3px 10px; white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; background: transparent; cursor: pointer; font-family: inherit; }
-  .hdr-link:hover { border-color: var(--border-strong); color: var(--text); }
-  .sync-info { font-size: 11px; color: var(--text-tertiary); white-space: nowrap; }
+  /* ── Top navigation ── */
+  .top-nav { background: var(--bg); border-bottom: 0.5px solid var(--border-med); padding: 0 2rem; display: flex; align-items: center; height: 54px; position: sticky; top: 0; z-index: 100; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .nav-logo-mark { width: 32px; height: 32px; background: #1a1a18; border-radius: 7px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 600; letter-spacing: -0.5px; flex-shrink: 0; }
+  .nav-wordmark { font-size: 14px; font-weight: 600; color: var(--text); }
+  .nav-tabs { display: flex; gap: 2px; flex: 1; justify-content: center; }
+  .nav-tab { font-size: 13px; color: var(--text-secondary); text-decoration: none; padding: 6px 16px; border-radius: 6px; transition: all .15s; white-space: nowrap; }
+  .nav-tab:hover { background: var(--bg-secondary); color: var(--text); }
+  .nav-tab.active { background: var(--text); color: var(--bg); }
+  .nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .nav-sync { font-size: 11px; color: var(--text-tertiary); white-space: nowrap; }
+  .nav-icon-btn { width: 30px; height: 30px; border-radius: 6px; border: 0.5px solid var(--border-med); background: transparent; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 15px; font-family: inherit; }
+  .nav-icon-btn:hover { border-color: var(--border-strong); color: var(--text); }
+  .sources-wrap { position: relative; }
+  .sources-btn { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-secondary); background: transparent; border: 0.5px solid var(--border-med); border-radius: 20px; padding: 4px 10px; cursor: pointer; font-family: inherit; white-space: nowrap; }
+  .sources-btn:hover { border-color: var(--border-strong); color: var(--text); }
+  .sources-menu { position: absolute; right: 0; top: calc(100% + 6px); background: var(--bg); border: 0.5px solid var(--border-med); border-radius: var(--radius-lg); padding: 5px; min-width: 230px; box-shadow: 0 6px 24px rgba(0,0,0,0.10); display: none; z-index: 200; }
+  .sources-wrap.open .sources-menu { display: block; }
+  .sources-item { display: flex; align-items: center; gap: 9px; padding: 7px 9px; border-radius: 6px; font-size: 12px; color: var(--text-secondary); text-decoration: none; }
+  .sources-item:hover { background: var(--bg-secondary); color: var(--text); }
 
   /* ── Container & toolbar ── */
   .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
@@ -103,44 +113,54 @@
   .no-topics { padding: .75rem 1rem; font-size: 12px; color: var(--text-tertiary); }
 
   @media (max-width: 780px) {
-    .page-header { padding: 1rem; flex-wrap: wrap; gap: 6px; }
+    .top-nav { padding: 0 1rem; height: 48px; }
+    .nav-wordmark { display: none; }
+    .nav-sync { display: none; }
+    .nav-tab { padding: 5px 10px; font-size: 12px; }
     .container { padding: 1rem; }
     .cadence-pill { display: none; }
     .topics-table td:nth-child(2), .topics-table th:nth-child(2) { display: none; }
-    .sync-info { display: none; }
   }
 </style>
 </head>
 <body>
 
 <div id="main-content" style="display:block">
-<header class="page-header">
-  <div class="logo-area">
-    <div class="logo-mark">A</div>
-    <div>
-      <div class="logo-text">APPLiA</div>
-      <div class="logo-sub">Team Responsibilities</div>
+<nav class="top-nav">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">A</div>
+    <span class="nav-wordmark">APPLiA</span>
+  </div>
+  <div class="nav-tabs">
+    <a href="/"            class="nav-tab active">Team</a>
+    <a href="/secretariat" class="nav-tab">Secretariat</a>
+    <a href="/tracker"     class="nav-tab">Tracker</a>
+  </div>
+  <div class="nav-right">
+    <span class="nav-sync" id="sync-info"></span>
+    <button class="nav-icon-btn" onclick="refreshData()" title="Refresh data">↻</button>
+    <div class="sources-wrap" id="sources-wrap">
+      <button class="sources-btn" onclick="toggleSources()">
+        Sources
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <div class="sources-menu">
+        <a href="https://docs.google.com/spreadsheets/d/1uFMeNO4UCyQS0QHuAQRKVHTMzyuh4rmTt_c4D67p-Lw/edit" target="_blank" rel="noopener" class="sources-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          Sustainability spreadsheet
+        </a>
+        <a href="https://docs.google.com/document/d/1sVZFe53me6qyBSrmXAggrqSO8queykA-vRZM130Yik0/edit" target="_blank" rel="noopener" class="sources-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Digital &amp; Competitiveness doc
+        </a>
+        <a href="https://docs.google.com/document/d/1EFbo2pAMRygbQhCyThscCda85NLBbHyOI4XrfKArSbs/edit" target="_blank" rel="noopener" class="sources-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Energy doc
+        </a>
+      </div>
     </div>
   </div>
-  <div class="header-right">
-    <span class="sync-info" id="sync-info"></span>
-    <button class="hdr-link" onclick="refreshData()">↻ Refresh</button>
-    <a href="https://docs.google.com/spreadsheets/d/1uFMeNO4UCyQS0QHuAQRKVHTMzyuh4rmTt_c4D67p-Lw/edit" target="_blank" rel="noopener" class="hdr-link">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      Spreadsheet
-    </a>
-    <a href="https://docs.google.com/spreadsheets/d/1OeRMabUsjDFAajKsTTeD7TqY8r8TGbMg7r8k0FSNx8s/edit" target="_blank" rel="noopener" class="hdr-link">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      Competitiveness
-    </a>
-    <a href="https://docs.google.com/document/d/1EFbo2pAMRygbQhCyThscCda85NLBbHyOI4XrfKArSbs/edit" target="_blank" rel="noopener" class="hdr-link">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      Energy doc
-    </a>
-    <a href="/secretariat" class="hdr-link">Secretariat</a>
-    <a href="/tracker" class="hdr-link">← Tracker</a>
-  </div>
-</header>
+</nav>
 
 <div class="container">
   <div class="toolbar">
@@ -607,6 +627,13 @@ document.getElementById('search-input').addEventListener('input',  e => { fSearc
 document.getElementById('cluster-sel').addEventListener('change',  e => { fCluster = e.target.value; render(); });
 document.getElementById('person-sel').addEventListener('change',   e => { fPerson  = e.target.value; render(); });
 document.getElementById('type-sel').addEventListener('change',     e => { fType    = e.target.value; render(); });
+
+/* ─── Sources dropdown ─── */
+function toggleSources() { document.getElementById('sources-wrap').classList.toggle('open'); }
+document.addEventListener('click', e => {
+  const w = document.getElementById('sources-wrap');
+  if (w && !w.contains(e.target)) w.classList.remove('open');
+});
 
 /* ─── Init ─── */
 initPage();
